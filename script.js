@@ -1,5 +1,45 @@
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.site-nav');
+const performanceToggle = document.querySelector('[data-performance-toggle]');
+const performanceStorageKey = 'alfaris-performance-mode';
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+const reducedMotion = motionPreference.matches;
+const isPerformanceMode = () => document.documentElement.classList.contains('performance-mode');
+const shouldReduceDecorativeMotion = () => reducedMotion || isPerformanceMode();
+
+const syncPerformanceToggle = () => {
+  if (!performanceToggle) {
+    return;
+  }
+
+  const isActive = isPerformanceMode();
+  performanceToggle.setAttribute('aria-pressed', String(isActive));
+};
+
+const setPerformanceMode = (isActive) => {
+  document.documentElement.classList.toggle('performance-mode', isActive);
+  document.body.classList.toggle('performance-mode', isActive);
+  syncPerformanceToggle();
+
+  try {
+    localStorage.setItem(performanceStorageKey, String(isActive));
+  } catch {
+    // Storage can be blocked in private or strict browsing modes.
+  }
+
+  window.dispatchEvent(new CustomEvent('performance-mode-change', {
+    detail: { isActive },
+  }));
+};
+
+document.body.classList.toggle('performance-mode', isPerformanceMode());
+syncPerformanceToggle();
+
+if (performanceToggle) {
+  performanceToggle.addEventListener('click', () => {
+    setPerformanceMode(!isPerformanceMode());
+  });
+}
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -41,19 +81,23 @@ if (menuButton && navigation) {
   });
 }
 
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const revealItems = document.querySelectorAll('.reveal');
 const meteor = document.querySelector('[data-meteor]');
 
-if (meteor && !reducedMotion) {
+let meteorTimer;
+
+if (meteor) {
   const minMeteorDelay = 180000;
   const randomMeteorDelay = 90000;
   const meteorDuration = 1500;
-  let meteorTimer;
 
   const randomBetween = (minimum, maximum) => Math.random() * (maximum - minimum) + minimum;
 
   const launchMeteor = () => {
+    if (shouldReduceDecorativeMotion()) {
+      return;
+    }
+
     meteor.classList.remove('is-active');
     meteor.style.setProperty('--meteor-top', `${randomBetween(8, 48)}vh`);
     meteor.style.setProperty('--meteor-left', `${randomBetween(62, 96)}vw`);
@@ -70,6 +114,10 @@ if (meteor && !reducedMotion) {
 
   const scheduleMeteor = () => {
     window.clearTimeout(meteorTimer);
+    if (shouldReduceDecorativeMotion()) {
+      return;
+    }
+
     meteorTimer = window.setTimeout(() => {
       launchMeteor();
       scheduleMeteor();
@@ -80,7 +128,17 @@ if (meteor && !reducedMotion) {
     meteor.classList.remove('is-active');
   });
 
-  window.setTimeout(scheduleMeteor, meteorDuration);
+  if (!shouldReduceDecorativeMotion()) {
+    meteorTimer = window.setTimeout(scheduleMeteor, meteorDuration);
+  }
+
+  window.addEventListener('performance-mode-change', () => {
+    window.clearTimeout(meteorTimer);
+    meteor.classList.remove('is-active');
+    if (!shouldReduceDecorativeMotion()) {
+      scheduleMeteor();
+    }
+  });
 }
 
 if (reducedMotion || !('IntersectionObserver' in window)) {
@@ -252,8 +310,9 @@ if (signalRibbon) {
     const clampedProgress = Math.min(Math.max(progress, 0), 1);
 
     signalRibbon.style.setProperty('--signal-progress', `${clampedProgress * 360}deg`);
+    signalRibbon.style.setProperty('--signal-progress-x', `${clampedProgress * 100}%`);
     progressElement.style.width = `${clampedProgress * 100}%`;
-    currentTimeElement.textContent = formatTime(currentTime);
+    currentTimeElement.textContent = `T+ ${formatTime(currentTime)}`;
     if (durationElement) {
       durationElement.textContent = formatTime(duration);
     }
@@ -287,12 +346,12 @@ if (signalRibbon) {
     }
     updateProgress();
     updateButtonLabels();
-    setStatus(!shouldLoad && audio.autoplay ? 'Signal loading · requesting autoplay' : shouldPlay ? 'Signal loading...' : 'Signal idle · click to receive audio');
+    setStatus(!shouldLoad && audio.autoplay ? 'ORBITAL AUDIO / ACQUIRING' : shouldPlay ? 'ORBITAL AUDIO / SYNCING' : 'ORBITAL AUDIO / STANDBY');
 
     if (shouldPlay) {
       audio.play().catch(() => {
         signalRibbon.classList.remove('is-playing');
-        setStatus('Autoplay blocked · tap play to receive audio');
+        setStatus('ORBITAL AUDIO / TAP TO ARM');
         updateButtonLabels();
       });
     }
@@ -305,11 +364,11 @@ if (signalRibbon) {
 
     audio.play().then(() => {
       signalRibbon.classList.add('is-playing');
-      setStatus('Signal live · receiving audio');
+      setStatus('ORBITAL AUDIO / LIVE');
       updateButtonLabels();
     }).catch(() => {
       signalRibbon.classList.remove('is-playing');
-      setStatus('Signal paused · tap play to retry');
+      setStatus('ORBITAL AUDIO / RETRY LINK');
       updateButtonLabels();
     });
   };
@@ -328,14 +387,14 @@ if (signalRibbon) {
 
   audio.addEventListener('play', () => {
     signalRibbon.classList.add('is-playing');
-    setStatus('Signal live · receiving audio');
+    setStatus('ORBITAL AUDIO / LIVE');
     updateButtonLabels();
   });
 
   audio.addEventListener('pause', () => {
     signalRibbon.classList.remove('is-playing');
     if (currentTrackAvailable && !audio.ended) {
-      setStatus('Signal paused');
+      setStatus('ORBITAL AUDIO / HOLD');
     }
     updateButtonLabels();
   });
@@ -350,7 +409,7 @@ if (signalRibbon) {
       setTrack(0);
       audio.currentTime = 0;
       updateProgress();
-      setStatus('Signal complete · orbit reset');
+      setStatus('ORBITAL AUDIO / ORBIT RESET');
     }
   });
 
@@ -359,7 +418,7 @@ if (signalRibbon) {
     signalRibbon.classList.remove('is-playing');
     signalRibbon.classList.add('is-error');
     playButton.disabled = true;
-    setStatus('Signal unavailable · track could not load');
+    setStatus('ORBITAL AUDIO / SIGNAL LOST');
     updateButtonLabels();
   });
 
@@ -367,58 +426,81 @@ if (signalRibbon) {
 
   window.setTimeout(() => {
     if (audio.paused && currentTrackAvailable) {
-      setStatus('Autoplay blocked · tap play to receive audio');
+      setStatus('ORBITAL AUDIO / TAP TO ARM');
       updateButtonLabels();
     }
   }, 1500);
 }
 
-if (!reducedMotion && window.anime) {
-  window.anime({
-    targets: '.console-orbit--outer',
-    rotate: ['-16deg', '344deg'],
-    duration: 52000,
-    easing: 'linear',
-    loop: true,
-  });
+let decorativeAnimationInstances = [];
 
-  window.anime({
-    targets: '.console-orbit--middle',
-    rotate: ['24deg', '-336deg'],
-    duration: 61000,
-    easing: 'linear',
-    loop: true,
-  });
+const startDecorativeAnimations = () => {
+  if (shouldReduceDecorativeMotion() || !window.anime || decorativeAnimationInstances.length) {
+    return;
+  }
 
-  window.anime({
-    targets: '.console-orbit--inner',
-    rotate: ['-38deg', '322deg'],
-    duration: 44000,
-    easing: 'linear',
-    loop: true,
-  });
+  decorativeAnimationInstances = [
+    window.anime({
+      targets: '.console-orbit--outer',
+      rotate: ['-16deg', '344deg'],
+      duration: 52000,
+      easing: 'linear',
+      loop: true,
+    }),
+    window.anime({
+      targets: '.console-orbit--middle',
+      rotate: ['24deg', '-336deg'],
+      duration: 61000,
+      easing: 'linear',
+      loop: true,
+    }),
+    window.anime({
+      targets: '.console-orbit--inner',
+      rotate: ['-38deg', '322deg'],
+      duration: 44000,
+      easing: 'linear',
+      loop: true,
+    }),
+    window.anime({
+      targets: '.console-core',
+      boxShadow: [
+        '0 0 24px rgba(134,229,224,.1)',
+        '0 0 44px rgba(134,229,224,.22)',
+        '0 0 24px rgba(134,229,224,.1)',
+      ],
+      duration: 4200,
+      easing: 'easeInOutSine',
+      loop: true,
+    }),
+    window.anime({
+      targets: '.telemetry-label',
+      opacity: [.34, .68, .34],
+      duration: 5200,
+      delay: window.anime.stagger(700),
+      easing: 'easeInOutSine',
+      loop: true,
+    }),
+  ];
+};
 
-  window.anime({
-    targets: '.console-core',
-    boxShadow: [
-      '0 0 24px rgba(134,229,224,.1)',
-      '0 0 44px rgba(134,229,224,.22)',
-      '0 0 24px rgba(134,229,224,.1)',
-    ],
-    duration: 4200,
-    easing: 'easeInOutSine',
-    loop: true,
-  });
+const stopDecorativeAnimations = () => {
+  decorativeAnimationInstances.forEach((animation) => animation.pause());
+  decorativeAnimationInstances = [];
 
-  window.anime({
-    targets: '.telemetry-label',
-    opacity: [.34, .68, .34],
-    duration: 5200,
-    delay: window.anime.stagger(700),
-    easing: 'easeInOutSine',
-    loop: true,
-  });
-}
+  if (window.anime) {
+    window.anime.remove('.console-orbit--outer, .console-orbit--middle, .console-orbit--inner, .console-core, .telemetry-label');
+  }
+};
+
+startDecorativeAnimations();
+
+window.addEventListener('performance-mode-change', () => {
+  if (shouldReduceDecorativeMotion()) {
+    stopDecorativeAnimations();
+  } else {
+    startDecorativeAnimations();
+  }
+});
 
 if (!reducedMotion) {
   const trailLayer = document.createElement('div');
@@ -440,6 +522,11 @@ if (!reducedMotion) {
       activeTrailParticles.delete(oldestParticle);
       oldestParticle.remove();
     }
+  };
+
+  const clearTrailParticles = () => {
+    activeTrailParticles.forEach((particle) => particle.remove());
+    activeTrailParticles.clear();
   };
 
   const createTrailParticle = (x, y, index) => {
@@ -470,6 +557,11 @@ if (!reducedMotion) {
   };
 
   document.addEventListener('pointerdown', (event) => {
+    if (shouldReduceDecorativeMotion()) {
+      clearTrailParticles();
+      return;
+    }
+
     if (event.pointerType === 'mouse' && event.button !== 0) {
       return;
     }
@@ -480,4 +572,10 @@ if (!reducedMotion) {
 
     trimTrailParticles();
   }, { passive: true });
+
+  window.addEventListener('performance-mode-change', () => {
+    if (shouldReduceDecorativeMotion()) {
+      clearTrailParticles();
+    }
+  });
 }

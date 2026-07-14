@@ -50,6 +50,17 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/imgs/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="assets/imgs/apple-touch-icon.png" />
     <link rel="manifest" href="site.webmanifest" />
+    <script>
+      (() => {
+        try {
+          if (localStorage.getItem('alfaris-performance-mode') === 'true') {
+            document.documentElement.classList.add('performance-mode');
+          }
+        } catch {
+          // Keep the site usable when storage is blocked.
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -80,6 +91,14 @@
         <a href="#projects">Work</a>
         <a href="#breakthroughs">Breakthroughs</a>
         <a href="#contact">Contact</a>
+        <button class="performance-toggle" type="button" aria-pressed="false" aria-label="Increase performance mode" data-performance-toggle>
+          <span class="performance-toggle__copy">
+            <span class="performance-toggle__label performance-toggle__label--desktop">Performance</span>
+            <span class="performance-toggle__label performance-toggle__label--mobile">Increase performance</span>
+            <small>Reduce motion and hide stars</small>
+          </span>
+          <span class="performance-toggle__switch" aria-hidden="true"></span>
+        </button>
       </nav>
     </header>
 
@@ -122,15 +141,28 @@
               </button>
             </div>
             <div class="signal-ribbon__body">
-              <div class="signal-ribbon__copy">
-                <span>TRANSMISSION</span>
-                <small data-signal-status>Signal loading · requesting autoplay</small>
+              <div class="signal-ribbon__header">
+                <div class="signal-ribbon__copy">
+                  <span>MISSION LOG</span>
+                  <strong data-signal-title>Journey Sequence</strong>
+                  <small data-signal-status>Signal loading · requesting autoplay</small>
+                </div>
+                <div class="signal-ribbon__metrics" aria-label="Transmission telemetry">
+                  <span>145.80 MHz</span>
+                  <span data-signal-index>01 / 02</span>
+                  <time data-signal-duration>--:--</time>
+                </div>
               </div>
               <div class="signal-ribbon__timeline" aria-hidden="true">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
                 <span data-signal-progress></span>
+                <b></b>
               </div>
               <div class="signal-ribbon__meta">
-                <time data-signal-current>0:00</time>
+                <time data-signal-current>T+ 0:00</time>
               </div>
             </div>
           </div>
@@ -167,49 +199,47 @@
           <h2 id="astronaut-path-title">The dream is not decoration. It is the operating plan.</h2>
         </div>
         <div class="mission-board reveal">
-          <aside class="launch-console" aria-labelledby="launch-console-title">
-            <div class="launch-console__topline">
-              <span>T+00</span>
+          <aside class="constellation-path" aria-labelledby="constellation-path-title">
+            <div class="constellation-path__topline">
+              <span>Candidate route</span>
               <span>STATUS: IN TRAINING</span>
             </div>
-            <div class="launch-console__header">
-              <p class="eyebrow">LAUNCH READINESS</p>
-              <h3 id="launch-console-title">Astronaut candidate path</h3>
-              <p>SQU Physics / Foundation Build</p>
+            <div class="constellation-path__header">
+              <p class="eyebrow">CONSTELLATION PATH</p>
+              <h3 id="constellation-path-title">Astronaut candidate path</h3>
+              <p>A learning route from physics foundations toward human spaceflight.</p>
             </div>
-            <dl class="launch-console__readout">
-              <div>
-                <dt>Vector</dt>
-                <dd>Human spaceflight</dd>
-              </div>
-              <div>
-                <dt>Long-range</dt>
-                <dd>Moon &amp; Mars ambition</dd>
-              </div>
-            </dl>
-            <div class="launch-console__trajectory" aria-hidden="true">
-              <span class="launch-console__line"></span>
-              <span class="launch-console__planet launch-console__planet--moon"></span>
-              <span class="launch-console__planet launch-console__planet--mars"></span>
-            </div>
-            <div class="readiness-meters" aria-label="Readiness indicators">
-              <div class="readiness-meter" style="--readiness: 68%">
-                <span>Physics foundation</span>
-                <strong>68%</strong>
-              </div>
-              <div class="readiness-meter" style="--readiness: 42%">
-                <span>Rocket science study</span>
-                <strong>42%</strong>
-              </div>
-              <div class="readiness-meter" style="--readiness: 74%">
-                <span>Software &amp; AI systems</span>
-                <strong>74%</strong>
-              </div>
-              <div class="readiness-meter" style="--readiness: 61%">
-                <span>Leadership &amp; pressure readiness</span>
-                <strong>61%</strong>
-              </div>
-            </div>
+            <ol class="constellation-path__map" aria-label="Astronaut path milestones">
+              <li class="constellation-path__link constellation-path__link--one" aria-hidden="true"></li>
+              <li class="constellation-path__link constellation-path__link--two" aria-hidden="true"></li>
+              <li class="constellation-path__link constellation-path__link--three" aria-hidden="true"></li>
+              <li class="constellation-path__link constellation-path__link--four" aria-hidden="true"></li>
+              <li class="constellation-node constellation-node--origin" style="--x: 11%; --y: 70%;">
+                <span class="constellation-node__star" aria-hidden="true"></span>
+                <span class="constellation-node__meta">Origin</span>
+                <strong>SQU Physics</strong>
+              </li>
+              <li class="constellation-node" style="--x: 29%; --y: 48%;">
+                <span class="constellation-node__star" aria-hidden="true"></span>
+                <span class="constellation-node__meta">Stage 01</span>
+                <strong>Foundation</strong>
+              </li>
+              <li class="constellation-node" style="--x: 45%; --y: 76%;">
+                <span class="constellation-node__star" aria-hidden="true"></span>
+                <span class="constellation-node__meta">Stage 02</span>
+                <strong>Rocket Science</strong>
+              </li>
+              <li class="constellation-node" style="--x: 65%; --y: 50%;">
+                <span class="constellation-node__star" aria-hidden="true"></span>
+                <span class="constellation-node__meta">Stage 03</span>
+                <strong>Software + AI</strong>
+              </li>
+              <li class="constellation-node constellation-node--destination" style="--x: 91%; --y: 25%;">
+                <span class="constellation-node__star" aria-hidden="true"></span>
+                <span class="constellation-node__meta">Destination</span>
+                <strong>Human Spaceflight</strong>
+              </li>
+            </ol>
           </aside>
           <div class="mission-pillars">
             <article class="mission-pillar">
@@ -230,7 +260,7 @@
             <article class="mission-pillar">
               <span>ΔV-04</span>
               <h3>Leadership under pressure</h3>
-              <p>Founder work, Best Leader recognition, workshops, and team projects build the human side of the astronaut path: communication, responsibility, and calm execution.</p>
+              <p>Founder work, Best Leader recognition, workshops, and SQU leadership nominations build the human side of the astronaut path: communication, responsibility, and calm execution.</p>
             </article>
           </div>
         </div>
@@ -279,7 +309,7 @@
             <button class="vector-control" type="button" data-vector="leadership" aria-pressed="false">
               <span>05</span>
               <strong>Leadership</strong>
-              <small>Founder energy, team direction, peer teaching, and public speaking.</small>
+              <small>Founder energy, club leadership, peer teaching, and public speaking.</small>
             </button>
           </div>
         </div>
@@ -307,7 +337,7 @@
           <article class="trajectory-card reveal" data-vector-card="leadership">
             <span class="card-index">05</span>
             <h3>Leadership</h3>
-            <p>Founding projects, leading teams, teaching peers, and turning early ideas into work people can use.</p>
+            <p>Founding projects, teaching peers, and being nominated for student leadership roles across science, technology, workshops, and culture.</p>
           </article>
         </div>
       </section>
@@ -354,19 +384,19 @@
           <article class="project reveal">
             <div class="project__number">A</div>
             <div class="project__body">
-              <p class="project__meta">FOUNDER &amp; LEAD DEVELOPER / WEB PLATFORM</p>
-              <h3>MindSync <span lang="ar">مايندسينك</span></h3>
-              <p>A web platform for academic and self-development tools, built to help students make deliberate progress - the same discipline that powers long missions.</p>
-              <ul class="tag-list" aria-label="MindSync technologies"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+              <p class="project__meta">DEVELOPER &amp; DESIGNER / PERSONAL PLATFORM</p>
+              <h3>My Portfolio</h3>
+              <p>A responsive mission record for technical work, achievements, CV, and the evolving story behind my astronaut trajectory.</p>
+              <ul class="tag-list" aria-label="My Portfolio technologies"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
             </div>
           </article>
           <article class="project reveal">
             <div class="project__number">B</div>
             <div class="project__body">
-              <p class="project__meta">DEVELOPER &amp; DESIGNER / PERSONAL PLATFORM</p>
-              <h3>P Portfolio</h3>
-              <p>A responsive mission record for technical work, achievements, CV, and the evolving story behind my astronaut trajectory.</p>
-              <ul class="tag-list" aria-label="P Portfolio technologies"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+              <p class="project__meta">FOUNDER &amp; LEAD DEVELOPER / WEB PLATFORM</p>
+              <h3>MindSync <span lang="ar">مايندسينك</span></h3>
+              <p>A web platform for academic and self-development tools, built to help students make deliberate progress - the same discipline that powers long missions.</p>
+              <ul class="tag-list" aria-label="MindSync technologies"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
             </div>
           </article>
           <article class="project reveal">
@@ -404,6 +434,7 @@
           <li class="timeline__item reveal"><time datetime="2024">2024</time><div><h3>1st Place Programmer</h3><p>A milestone that reinforced the value of steady technical practice.</p></div></li>
           <li class="timeline__item reveal"><time datetime="2025">2025</time><div><h3>SQU Open Source Group</h3><p>Selected as a member and delivered HTML and CSS workshops through the Open Source Initiative.</p></div></li>
           <li class="timeline__item reveal"><time datetime="2025">2025 - now</time><div><h3>Physics at SQU</h3><p>Beginning a BSc journey in the College of Science and extending my work toward aerospace systems.</p></div></li>
+          <li class="timeline__item reveal"><time datetime="2026">2026</time><div><h3>SQU Leadership Nominations</h3><p>In my second year at SQU, nominated for President of the Astronomy Club of the Physics Group in the Faculty of Science, and Head of the Technology and Workshops Committee of the History and Archaeology Group in the Faculty of Arts.</p></div></li>
         </ol>
       </section>
 
@@ -495,7 +526,6 @@
           <div class="social-links" aria-label="Social profiles">
             <a href="mailto:a.alzakwani@outlook.com">Email <span aria-hidden="true">↗</span></a>
             <a href="https://github.com/faris-zak" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-            <a href="https://www.linkedin.com/in/al-faris-mujahid-alzakwani-b013283b3" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
             <a href="https://x.com/AlFarisMujahid_" target="_blank" rel="noopener noreferrer">X <span aria-hidden="true">↗</span></a>
             <a href="https://g.dev/Al-FarisAlZakwani" target="_blank" rel="noopener noreferrer">Google Developer <span aria-hidden="true">↗</span></a>
           </div>
