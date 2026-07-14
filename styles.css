@@ -228,6 +228,8 @@ h2 { max-width: 730px; margin-bottom: 0; font-size: clamp(2.4rem, 5vw, 4.8rem); 
 .project__number { color: var(--amber); font: .8rem var(--mono); }
 .project__meta { margin-bottom: .5rem; color: var(--cyan); font: .66rem var(--mono); letter-spacing: .08em; }
 .project h3 { margin-bottom: .8rem; font-size: clamp(1.9rem, 4vw, 3.2rem); letter-spacing: -.06em; }
+.project h3 a { color: inherit; text-decoration: none; }
+.project h3 a:hover, .project h3 a:focus-visible { color: var(--cyan); }
 .project h3 span { font-family: var(--display); }
 .project__body > p:not(.project__meta) { max-width: 650px; margin-bottom: 1rem; color: var(--muted); }
 .tag-list { display: flex; flex-wrap: wrap; gap: .45rem; padding: 0; margin: 0; list-style: none; }
@@ -241,6 +243,8 @@ h2 { max-width: 730px; margin-bottom: 0; font-size: clamp(2.4rem, 5vw, 4.8rem); 
 .timeline__item:last-child { border-bottom: 1px solid var(--line); }
 .timeline time { color: var(--amber); font: 500 .78rem var(--mono); }
 .timeline h3 { margin-bottom: .25rem; font-size: 1.35rem; letter-spacing: -.04em; }
+.timeline h3 a { color: inherit; text-decoration: none; }
+.timeline h3 a:hover, .timeline h3 a:focus-visible { color: var(--cyan); }
 .timeline p { margin: 0; color: var(--muted); }
 
 .capabilities__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
