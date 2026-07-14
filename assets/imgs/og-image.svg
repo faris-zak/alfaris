@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Al-Faris Mujahid AlZakwani - Orbital Field Journal</title>
+  <desc id="desc">Social preview for an Omani physics student, front-end engineer, AI-agent builder, and aspiring astronaut.</desc>
+  <defs>
+    <radialGradient id="background" cx="23%" cy="48%" r="82%">
+      <stop offset="0" stop-color="#0c1932"/>
+      <stop offset="0.52" stop-color="#081126"/>
+      <stop offset="1" stop-color="#060b18"/>
+    </radialGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffef8"/>
+      <stop offset="1" stop-color="#eef4f1"/>
+    </linearGradient>
+    <linearGradient id="trajectory" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#75dcd9"/>
+      <stop offset="1" stop-color="#9af3ed"/>
+    </linearGradient>
+    <radialGradient id="node" cx="42%" cy="36%" r="72%">
+      <stop offset="0" stop-color="#ffd273"/>
+      <stop offset="1" stop-color="#f4b860"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#86e5e0" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+    <filter id="cyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="9" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <path d="M36 108H410" fill="none" stroke="#86e5e0" stroke-opacity="0.16"/>
+  <circle cx="36" cy="108" r="4" fill="#86e5e0"/>
+  <circle cx="1164" cy="522" r="4" fill="#f4b860"/>
+  <path d="M790 522H1164" fill="none" stroke="#f4b860" stroke-opacity="0.14"/>
+  <ellipse cx="225" cy="323" rx="196" ry="224" fill="none" stroke="#86e5e0" stroke-opacity="0.11" transform="rotate(-19 225 323)"/>
+  <ellipse cx="225" cy="323" rx="150" ry="191" fill="none" stroke="#7999ff" stroke-opacity="0.08" transform="rotate(24 225 323)"/>
+
+  <!-- Selected Ascent Window mark. -->
+  <g transform="translate(29 118) scale(.315)" filter="url(#cyanGlow)">
+    <path fill="url(#paper)" d="M409 234h442c75 0 120 45 120 120v32l-82 73v-48c0-38-31-59-88-59H470c-61 0-110 49-110 111v397c0 59 31 105 81 148l-3 11c-93-3-164-69-164-157V402c0-93 65-168 135-168Z"/>
+    <path fill="url(#paper)" d="M891 570l86-76v453l-86 60V570Z"/>
+    <path fill="url(#trajectory)" d="M338 1019c11-139 107-251 263-355 136-91 287-178 396-258l13 11c-94 94-213 178-350 266-151 97-246 204-222 336H338Z"/>
+    <circle cx="1024" cy="354" r="34" fill="url(#node)"/>
+  </g>
+
+  <g font-family="'Space Grotesk', 'Segoe UI', Arial, sans-serif">
+    <text x="492" y="151" fill="#86e5e0" font-family="'IBM Plex Mono', Consolas, monospace" font-size="16" font-weight="600" letter-spacing="3">ORBITAL FIELD JOURNAL / 2026</text>
+    <text x="492" y="245" fill="#eef4f1" font-size="60" font-weight="700" letter-spacing="-2.7">AL-FARIS MUJAHID</text>
+    <text x="492" y="310" fill="#eef4f1" font-size="60" font-weight="700" letter-spacing="-2.7">ALZAKWANI</text>
+    <rect x="492" y="352" width="64" height="2" fill="#f4b860"/>
+    <text x="492" y="401" fill="#a1b2be" font-size="24" font-weight="500">
+      <tspan x="492" dy="0">Omani physics student, front-end engineer,</tspan>
+      <tspan x="492" dy="36">AI-agent builder, and aspiring astronaut</tspan>
+      <tspan x="492" dy="36">exploring rocket science and space systems.</tspan>
+    </text>
+    <text x="492" y="539" fill="#f4b860" font-family="'IBM Plex Mono', Consolas, monospace" font-size="13" font-weight="600" letter-spacing="2.4">PHYSICS · SOFTWARE · AI · LEADERSHIP · SPACE</text>
+  </g>
+
+  <text x="38" y="590" fill="#eef4f1" fill-opacity="0.38" font-family="'IBM Plex Mono', Consolas, monospace" font-size="12" letter-spacing="1.8">AFM / FIELD NOTES</text>
+  <text x="1164" y="590" text-anchor="end" fill="#eef4f1" fill-opacity="0.38" font-family="'IBM Plex Mono', Consolas, monospace" font-size="12" letter-spacing="1.8">LAUNCH WINDOW / ACTIVE</text>
+</svg>

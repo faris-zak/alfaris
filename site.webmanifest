@@ -1,0 +1,21 @@
+{
+  "name": "Al-Faris Mujahid | Orbital Field Journal",
+  "short_name": "AFM Field Notes",
+  "description": "Portfolio of Al-Faris Mujahid AlZakwani, an Omani physics student, front-end engineer, AI-agent builder, and aspiring astronaut.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#060b18",
+  "theme_color": "#060b18",
+  "icons": [
+    {
+      "src": "assets/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
