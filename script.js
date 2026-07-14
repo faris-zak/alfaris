@@ -268,6 +268,256 @@ if (vectorControls.length) {
   setActiveVector('physics');
 }
 
+const generateCvButton = document.querySelector('[data-generate-cv]');
+
+if (generateCvButton) {
+  const cvGeneratedDate = new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
+
+  const cleanText = (value = '') => value
+    .replace(/[↗↘✦⌘]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const escapeHtml = (value = '') => cleanText(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+  const textFrom = (selector, root = document) => {
+    const element = root.querySelector(selector);
+    return element ? cleanText(element.textContent) : '';
+  };
+
+  const linkHref = (link) => {
+    if (!link) {
+      return '';
+    }
+
+    return link.href.startsWith('mailto:') ? link.href.replace('mailto:', '') : link.href;
+  };
+
+  const collectCards = (selector, mapCard) => Array.from(document.querySelectorAll(selector))
+    .map(mapCard)
+    .filter((item) => item.title || item.body);
+
+  const renderList = (items, className = '') => {
+    if (!items.length) {
+      return '';
+    }
+
+    return `<ul class="${className}">${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+  };
+
+  const renderEntries = (entries) => {
+    if (!entries.length) {
+      return '';
+    }
+
+    return entries.map((entry) => `
+      <article class="cv-entry">
+        ${entry.meta ? `<p class="cv-entry__meta">${escapeHtml(entry.meta)}</p>` : ''}
+        <h3>${escapeHtml(entry.title)}</h3>
+        ${entry.body ? `<p>${escapeHtml(entry.body)}</p>` : ''}
+        ${entry.tags && entry.tags.length ? renderList(entry.tags.map((tag) => escapeHtml(tag)), 'cv-tags') : ''}
+      </article>
+    `).join('');
+  };
+
+  const renderSection = (title, body) => body ? `
+    <section class="cv-section">
+      <h2>${escapeHtml(title)}</h2>
+      ${body}
+    </section>
+  ` : '';
+
+  const collectCvData = () => {
+    const author = document.querySelector('meta[name="author"]')?.content || 'Al-Faris Mujahid AlZakwani';
+    const contactLinks = Array.from(document.querySelectorAll('.social-links a')).map((link) => ({
+      label: cleanText(link.textContent),
+      href: linkHref(link),
+    })).filter((link) => link.label && link.href);
+
+    return {
+      author,
+      title: textFrom('.hero__kicker'),
+      intro: textFrom('.hero__intro'),
+      objective: textFrom('.hero-objective strong'),
+      mission: textFrom('.hero__mission > p:not(.eyebrow)'),
+      fieldNote: textFrom('.field-note p'),
+      portrait: document.querySelector('.portrait-frame img')?.src || '',
+      generatedAt: cvGeneratedDate.format(new Date()),
+      source: window.location.href,
+      contactLinks,
+      missionPillars: collectCards('.mission-pillar', (card) => ({
+        meta: textFrom('span', card),
+        title: textFrom('h3', card),
+        body: textFrom('p', card),
+      })),
+      trajectory: collectCards('.trajectory-card', (card) => ({
+        meta: textFrom('.card-index', card),
+        title: textFrom('h3', card),
+        body: textFrom('p', card),
+      })),
+      rocketLog: collectCards('.log-panel', (card) => ({
+        meta: textFrom('span', card),
+        title: textFrom('h3', card),
+        body: textFrom('p', card),
+      })),
+      projects: collectCards('.project', (card) => ({
+        meta: textFrom('.project__meta', card),
+        title: textFrom('h3', card),
+        body: textFrom('.project__body > p:not(.project__meta)', card),
+        tags: Array.from(card.querySelectorAll('.tag-list li')).map((tag) => cleanText(tag.textContent)),
+      })),
+      breakthroughs: collectCards('.timeline__item', (card) => ({
+        meta: textFrom('time', card),
+        title: textFrom('h3', card),
+        body: textFrom('p', card),
+      })),
+      capabilities: collectCards('.capability', (card) => ({
+        title: textFrom('h3', card),
+        body: textFrom('p', card),
+      })),
+      nextSteps: collectCards('.launch-card', (card) => ({
+        meta: textFrom('time', card),
+        title: textFrom('h3', card),
+        body: textFrom('p', card),
+      })),
+      credentials: Array.from(document.querySelectorAll('.credentials__stats > *')).map((item) => ({
+        title: textFrom('strong', item),
+        body: textFrom('span', item),
+      })).filter((item) => item.title || item.body),
+      certificates: collectCards('.certificate-item', (card) => ({
+        title: textFrom('h3', card),
+        body: textFrom('p', card),
+      })),
+    };
+  };
+
+  const buildCvDocument = (cv) => {
+    const portraitMarkup = cv.portrait ? `
+      <figure class="cv-portrait">
+        <img src="${escapeHtml(cv.portrait)}" alt="${escapeHtml(cv.author)}" />
+      </figure>
+    ` : '';
+    const contactMarkup = cv.contactLinks.map((link) => `
+      <a href="${escapeHtml(link.href)}">${escapeHtml(link.label)}<span>${escapeHtml(link.href)}</span></a>
+    `).join('');
+
+    return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${escapeHtml(cv.author)} | Generated CV</title>
+    <style>
+      @page { size: A4; margin: 14mm; }
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #172033; background: #ffffff; font-family: Arial, Helvetica, sans-serif; line-height: 1.45; }
+      a { color: inherit; text-decoration: none; }
+      .cv-page { max-width: 820px; margin: 0 auto; }
+      .cv-header { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 24px; padding-bottom: 18px; border-bottom: 2px solid #172033; }
+      .cv-identity { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 18px; align-items: start; }
+      .cv-portrait { width: 112px; aspect-ratio: 1; margin: 0; overflow: hidden; border: 2px solid #172033; border-radius: 50%; background: #eef3f7; }
+      .cv-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 51% 32%; filter: grayscale(12%) contrast(1.04); }
+      .cv-kicker, .cv-entry__meta, .cv-generated { margin: 0; color: #5f6c7b; font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+      h1 { margin: 7px 0 10px; font-size: 34px; line-height: .98; letter-spacing: -.03em; }
+      .cv-title { margin: 0 0 12px; color: #2f3b4f; font-size: 13px; font-weight: 700; }
+      .cv-summary { margin: 0; color: #334155; font-size: 11.5px; }
+      .cv-objective { margin: 12px 0 0; padding-left: 10px; border-left: 3px solid #17a2a0; color: #1f2937; font-size: 11px; font-weight: 700; }
+      .cv-contact { display: grid; gap: 8px; align-content: start; font-size: 10px; }
+      .cv-contact a { display: grid; gap: 2px; padding-bottom: 7px; border-bottom: 1px solid #d7dee8; font-weight: 700; }
+      .cv-contact span { overflow-wrap: anywhere; color: #526173; font-size: 9px; font-weight: 400; }
+      .cv-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 18px 24px; padding-top: 18px; }
+      .cv-section { break-inside: avoid; margin-bottom: 18px; }
+      .cv-section h2 { margin: 0 0 9px; padding-bottom: 5px; border-bottom: 1px solid #d7dee8; color: #111827; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
+      .cv-entry { break-inside: avoid; margin-bottom: 11px; }
+      .cv-entry h3 { margin: 2px 0 3px; color: #111827; font-size: 12px; line-height: 1.2; }
+      .cv-entry p { margin: 0; color: #334155; font-size: 10.5px; }
+      .cv-tags { display: flex; flex-wrap: wrap; gap: 4px; padding: 0; margin: 6px 0 0; list-style: none; }
+      .cv-tags li { padding: 2px 6px; border: 1px solid #d7dee8; border-radius: 999px; color: #334155; font-size: 8.5px; }
+      .cv-compact { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; }
+      .cv-compact .cv-entry { margin-bottom: 0; }
+      .cv-generated { margin-top: 14px; padding-top: 8px; border-top: 1px solid #d7dee8; text-transform: none; letter-spacing: 0; }
+      @media print {
+        .cv-page { max-width: none; }
+        .cv-section { page-break-inside: avoid; }
+      }
+      @media (max-width: 700px) {
+        .cv-header, .cv-grid { grid-template-columns: 1fr; }
+        .cv-identity { grid-template-columns: 88px minmax(0, 1fr); }
+        .cv-portrait { width: 88px; }
+        .cv-contact { grid-template-columns: 1fr 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="cv-page">
+      <header class="cv-header">
+        <div class="cv-identity">
+          ${portraitMarkup}
+          <div>
+            <p class="cv-kicker">Generated website CV</p>
+            <h1>${escapeHtml(cv.author)}</h1>
+            <p class="cv-title">${escapeHtml(cv.title)}</p>
+            <p class="cv-summary">${escapeHtml(cv.intro)}</p>
+            <p class="cv-objective">${escapeHtml(cv.objective)}</p>
+          </div>
+        </div>
+        <aside class="cv-contact" aria-label="Contact links">
+          ${contactMarkup}
+        </aside>
+      </header>
+      <div class="cv-grid">
+        <div>
+          ${renderSection('Profile', `<article class="cv-entry"><p>${escapeHtml(cv.mission)} ${escapeHtml(cv.fieldNote)}</p></article>`)}
+          ${renderSection('Selected Work', renderEntries(cv.projects))}
+          ${renderSection('Breakthroughs & Experience', renderEntries(cv.breakthroughs))}
+          ${renderSection('Certificates', renderEntries(cv.certificates))}
+        </div>
+        <div>
+          ${renderSection('Current Trajectory', renderEntries(cv.trajectory))}
+          ${renderSection('Capabilities', `<div class="cv-compact">${renderEntries(cv.capabilities)}</div>`)}
+          ${renderSection('Education & Credentials', renderEntries(cv.credentials))}
+          ${renderSection('Rocket Science Learning', renderEntries(cv.rocketLog))}
+          ${renderSection('Astronaut Path Foundations', renderEntries(cv.missionPillars))}
+          ${renderSection('Next Steps', renderEntries(cv.nextSteps))}
+        </div>
+      </div>
+      <p class="cv-generated">Generated from the live website on ${escapeHtml(cv.generatedAt)}. Source: ${escapeHtml(cv.source)}</p>
+    </main>
+    <script>
+      window.addEventListener('load', () => {
+        window.setTimeout(() => window.print(), 250);
+      });
+    <\/script>
+  </body>
+</html>`;
+  };
+
+  generateCvButton.addEventListener('click', () => {
+    const printWindow = window.open('', '_blank');
+
+    if (!printWindow) {
+      window.alert('Please allow pop-ups for this site, then click Generate CV again.');
+      return;
+    }
+
+    printWindow.opener = null;
+    const cvMarkup = buildCvDocument(collectCvData());
+    printWindow.document.open();
+    printWindow.document.write(cvMarkup);
+    printWindow.document.close();
+    printWindow.focus();
+  });
+}
+
 const signalRibbon = document.querySelector('[data-signal-ribbon]');
 
 if (signalRibbon) {

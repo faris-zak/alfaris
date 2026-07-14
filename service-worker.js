@@ -1,4 +1,4 @@
-const CACHE_NAME = 'afm-field-notes-v2';
+const CACHE_NAME = 'afm-field-notes-v3';
 
 const APP_SHELL = [
   './',
@@ -15,7 +15,6 @@ const APP_SHELL = [
   './assets/imgs/ascent-window-transparent.svg',
   './assets/imgs/portrait.webp',
   './assets/imgs/og-image.png',
-  './assets/pdfs/Al-Faris-Mujahid-AlZakwani-CV.pdf',
 ];
 
 self.addEventListener('install', (event) => {
