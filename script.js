@@ -1,6 +1,14 @@
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.site-nav');
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(() => {
+      // The site remains fully usable if service worker registration is unavailable.
+    });
+  });
+}
+
 if (menuButton && navigation) {
   const closeMenu = () => {
     navigation.classList.remove('is-open');
@@ -208,11 +216,11 @@ if (signalRibbon) {
   const tracks = [
     {
       title: 'Journey Sequence',
-      src: 'assets/Journey%20Sequence.mp3',
+      src: 'assets/tracks/Journey%20Sequence.mp3',
     },
     {
       title: 'Radiant (Dynamic)',
-      src: 'assets/Radiant%20(Dynamic).mp3',
+      src: 'assets/tracks/Radiant%20(Dynamic).mp3',
     },
   ];
   const audio = signalRibbon.querySelector('[data-signal-audio]');
