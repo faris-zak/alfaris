@@ -402,32 +402,3 @@ h2 { max-width: 730px; margin-bottom: 0; font-size: clamp(2.4rem, 5vw, 4.8rem); 
   body::before, body::after, .meteor, .portrait-orbit, .telemetry-node, .signal-ribbon__toggle, .menu-toggle::before, .menu-toggle::after { animation: none !important; }
   .reveal { opacity: 1; transform: none; }
 }
-
-html,
-body,
-a,
-button,
-input,
-textarea,
-label {
-  cursor: url("assets/imgs/rocket-cursor.png") 5 1, auto;
-}
-
-a,
-button,
-.button,
-.vector-control,
-.credential-stat--button,
-.certificate-modal__backdrop,
-.certificate-modal__close,
-.menu-toggle,
-.signal-ribbon__toggle,
-.signal-node {
-  cursor: url("assets/imgs/rocket-cursor.png") 5 1, pointer;
-}
-
-button:disabled,
-.signal-ribbon__toggle:disabled,
-.signal-node:disabled {
-  cursor: url("assets/imgs/rocket-cursor.png") 5 1, not-allowed;
-}
