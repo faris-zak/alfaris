@@ -7,7 +7,6 @@ const originGlobe = document.querySelector('[data-origin-globe]');
 const originGlobeCanvas = document.querySelector('[data-origin-globe-canvas]');
 const performanceStorageKey = 'alfaris-performance-mode';
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
-const desktopGlobeQuery = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 801px)');
 const reducedMotion = motionPreference.matches;
 const isPerformanceMode = () => document.documentElement.classList.contains('performance-mode');
 const shouldReduceDecorativeMotion = () => reducedMotion || isPerformanceMode();
@@ -48,6 +47,8 @@ if (performanceToggle) {
 
 const createOriginGlobe = () => {
   let threeModulePromise;
+  let topoJsonModulePromise;
+  let worldAtlasPromise;
   let renderer;
   let scene;
   let camera;
@@ -58,16 +59,22 @@ const createOriginGlobe = () => {
   let isVisible = false;
   let lastWidth = 0;
   let lastHeight = 0;
+  let revealStartedAt = 0;
 
-  const omanCoordinates = { lat: 23.58, lon: 58.41 };
+  const omanCoordinates = { lat: 23.5880, lon: 58.3829 };
   const sphereRadius = 1.55;
+  const worldAtlasUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json';
+  const revealZoomDuration = 1800;
+  const cameraZoomStart = 6.9;
+  const cameraZoomEnd = 4.7;
+  const globeScaleStart = 0.76;
+  const globeScaleEnd = 1;
 
   const canUseGlobe = () => (
     originFigure
     && originTrigger
     && originGlobe
     && originGlobeCanvas
-    && desktopGlobeQuery.matches
   );
 
   const hasWebGlSupport = () => {
@@ -87,6 +94,28 @@ const createOriginGlobe = () => {
     return threeModulePromise;
   };
 
+  const loadTopoJson = () => {
+    if (!topoJsonModulePromise) {
+      topoJsonModulePromise = import('https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/+esm');
+    }
+
+    return topoJsonModulePromise;
+  };
+
+  const loadWorldAtlas = async () => {
+    if (!worldAtlasPromise) {
+      worldAtlasPromise = fetch(worldAtlasUrl).then((response) => {
+        if (!response.ok) {
+          throw new Error('World atlas unavailable');
+        }
+
+        return response.json();
+      });
+    }
+
+    return worldAtlasPromise;
+  };
+
   const latLonToVector = (THREE, latitude, longitude, radius = sphereRadius) => {
     const phi = THREE.MathUtils.degToRad(90 - latitude);
     const theta = THREE.MathUtils.degToRad(longitude);
@@ -98,13 +127,15 @@ const createOriginGlobe = () => {
     );
   };
 
+  const easeOutCubic = (progress) => 1 - ((1 - progress) ** 3);
+
   const buildPointCloud = (THREE) => {
     const positions = [];
 
-    for (let lat = -78; lat <= 78; lat += 3) {
-      const densityOffset = Math.abs(lat % 6) === 0 ? 0 : 1.5;
+    for (let lat = -78; lat <= 78; lat += 4) {
+      const densityOffset = Math.abs(lat % 8) === 0 ? 0 : 2;
 
-      for (let lon = -180 + densityOffset; lon < 180; lon += 3) {
+      for (let lon = -180 + densityOffset; lon < 180; lon += 4) {
         const point = latLonToVector(THREE, lat, lon);
         positions.push(point.x, point.y, point.z);
       }
@@ -117,13 +148,27 @@ const createOriginGlobe = () => {
       geometry,
       new THREE.PointsMaterial({
         color: 0x86e5e0,
-        size: 0.014,
+        size: 0.012,
         transparent: true,
-        opacity: 0.52,
+        opacity: 0.32,
+        depthTest: true,
+        depthWrite: false,
         sizeAttenuation: true,
       }),
     );
   };
+
+  const buildGlobeShell = (THREE) => (
+    new THREE.Mesh(
+      new THREE.SphereGeometry(sphereRadius * 0.997, 48, 32),
+      new THREE.MeshBasicMaterial({
+        color: 0x030712,
+        transparent: true,
+        opacity: 0.74,
+        depthWrite: true,
+      }),
+    )
+  );
 
   const buildGridLines = (THREE) => {
     const positions = [];
@@ -151,95 +196,241 @@ const createOriginGlobe = () => {
       new THREE.LineBasicMaterial({
         color: 0x86e5e0,
         transparent: true,
-        opacity: 0.12,
+        opacity: 0.08,
+        depthTest: true,
+        depthWrite: false,
       }),
     );
   };
 
-  const buildCountryOutlines = (THREE) => {
-    const outlineGroup = new THREE.Group();
-    const countries = [
-      {
-        name: 'Oman',
-        color: 0xf4b860,
-        opacity: 0.98,
-        radius: sphereRadius * 1.072,
-        points: [
-          [26.3, 56.2], [25.7, 56.4], [24.6, 56.1], [23.7, 57.0], [23.1, 58.3],
-          [22.2, 59.2], [21.2, 59.8], [20.2, 58.9], [19.0, 57.8], [17.6, 56.1],
-          [16.7, 53.2], [18.0, 52.0], [19.8, 52.3], [21.4, 54.6], [23.1, 55.6],
-          [24.4, 55.8], [26.3, 56.2],
-        ],
-      },
-      {
-        name: 'United Arab Emirates',
-        color: 0x86e5e0,
-        opacity: 0.58,
-        points: [
-          [26.1, 56.0], [25.5, 55.1], [24.8, 54.2], [24.3, 53.1], [23.4, 52.6],
-          [22.9, 54.0], [23.1, 55.6], [24.4, 55.8], [26.1, 56.0],
-        ],
-      },
-      {
-        name: 'Saudi Arabia',
-        color: 0x86e5e0,
-        opacity: 0.46,
-        points: [
-          [31.4, 37.0], [30.0, 42.0], [29.2, 48.5], [25.8, 50.8], [24.3, 53.1],
-          [23.4, 52.6], [22.9, 54.0], [18.0, 52.0], [16.3, 49.0], [16.8, 43.0],
-          [18.8, 41.8], [23.3, 39.2], [27.8, 36.8], [31.4, 37.0],
-        ],
-      },
-      {
-        name: 'Yemen',
-        color: 0x86e5e0,
-        opacity: 0.52,
-        points: [
-          [18.0, 52.0], [16.7, 53.2], [15.8, 52.1], [14.8, 50.0], [12.7, 45.2],
-          [13.2, 43.2], [15.3, 42.7], [16.8, 43.0], [16.3, 49.0], [18.0, 52.0],
-        ],
-      },
-      {
-        name: 'Iran',
-        color: 0x86e5e0,
-        opacity: 0.44,
-        points: [
-          [39.5, 44.0], [38.2, 48.9], [37.0, 54.0], [36.6, 60.0], [31.5, 61.8],
-          [26.7, 61.1], [25.3, 59.1], [26.2, 56.4], [27.6, 53.8], [29.2, 50.7],
-          [32.0, 48.0], [35.0, 45.5], [39.5, 44.0],
-        ],
-      },
-      {
-        name: 'Qatar',
-        color: 0x86e5e0,
-        opacity: 0.58,
-        points: [
-          [26.1, 50.8], [25.4, 51.6], [24.7, 51.2], [24.8, 50.7], [25.5, 50.6], [26.1, 50.8],
-        ],
-      },
-    ];
+  const coordinatesToSegments = (THREE, coordinates, radius) => {
+    const positions = [];
 
-    countries.forEach((country) => {
-      const positions = [];
+    for (let index = 0; index < coordinates.length - 1; index += 1) {
+      const [startLon, startLat] = coordinates[index];
+      const [endLon, endLat] = coordinates[index + 1];
 
-      country.points.forEach(([latitude, longitude]) => {
-        const point = latLonToVector(THREE, latitude, longitude, country.radius || sphereRadius * 1.055);
-        positions.push(point.x, point.y, point.z);
-      });
+      if (![startLon, startLat, endLon, endLat].every(Number.isFinite)) {
+        continue;
+      }
 
-      const geometry = new THREE.BufferGeometry();
-      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-      outlineGroup.add(new THREE.Line(
-        geometry,
-        new THREE.LineBasicMaterial({
-          color: country.color,
-          transparent: true,
-          opacity: country.opacity,
-        }),
+      const start = latLonToVector(THREE, startLat, startLon, radius);
+      const end = latLonToVector(THREE, endLat, endLon, radius);
+      positions.push(start.x, start.y, start.z, end.x, end.y, end.z);
+    }
+
+    return positions;
+  };
+
+  const lineGeometryToSegments = (THREE, geometry, radius) => {
+    if (!geometry) {
+      return [];
+    }
+
+    if (geometry.type === 'LineString') {
+      return coordinatesToSegments(THREE, geometry.coordinates, radius);
+    }
+
+    if (geometry.type === 'MultiLineString') {
+      return geometry.coordinates.flatMap((line) => coordinatesToSegments(THREE, line, radius));
+    }
+
+    return [];
+  };
+
+  const polygonGeometryToSegments = (THREE, geometry, radius) => {
+    if (!geometry) {
+      return [];
+    }
+
+    if (geometry.type === 'Polygon') {
+      return geometry.coordinates.flatMap((ring) => coordinatesToSegments(THREE, ring, radius));
+    }
+
+    if (geometry.type === 'MultiPolygon') {
+      return geometry.coordinates.flatMap((polygon) => (
+        polygon.flatMap((ring) => coordinatesToSegments(THREE, ring, radius))
       ));
-    });
+    }
 
-    return outlineGroup;
+    return [];
+  };
+
+  const ringToTrianglePositions = (THREE, ring, radius) => {
+    if (!ring || ring.length < 4) {
+      return [];
+    }
+
+    const centroid = ring.reduce((total, [longitude, latitude]) => ({
+      lon: total.lon + longitude,
+      lat: total.lat + latitude,
+    }), { lon: 0, lat: 0 });
+    const center = [
+      centroid.lon / ring.length,
+      centroid.lat / ring.length,
+    ];
+    const centerVector = latLonToVector(THREE, center[1], center[0], radius);
+    const positions = [];
+
+    for (let index = 0; index < ring.length - 1; index += 1) {
+      const [startLon, startLat] = ring[index];
+      const [endLon, endLat] = ring[index + 1];
+      const start = latLonToVector(THREE, startLat, startLon, radius);
+      const end = latLonToVector(THREE, endLat, endLon, radius);
+
+      positions.push(
+        centerVector.x, centerVector.y, centerVector.z,
+        start.x, start.y, start.z,
+        end.x, end.y, end.z,
+      );
+    }
+
+    return positions;
+  };
+
+  const polygonGeometryToFillTriangles = (THREE, geometry, radius) => {
+    if (!geometry) {
+      return [];
+    }
+
+    if (geometry.type === 'Polygon') {
+      return ringToTrianglePositions(THREE, geometry.coordinates[0], radius);
+    }
+
+    if (geometry.type === 'MultiPolygon') {
+      return geometry.coordinates.flatMap((polygon) => (
+        ringToTrianglePositions(THREE, polygon[0], radius)
+      ));
+    }
+
+    return [];
+  };
+
+  const collectCoordinatePairs = (coordinates, pairs = []) => {
+    if (!Array.isArray(coordinates)) {
+      return pairs;
+    }
+
+    if (
+      coordinates.length >= 2
+      && typeof coordinates[0] === 'number'
+      && typeof coordinates[1] === 'number'
+    ) {
+      pairs.push(coordinates);
+      return pairs;
+    }
+
+    coordinates.forEach((item) => collectCoordinatePairs(item, pairs));
+    return pairs;
+  };
+
+  const buildLineSegments = (THREE, positions, material) => {
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+
+    return new THREE.LineSegments(geometry, material);
+  };
+
+  const isNearOman = (feature) => {
+    const coordinates = collectCoordinatePairs(feature.geometry.coordinates);
+
+    return coordinates.some(([longitude, latitude]) => (
+      Math.abs(latitude - omanCoordinates.lat) < 32
+      && Math.abs(longitude - omanCoordinates.lon) < 45
+    ));
+  };
+
+  const buildWorldMapLayers = (THREE, worldAtlas, topojson) => {
+    const mapGroup = new THREE.Group();
+    const countryFeatures = topojson.feature(worldAtlas, worldAtlas.objects.countries).features;
+    const countryBorders = topojson.mesh(worldAtlas, worldAtlas.objects.countries, (left, right) => left !== right);
+    const coastlines = topojson.mesh(worldAtlas, worldAtlas.objects.land);
+    const omanFeature = countryFeatures.find((feature) => feature.id === '512' || feature.properties?.name === 'Oman');
+    const regionalFeatures = countryFeatures.filter((feature) => feature !== omanFeature && isNearOman(feature));
+    const globalBorderPositions = [
+      ...lineGeometryToSegments(THREE, coastlines, sphereRadius * 1.064),
+      ...lineGeometryToSegments(THREE, countryBorders, sphereRadius * 1.068),
+    ];
+    const regionalPositions = regionalFeatures.flatMap((feature) => (
+      polygonGeometryToSegments(THREE, feature.geometry, sphereRadius * 1.074)
+    ));
+    const omanPositions = omanFeature
+      ? polygonGeometryToSegments(THREE, omanFeature.geometry, sphereRadius * 1.092)
+      : [];
+    const omanFillPositions = omanFeature
+      ? polygonGeometryToFillTriangles(THREE, omanFeature.geometry, sphereRadius * 1.084)
+      : [];
+
+    mapGroup.add(buildLineSegments(
+      THREE,
+      globalBorderPositions,
+      new THREE.LineBasicMaterial({
+        color: 0x86e5e0,
+        transparent: true,
+        opacity: 0.24,
+        depthTest: true,
+        depthWrite: false,
+      }),
+    ));
+
+    mapGroup.add(buildLineSegments(
+      THREE,
+      regionalPositions,
+      new THREE.LineBasicMaterial({
+        color: 0x86e5e0,
+        transparent: true,
+        opacity: 0.34,
+        depthTest: true,
+        depthWrite: false,
+      }),
+    ));
+
+    if (omanPositions.length) {
+      if (omanFillPositions.length) {
+        const fillGeometry = new THREE.BufferGeometry();
+        fillGeometry.setAttribute('position', new THREE.Float32BufferAttribute(omanFillPositions, 3));
+        mapGroup.add(new THREE.Mesh(
+          fillGeometry,
+          new THREE.MeshBasicMaterial({
+            color: 0xf4b860,
+            transparent: true,
+            opacity: 0.15,
+            depthTest: true,
+            depthWrite: false,
+            side: THREE.DoubleSide,
+          }),
+        ));
+      }
+
+      const omanGlow = buildLineSegments(
+        THREE,
+        omanPositions,
+        new THREE.LineBasicMaterial({
+          color: 0xf4b860,
+          transparent: true,
+          opacity: 0.28,
+          depthTest: true,
+          depthWrite: false,
+        }),
+      );
+      const omanBorder = buildLineSegments(
+        THREE,
+        omanPositions,
+        new THREE.LineBasicMaterial({
+          color: 0xf4b860,
+          transparent: true,
+          opacity: 0.96,
+          depthTest: true,
+          depthWrite: false,
+        }),
+      );
+
+      omanGlow.scale.setScalar(1.006);
+      mapGroup.add(omanGlow);
+      mapGroup.add(omanBorder);
+    }
+
+    return mapGroup;
   };
 
   const buildCountryLabel = (THREE, label, latitude, longitude) => {
@@ -276,6 +467,25 @@ const createOriginGlobe = () => {
     return sprite;
   };
 
+  const buildOmanPulse = (THREE) => {
+    const pulsePosition = latLonToVector(THREE, omanCoordinates.lat, omanCoordinates.lon, sphereRadius * 1.088);
+    const pulse = new THREE.Mesh(
+      new THREE.SphereGeometry(0.108, 26, 26),
+      new THREE.MeshBasicMaterial({
+        color: 0xf4b860,
+        transparent: true,
+        opacity: 0.24,
+        depthTest: true,
+        depthWrite: false,
+      }),
+    );
+
+    pulse.name = 'oman-pulse';
+    pulse.position.copy(pulsePosition);
+
+    return pulse;
+  };
+
   const buildOmanMarker = (THREE) => {
     const markerGroup = new THREE.Group();
     const markerPosition = latLonToVector(THREE, omanCoordinates.lat, omanCoordinates.lon, sphereRadius * 1.045);
@@ -292,6 +502,7 @@ const createOriginGlobe = () => {
       pinEnd.x, pinEnd.y, pinEnd.z,
     ], 3));
 
+    markerGroup.add(buildOmanPulse(THREE));
     markerGroup.add(marker);
     markerGroup.add(buildCountryLabel(THREE, 'OMAN', omanCoordinates.lat, omanCoordinates.lon));
     markerGroup.add(new THREE.Line(
@@ -332,14 +543,31 @@ const createOriginGlobe = () => {
       return;
     }
 
+    const now = timestamp || performance.now();
+
     resize();
 
     if (baseQuaternion) {
       globeGroup.quaternion.copy(baseQuaternion);
     }
 
+    if (shouldReduceDecorativeMotion()) {
+      camera.position.z = cameraZoomEnd;
+      globeGroup.scale.setScalar(globeScaleEnd);
+    } else {
+      const zoomProgress = Math.min(Math.max((now - revealStartedAt) / revealZoomDuration, 0), 1);
+      const easedProgress = easeOutCubic(zoomProgress);
+      camera.position.z = cameraZoomStart + ((cameraZoomEnd - cameraZoomStart) * easedProgress);
+      globeGroup.scale.setScalar(globeScaleStart + ((globeScaleEnd - globeScaleStart) * easedProgress));
+    }
+
     if (!shouldReduceDecorativeMotion()) {
-      globeGroup.rotation.z += Math.sin(timestamp * 0.0012) * 0.0009;
+      globeGroup.rotation.z += Math.sin(now * 0.0012) * 0.0009;
+      const pulse = globeGroup.getObjectByName('oman-pulse');
+      if (pulse) {
+        const pulseScale = 1 + Math.sin(now * 0.004) * 0.16;
+        pulse.scale.setScalar(pulseScale);
+      }
     }
 
     renderer.render(scene, camera);
@@ -356,6 +584,7 @@ const createOriginGlobe = () => {
 
   const start = () => {
     stop();
+    revealStartedAt = performance.now();
     render();
 
     if (isVisible && !shouldReduceDecorativeMotion()) {
@@ -374,7 +603,11 @@ const createOriginGlobe = () => {
     }
 
     try {
-      const THREE = await loadThree();
+      const [THREE, topojson, worldAtlas] = await Promise.all([
+        loadThree(),
+        loadTopoJson(),
+        loadWorldAtlas(),
+      ]);
 
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
@@ -385,9 +618,10 @@ const createOriginGlobe = () => {
       originGlobeCanvas.appendChild(renderer.domElement);
 
       globeGroup = new THREE.Group();
+      globeGroup.add(buildGlobeShell(THREE));
       globeGroup.add(buildPointCloud(THREE));
       globeGroup.add(buildGridLines(THREE));
-      globeGroup.add(buildCountryOutlines(THREE));
+      globeGroup.add(buildWorldMapLayers(THREE, worldAtlas, topojson));
       globeGroup.add(buildOmanMarker(THREE));
 
       const omanVector = latLonToVector(THREE, omanCoordinates.lat, omanCoordinates.lon, 1).normalize();
@@ -427,16 +661,9 @@ const createOriginGlobe = () => {
     originTrigger.setAttribute('aria-expanded', 'false');
   };
 
-  const resetForViewport = () => {
-    if (!desktopGlobeQuery.matches) {
-      hide();
-    }
-  };
-
   return {
     show,
     hide,
-    resetForViewport,
     renderStatic: () => {
       if (isVisible) {
         stop();
@@ -462,8 +689,6 @@ if (originTrigger && originFigure && originGlobe) {
     }
   });
 
-  window.addEventListener('resize', originGlobeController.resetForViewport);
-  desktopGlobeQuery.addEventListener?.('change', originGlobeController.resetForViewport);
   window.addEventListener('performance-mode-change', originGlobeController.renderStatic);
 }
 
