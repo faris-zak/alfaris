@@ -15,6 +15,7 @@ const APP_SHELL = [
   './assets/imgs/ascent-window-transparent.svg',
   './assets/imgs/portrait.webp',
   './assets/imgs/og-image.png',
+  './assets/imgs/crunchlabs-space-selfie.webp',
 ];
 
 self.addEventListener('install', (event) => {
