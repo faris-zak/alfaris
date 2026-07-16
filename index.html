@@ -175,7 +175,22 @@
           <div class="portrait-frame">
             <img src="assets/imgs/portrait.webp" alt="Al-Faris Mujahid AlZakwani" />
           </div>
-          <figcaption>
+          <div class="origin-globe" id="origin-globe" data-origin-globe aria-hidden="true">
+            <div class="origin-globe__canvas" data-origin-globe-canvas></div>
+            <div class="origin-globe__fallback" data-origin-globe-fallback>WEBGL SIGNAL UNAVAILABLE</div>
+            <div class="origin-globe__readout">
+              <span>OMAN FIX</span>
+              <strong>23.58° N / 58.41° E</strong>
+            </div>
+          </div>
+          <figcaption
+            tabindex="0"
+            role="button"
+            aria-controls="origin-globe"
+            aria-expanded="false"
+            aria-label="Reveal Oman globe"
+            data-origin-trigger
+          >
             <span>ORIGIN</span>
             <strong>Oman / 23.58° N, 58.41° E</strong>
           </figcaption>

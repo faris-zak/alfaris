@@ -1,4 +1,4 @@
-const CACHE_NAME = 'afm-field-notes-v3';
+const CACHE_NAME = 'afm-field-notes-v5';
 
 const APP_SHELL = [
   './',

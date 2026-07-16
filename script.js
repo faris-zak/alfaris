@@ -1,8 +1,13 @@
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.site-nav');
 const performanceToggle = document.querySelector('[data-performance-toggle]');
+const originFigure = document.querySelector('.hero__portrait');
+const originTrigger = document.querySelector('[data-origin-trigger]');
+const originGlobe = document.querySelector('[data-origin-globe]');
+const originGlobeCanvas = document.querySelector('[data-origin-globe-canvas]');
 const performanceStorageKey = 'alfaris-performance-mode';
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+const desktopGlobeQuery = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 801px)');
 const reducedMotion = motionPreference.matches;
 const isPerformanceMode = () => document.documentElement.classList.contains('performance-mode');
 const shouldReduceDecorativeMotion = () => reducedMotion || isPerformanceMode();
@@ -39,6 +44,427 @@ if (performanceToggle) {
   performanceToggle.addEventListener('click', () => {
     setPerformanceMode(!isPerformanceMode());
   });
+}
+
+const createOriginGlobe = () => {
+  let threeModulePromise;
+  let renderer;
+  let scene;
+  let camera;
+  let globeGroup;
+  let baseQuaternion;
+  let frameId;
+  let isReady = false;
+  let isVisible = false;
+  let lastWidth = 0;
+  let lastHeight = 0;
+
+  const omanCoordinates = { lat: 23.58, lon: 58.41 };
+  const sphereRadius = 1.55;
+
+  const canUseGlobe = () => (
+    originFigure
+    && originTrigger
+    && originGlobe
+    && originGlobeCanvas
+    && desktopGlobeQuery.matches
+  );
+
+  const hasWebGlSupport = () => {
+    try {
+      const testCanvas = document.createElement('canvas');
+      return Boolean(testCanvas.getContext('webgl2') || testCanvas.getContext('webgl'));
+    } catch {
+      return false;
+    }
+  };
+
+  const loadThree = () => {
+    if (!threeModulePromise) {
+      threeModulePromise = import('https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js');
+    }
+
+    return threeModulePromise;
+  };
+
+  const latLonToVector = (THREE, latitude, longitude, radius = sphereRadius) => {
+    const phi = THREE.MathUtils.degToRad(90 - latitude);
+    const theta = THREE.MathUtils.degToRad(longitude);
+
+    return new THREE.Vector3(
+      radius * Math.sin(phi) * Math.sin(theta),
+      radius * Math.cos(phi),
+      radius * Math.sin(phi) * Math.cos(theta),
+    );
+  };
+
+  const buildPointCloud = (THREE) => {
+    const positions = [];
+
+    for (let lat = -78; lat <= 78; lat += 3) {
+      const densityOffset = Math.abs(lat % 6) === 0 ? 0 : 1.5;
+
+      for (let lon = -180 + densityOffset; lon < 180; lon += 3) {
+        const point = latLonToVector(THREE, lat, lon);
+        positions.push(point.x, point.y, point.z);
+      }
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+
+    return new THREE.Points(
+      geometry,
+      new THREE.PointsMaterial({
+        color: 0x86e5e0,
+        size: 0.014,
+        transparent: true,
+        opacity: 0.52,
+        sizeAttenuation: true,
+      }),
+    );
+  };
+
+  const buildGridLines = (THREE) => {
+    const positions = [];
+    const pushLine = (start, end) => {
+      positions.push(start.x, start.y, start.z, end.x, end.y, end.z);
+    };
+
+    for (let lat = -60; lat <= 60; lat += 30) {
+      for (let lon = -180; lon < 180; lon += 6) {
+        pushLine(latLonToVector(THREE, lat, lon, sphereRadius * 1.006), latLonToVector(THREE, lat, lon + 6, sphereRadius * 1.006));
+      }
+    }
+
+    for (let lon = -150; lon <= 180; lon += 30) {
+      for (let lat = -78; lat < 78; lat += 6) {
+        pushLine(latLonToVector(THREE, lat, lon, sphereRadius * 1.008), latLonToVector(THREE, lat + 6, lon, sphereRadius * 1.008));
+      }
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+
+    return new THREE.LineSegments(
+      geometry,
+      new THREE.LineBasicMaterial({
+        color: 0x86e5e0,
+        transparent: true,
+        opacity: 0.12,
+      }),
+    );
+  };
+
+  const buildCountryOutlines = (THREE) => {
+    const outlineGroup = new THREE.Group();
+    const countries = [
+      {
+        name: 'Oman',
+        color: 0xf4b860,
+        opacity: 0.98,
+        radius: sphereRadius * 1.072,
+        points: [
+          [26.3, 56.2], [25.7, 56.4], [24.6, 56.1], [23.7, 57.0], [23.1, 58.3],
+          [22.2, 59.2], [21.2, 59.8], [20.2, 58.9], [19.0, 57.8], [17.6, 56.1],
+          [16.7, 53.2], [18.0, 52.0], [19.8, 52.3], [21.4, 54.6], [23.1, 55.6],
+          [24.4, 55.8], [26.3, 56.2],
+        ],
+      },
+      {
+        name: 'United Arab Emirates',
+        color: 0x86e5e0,
+        opacity: 0.58,
+        points: [
+          [26.1, 56.0], [25.5, 55.1], [24.8, 54.2], [24.3, 53.1], [23.4, 52.6],
+          [22.9, 54.0], [23.1, 55.6], [24.4, 55.8], [26.1, 56.0],
+        ],
+      },
+      {
+        name: 'Saudi Arabia',
+        color: 0x86e5e0,
+        opacity: 0.46,
+        points: [
+          [31.4, 37.0], [30.0, 42.0], [29.2, 48.5], [25.8, 50.8], [24.3, 53.1],
+          [23.4, 52.6], [22.9, 54.0], [18.0, 52.0], [16.3, 49.0], [16.8, 43.0],
+          [18.8, 41.8], [23.3, 39.2], [27.8, 36.8], [31.4, 37.0],
+        ],
+      },
+      {
+        name: 'Yemen',
+        color: 0x86e5e0,
+        opacity: 0.52,
+        points: [
+          [18.0, 52.0], [16.7, 53.2], [15.8, 52.1], [14.8, 50.0], [12.7, 45.2],
+          [13.2, 43.2], [15.3, 42.7], [16.8, 43.0], [16.3, 49.0], [18.0, 52.0],
+        ],
+      },
+      {
+        name: 'Iran',
+        color: 0x86e5e0,
+        opacity: 0.44,
+        points: [
+          [39.5, 44.0], [38.2, 48.9], [37.0, 54.0], [36.6, 60.0], [31.5, 61.8],
+          [26.7, 61.1], [25.3, 59.1], [26.2, 56.4], [27.6, 53.8], [29.2, 50.7],
+          [32.0, 48.0], [35.0, 45.5], [39.5, 44.0],
+        ],
+      },
+      {
+        name: 'Qatar',
+        color: 0x86e5e0,
+        opacity: 0.58,
+        points: [
+          [26.1, 50.8], [25.4, 51.6], [24.7, 51.2], [24.8, 50.7], [25.5, 50.6], [26.1, 50.8],
+        ],
+      },
+    ];
+
+    countries.forEach((country) => {
+      const positions = [];
+
+      country.points.forEach(([latitude, longitude]) => {
+        const point = latLonToVector(THREE, latitude, longitude, country.radius || sphereRadius * 1.055);
+        positions.push(point.x, point.y, point.z);
+      });
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      outlineGroup.add(new THREE.Line(
+        geometry,
+        new THREE.LineBasicMaterial({
+          color: country.color,
+          transparent: true,
+          opacity: country.opacity,
+        }),
+      ));
+    });
+
+    return outlineGroup;
+  };
+
+  const buildCountryLabel = (THREE, label, latitude, longitude) => {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const markerPosition = latLonToVector(THREE, latitude + 1.2, longitude + 1.1, sphereRadius * 1.42);
+
+    canvas.width = 256;
+    canvas.height = 96;
+    context.font = '700 34px IBM Plex Mono, monospace';
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    context.fillStyle = 'rgba(6, 11, 24, 0.78)';
+    context.strokeStyle = 'rgba(244, 184, 96, 0.82)';
+    context.lineWidth = 2;
+    context.strokeRect(52, 22, 152, 52);
+    context.fillRect(52, 22, 152, 52);
+    context.fillStyle = '#f4b860';
+    context.fillText(label, 128, 50);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: texture,
+      transparent: true,
+      depthTest: false,
+      depthWrite: false,
+    }));
+
+    sprite.position.copy(markerPosition);
+    sprite.scale.set(0.62, 0.23, 1);
+
+    return sprite;
+  };
+
+  const buildOmanMarker = (THREE) => {
+    const markerGroup = new THREE.Group();
+    const markerPosition = latLonToVector(THREE, omanCoordinates.lat, omanCoordinates.lon, sphereRadius * 1.045);
+    const markerGeometry = new THREE.SphereGeometry(0.052, 18, 18);
+    const markerMaterial = new THREE.MeshBasicMaterial({ color: 0xf4b860 });
+    const marker = new THREE.Mesh(markerGeometry, markerMaterial);
+    const pinGeometry = new THREE.BufferGeometry();
+    const pinStart = latLonToVector(THREE, omanCoordinates.lat, omanCoordinates.lon, sphereRadius * 1.055);
+    const pinEnd = latLonToVector(THREE, omanCoordinates.lat, omanCoordinates.lon, sphereRadius * 1.34);
+
+    marker.position.copy(markerPosition);
+    pinGeometry.setAttribute('position', new THREE.Float32BufferAttribute([
+      pinStart.x, pinStart.y, pinStart.z,
+      pinEnd.x, pinEnd.y, pinEnd.z,
+    ], 3));
+
+    markerGroup.add(marker);
+    markerGroup.add(buildCountryLabel(THREE, 'OMAN', omanCoordinates.lat, omanCoordinates.lon));
+    markerGroup.add(new THREE.Line(
+      pinGeometry,
+      new THREE.LineBasicMaterial({
+        color: 0xf4b860,
+        transparent: true,
+        opacity: 0.72,
+      }),
+    ));
+
+    return markerGroup;
+  };
+
+  const resize = () => {
+    if (!renderer || !camera || !originGlobeCanvas) {
+      return;
+    }
+
+    const { width, height } = originGlobeCanvas.getBoundingClientRect();
+    const safeWidth = Math.max(1, Math.floor(width));
+    const safeHeight = Math.max(1, Math.floor(height));
+
+    if (safeWidth === lastWidth && safeHeight === lastHeight) {
+      return;
+    }
+
+    lastWidth = safeWidth;
+    lastHeight = safeHeight;
+    camera.aspect = safeWidth / safeHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(safeWidth, safeHeight, false);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+  };
+
+  const render = (timestamp = 0) => {
+    if (!renderer || !scene || !camera || !globeGroup) {
+      return;
+    }
+
+    resize();
+
+    if (baseQuaternion) {
+      globeGroup.quaternion.copy(baseQuaternion);
+    }
+
+    if (!shouldReduceDecorativeMotion()) {
+      globeGroup.rotation.z += Math.sin(timestamp * 0.0012) * 0.0009;
+    }
+
+    renderer.render(scene, camera);
+
+    if (isVisible && !shouldReduceDecorativeMotion()) {
+      frameId = window.requestAnimationFrame(render);
+    }
+  };
+
+  const stop = () => {
+    window.cancelAnimationFrame(frameId);
+    frameId = undefined;
+  };
+
+  const start = () => {
+    stop();
+    render();
+
+    if (isVisible && !shouldReduceDecorativeMotion()) {
+      frameId = window.requestAnimationFrame(render);
+    }
+  };
+
+  const init = async () => {
+    if (isReady || !canUseGlobe()) {
+      return isReady;
+    }
+
+    if (!hasWebGlSupport()) {
+      originGlobe.classList.add('is-unavailable');
+      return false;
+    }
+
+    try {
+      const THREE = await loadThree();
+
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+      camera.position.set(0, 0, 4.7);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
+      renderer.setClearColor(0x000000, 0);
+      originGlobeCanvas.appendChild(renderer.domElement);
+
+      globeGroup = new THREE.Group();
+      globeGroup.add(buildPointCloud(THREE));
+      globeGroup.add(buildGridLines(THREE));
+      globeGroup.add(buildCountryOutlines(THREE));
+      globeGroup.add(buildOmanMarker(THREE));
+
+      const omanVector = latLonToVector(THREE, omanCoordinates.lat, omanCoordinates.lon, 1).normalize();
+      baseQuaternion = new THREE.Quaternion().setFromUnitVectors(omanVector, new THREE.Vector3(0, 0, 1));
+      globeGroup.quaternion.copy(baseQuaternion);
+      scene.add(globeGroup);
+
+      scene.add(new THREE.AmbientLight(0x86e5e0, 1.1));
+      resize();
+      isReady = true;
+      originGlobe.classList.remove('is-unavailable');
+      return true;
+    } catch {
+      originGlobe.classList.add('is-unavailable');
+      return false;
+    }
+  };
+
+  const show = async () => {
+    if (!canUseGlobe()) {
+      return;
+    }
+
+    isVisible = true;
+    originFigure.classList.add('is-globe-active');
+    originTrigger.setAttribute('aria-expanded', 'true');
+
+    if (await init() && isVisible) {
+      start();
+    }
+  };
+
+  const hide = () => {
+    isVisible = false;
+    stop();
+    originFigure.classList.remove('is-globe-active');
+    originTrigger.setAttribute('aria-expanded', 'false');
+  };
+
+  const resetForViewport = () => {
+    if (!desktopGlobeQuery.matches) {
+      hide();
+    }
+  };
+
+  return {
+    show,
+    hide,
+    resetForViewport,
+    renderStatic: () => {
+      if (isVisible) {
+        stop();
+        render();
+      }
+    },
+  };
+};
+
+if (originTrigger && originFigure && originGlobe) {
+  const originGlobeController = createOriginGlobe();
+
+  originTrigger.addEventListener('mouseenter', originGlobeController.show);
+  originTrigger.addEventListener('focus', originGlobeController.show);
+
+  originFigure.addEventListener('mouseleave', originGlobeController.hide);
+  originTrigger.addEventListener('blur', originGlobeController.hide);
+
+  originTrigger.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      originGlobeController.hide();
+      originTrigger.blur();
+    }
+  });
+
+  window.addEventListener('resize', originGlobeController.resetForViewport);
+  desktopGlobeQuery.addEventListener?.('change', originGlobeController.resetForViewport);
+  window.addEventListener('performance-mode-change', originGlobeController.renderStatic);
 }
 
 if ('serviceWorker' in navigator) {
