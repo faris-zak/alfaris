@@ -339,7 +339,7 @@ if (generateCvButton) {
   const collectCvData = () => {
     const author = document.querySelector('meta[name="author"]')?.content || 'Al-Faris Mujahid AlZakwani';
     const contactLinks = Array.from(document.querySelectorAll('.social-links a')).map((link) => ({
-      label: cleanText(link.textContent),
+      label: cleanText(link.querySelector('.social-links__label')?.textContent || link.textContent),
       href: linkHref(link),
     })).filter((link) => link.label && link.href);
 
