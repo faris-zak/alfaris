@@ -953,9 +953,19 @@ if (generateCvButton) {
     return link.href.startsWith('mailto:') ? link.href.replace('mailto:', '') : link.href;
   };
 
+  const displayHref = (href = '') => cleanText(href)
+    .replace(/^https?:\/\//, '')
+    .replace(/^mailto:/, '')
+    .replace(/\/$/, '');
+
   const collectCards = (selector, mapCard) => Array.from(document.querySelectorAll(selector))
     .map(mapCard)
     .filter((item) => item.title || item.body);
+
+  const splitCapabilityText = (value = '') => cleanText(value)
+    .split(/[·,]/)
+    .map((item) => item.trim())
+    .filter(Boolean);
 
   const renderList = (items, className = '') => {
     if (!items.length) {
@@ -965,23 +975,64 @@ if (generateCvButton) {
     return `<ul class="${className}">${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
   };
 
-  const renderEntries = (entries) => {
+  const renderPills = (items) => renderList(items.map((item) => escapeHtml(item)), 'cv-pills');
+
+  const renderEntries = (entries, variant = 'standard') => {
     if (!entries.length) {
       return '';
     }
 
     return entries.map((entry) => `
-      <article class="cv-entry">
-        ${entry.meta ? `<p class="cv-entry__meta">${escapeHtml(entry.meta)}</p>` : ''}
+      <article class="cv-entry cv-entry--${variant}">
+        ${entry.meta ? `<p class="cv-meta">${escapeHtml(entry.meta)}</p>` : ''}
         <h3>${escapeHtml(entry.title)}</h3>
         ${entry.body ? `<p>${escapeHtml(entry.body)}</p>` : ''}
-        ${entry.tags && entry.tags.length ? renderList(entry.tags.map((tag) => escapeHtml(tag)), 'cv-tags') : ''}
+        ${entry.tags && entry.tags.length ? renderPills(entry.tags) : ''}
       </article>
     `).join('');
   };
 
-  const renderSection = (title, body) => body ? `
-    <section class="cv-section">
+  const renderNumberedEntries = (entries) => {
+    if (!entries.length) {
+      return '';
+    }
+
+    return entries.map((entry, index) => `
+      <article class="cv-numbered">
+        <span>${escapeHtml(entry.meta || String(index + 1).padStart(2, '0'))}</span>
+        <div>
+          <h3>${escapeHtml(entry.title)}</h3>
+          ${entry.body ? `<p>${escapeHtml(entry.body)}</p>` : ''}
+        </div>
+      </article>
+    `).join('');
+  };
+
+  const renderTimeline = (entries) => {
+    if (!entries.length) {
+      return '';
+    }
+
+    return entries.map((entry) => `
+      <article class="cv-timeline-item">
+        <time>${escapeHtml(entry.meta)}</time>
+        <div>
+          <h3>${escapeHtml(entry.title)}</h3>
+          ${entry.body ? `<p>${escapeHtml(entry.body)}</p>` : ''}
+        </div>
+      </article>
+    `).join('');
+  };
+
+  const renderPanel = (title, body, className = '') => body ? `
+    <section class="cv-panel ${className}">
+      <h2>${escapeHtml(title)}</h2>
+      ${body}
+    </section>
+  ` : '';
+
+  const renderSystemSection = (title, body) => body ? `
+    <section class="cv-system-section">
       <h2>${escapeHtml(title)}</h2>
       ${body}
     </section>
@@ -1057,9 +1108,38 @@ if (generateCvButton) {
         <img src="${escapeHtml(cv.portrait)}" alt="${escapeHtml(cv.author)}" />
       </figure>
     ` : '';
+    const objectivePills = cleanText(cv.objective)
+      .split('·')
+      .map((item) => item.trim())
+      .filter(Boolean);
     const contactMarkup = cv.contactLinks.map((link) => `
-      <a href="${escapeHtml(link.href)}">${escapeHtml(link.label)}<span>${escapeHtml(link.href)}</span></a>
+      <a href="${escapeHtml(link.href)}">
+        <strong>${escapeHtml(link.label)}</strong>
+        <span>${escapeHtml(displayHref(link.href))}</span>
+      </a>
     `).join('');
+    const statusItems = [
+      { title: 'BSc', body: 'Physics, SQU 2025 - present' },
+      ...cv.credentials.slice(1).map((item) => ({
+        title: item.title.includes('/') ? '2' : item.title,
+        body: item.title.includes('/') ? item.body.replace('Native ', '') : item.body,
+      })),
+    ];
+    const statusMarkup = statusItems.map((item) => `
+      <div>
+        <strong>${escapeHtml(item.title)}</strong>
+        <span>${escapeHtml(item.body)}</span>
+      </div>
+    `).join('');
+    const capabilityMarkup = cv.capabilities.map((item, index) => {
+      const themes = ['scientific', 'digital building', 'human skills'];
+      return `
+        <div class="cv-capability-group">
+          <h3 class="cv-accent cv-accent--${index % 3}">${escapeHtml(item.title || themes[index] || 'Capability')}</h3>
+          ${renderPills(splitCapabilityText(item.body))}
+        </div>
+      `;
+    }).join('');
 
     return `<!DOCTYPE html>
 <html lang="en">
@@ -1068,78 +1148,106 @@ if (generateCvButton) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${escapeHtml(cv.author)} | Generated CV</title>
     <style>
-      @page { size: A4; margin: 14mm; }
+      @page { size: A4; margin: 13mm 14mm; }
       * { box-sizing: border-box; }
-      body { margin: 0; color: #172033; background: #ffffff; font-family: Arial, Helvetica, sans-serif; line-height: 1.45; }
+      body { margin: 0; color: #20242c; background: #ffffff; font-family: Arial, Helvetica, sans-serif; line-height: 1.42; }
       a { color: inherit; text-decoration: none; }
-      .cv-page { max-width: 820px; margin: 0 auto; }
-      .cv-header { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 24px; padding-bottom: 18px; border-bottom: 2px solid #172033; }
-      .cv-identity { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 18px; align-items: start; }
-      .cv-portrait { width: 112px; aspect-ratio: 1; margin: 0; overflow: hidden; border: 2px solid #172033; border-radius: 50%; background: #eef3f7; }
-      .cv-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 51% 32%; filter: grayscale(12%) contrast(1.04); }
-      .cv-kicker, .cv-entry__meta, .cv-generated { margin: 0; color: #5f6c7b; font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-      h1 { margin: 7px 0 10px; font-size: 34px; line-height: .98; letter-spacing: -.03em; }
-      .cv-title { margin: 0 0 12px; color: #2f3b4f; font-size: 13px; font-weight: 700; }
-      .cv-summary { margin: 0; color: #334155; font-size: 11.5px; }
-      .cv-objective { margin: 12px 0 0; padding-left: 10px; border-left: 3px solid #17a2a0; color: #1f2937; font-size: 11px; font-weight: 700; }
-      .cv-contact { display: grid; gap: 8px; align-content: start; font-size: 10px; }
-      .cv-contact a { display: grid; gap: 2px; padding-bottom: 7px; border-bottom: 1px solid #d7dee8; font-weight: 700; }
-      .cv-contact span { overflow-wrap: anywhere; color: #526173; font-size: 9px; font-weight: 400; }
-      .cv-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 18px 24px; padding-top: 18px; }
-      .cv-section { break-inside: avoid; margin-bottom: 18px; }
-      .cv-section h2 { margin: 0 0 9px; padding-bottom: 5px; border-bottom: 1px solid #d7dee8; color: #111827; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
-      .cv-entry { break-inside: avoid; margin-bottom: 11px; }
-      .cv-entry h3 { margin: 2px 0 3px; color: #111827; font-size: 12px; line-height: 1.2; }
-      .cv-entry p { margin: 0; color: #334155; font-size: 10.5px; }
-      .cv-tags { display: flex; flex-wrap: wrap; gap: 4px; padding: 0; margin: 6px 0 0; list-style: none; }
-      .cv-tags li { padding: 2px 6px; border: 1px solid #d7dee8; border-radius: 999px; color: #334155; font-size: 8.5px; }
-      .cv-compact { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; }
-      .cv-compact .cv-entry { margin-bottom: 0; }
-      .cv-generated { margin-top: 14px; padding-top: 8px; border-top: 1px solid #d7dee8; text-transform: none; letter-spacing: 0; }
+      h1, h2, h3, p, figure { margin: 0; }
+      .cv-page { max-width: 980px; margin: 0 auto; padding: 8px 0 0; }
+      .cv-header { display: grid; grid-template-columns: minmax(0, 1fr) 255px; gap: 34px; align-items: start; padding-bottom: 30px; border-bottom: 1px solid #cfcfcf; }
+      .cv-kicker, .cv-system-section h2, .cv-meta, .cv-panel h2, .cv-accent, .cv-generated { color: #0f57d8; font: 600 10px/1.4 "Courier New", monospace; letter-spacing: .24em; text-transform: uppercase; }
+      h1 { max-width: 520px; margin: 22px 0 18px; color: #101010; font-size: 50px; line-height: .96; letter-spacing: -.055em; }
+      .cv-title { margin-bottom: 22px; color: #666; font-size: 16px; letter-spacing: .05em; }
+      .cv-summary { max-width: 620px; color: #252525; font-size: 17px; line-height: 1.56; }
+      .cv-objective { display: flex; flex-wrap: wrap; gap: 7px; max-width: 620px; padding: 0; margin: 24px 0 0; list-style: none; }
+      .cv-objective li, .cv-pills li { display: inline-flex; align-items: center; min-height: 24px; padding: 4px 9px; border: 1px solid #c8c8c8; border-radius: 4px; color: #333; background: #fff; font: 12px/1.2 "Courier New", monospace; }
+      .cv-objective li:nth-child(1), .cv-numbered span, .cv-timeline-item time { color: #0f57d8; border-color: #0f57d8; }
+      .cv-objective li:nth-child(2) { color: #c97900; border-color: #c97900; }
+      .cv-objective li:nth-child(3) { color: #00877d; border-color: #00877d; }
+      .cv-contact-card { display: grid; gap: 13px; padding: 20px 22px 22px; border: 1px solid #bdbdbd; border-radius: 8px; }
+      .cv-portrait { justify-self: center; width: 82px; aspect-ratio: 1; overflow: hidden; border: 1px solid #c7c7c7; border-radius: 50%; background: #f3f5f7; }
+      .cv-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 51% 32%; filter: grayscale(8%) contrast(1.03); }
+      .cv-contact-card h2 { color: #666; font: 600 11px/1.4 "Courier New", monospace; letter-spacing: .28em; text-transform: uppercase; }
+      .cv-contact { display: grid; gap: 13px; }
+      .cv-contact a { display: grid; gap: 5px; break-inside: avoid; }
+      .cv-contact strong { color: #2a2a2a; font: 600 12px/1.25 "Courier New", monospace; letter-spacing: .24em; text-transform: uppercase; }
+      .cv-contact span { overflow-wrap: anywhere; color: #222; font: 13px/1.25 "Courier New", monospace; }
+      .cv-layout { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 28px; padding-top: 34px; }
+      .cv-main { min-width: 0; }
+      .cv-sidebar { display: grid; align-content: start; gap: 18px; padding-left: 22px; border-left: 1px solid #cfcfcf; }
+      .cv-system-section { margin-bottom: 34px; }
+      .cv-system-section h2 { margin-bottom: 22px; }
+      .cv-profile p { color: #242424; font-size: 18px; line-height: 1.62; }
+      .cv-numbered { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 16px; padding: 0 0 20px; margin-bottom: 20px; border-bottom: 1px solid #d8d8d8; break-inside: avoid; }
+      .cv-numbered span { border: 0; font: 600 13px/1.4 "Courier New", monospace; }
+      .cv-numbered h3, .cv-entry h3, .cv-timeline-item h3 { color: #111; font-size: 18px; line-height: 1.25; }
+      .cv-numbered p, .cv-entry p, .cv-timeline-item p { margin-top: 9px; color: #2b2b2b; font-size: 15.5px; line-height: 1.48; }
+      .cv-entry { break-inside: avoid; margin-bottom: 14px; }
+      .cv-entry--card, .cv-entry--certificate { padding: 19px 21px; border: 1px solid #c7c7c7; border-radius: 8px; }
+      .cv-entry--certificate { padding: 16px; margin-bottom: 12px; }
+      .cv-entry--certificate h3 { font-size: 15.5px; font-weight: 500; }
+      .cv-entry--certificate p { margin-top: 8px; color: #666; font: 12.5px/1.45 "Courier New", monospace; }
+      .cv-meta { margin-bottom: 10px; color: #666; letter-spacing: .24em; }
+      .cv-pills { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 14px 0 0; list-style: none; }
+      .cv-panel { padding: 22px 24px 24px; border: 1px solid #c5c5c5; border-radius: 8px; }
+      .cv-panel h2 { margin-bottom: 20px; color: #666; font-size: 13px; letter-spacing: .2em; }
+      .cv-status { display: grid; gap: 18px; }
+      .cv-status div { display: grid; grid-template-columns: 66px minmax(0, 1fr); gap: 10px; align-items: center; }
+      .cv-status strong { color: #1558cf; font-size: 32px; line-height: .95; }
+      .cv-status span { color: #666; font-size: 15px; line-height: 1.25; }
+      .cv-capability-group + .cv-capability-group { margin-top: 22px; }
+      .cv-accent { margin-bottom: 10px; }
+      .cv-accent--1 { color: #c97900; }
+      .cv-accent--2 { color: #00877d; }
+      .cv-panel .cv-entry { padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid #ddd; }
+      .cv-panel .cv-entry:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: 0; }
+      .cv-panel .cv-entry h3 { font-size: 15.5px; }
+      .cv-panel .cv-entry p { font-size: 14px; }
+      .cv-timeline-item { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 18px; margin-bottom: 21px; break-inside: avoid; }
+      .cv-timeline-item time { font: 600 13px/1.4 "Courier New", monospace; }
+      .cv-generated { margin-top: 26px; color: #666; letter-spacing: 0; text-transform: none; }
       @media print {
         .cv-page { max-width: none; }
-        .cv-section { page-break-inside: avoid; }
+        .cv-entry, .cv-numbered, .cv-timeline-item { break-inside: avoid; page-break-inside: avoid; }
       }
-      @media (max-width: 700px) {
-        .cv-header, .cv-grid { grid-template-columns: 1fr; }
-        .cv-identity { grid-template-columns: 88px minmax(0, 1fr); }
-        .cv-portrait { width: 88px; }
-        .cv-contact { grid-template-columns: 1fr 1fr; }
+      @media (max-width: 760px) {
+        .cv-header, .cv-layout { grid-template-columns: 1fr; }
+        .cv-sidebar { padding-left: 0; border-left: 0; }
+        h1 { font-size: 42px; }
       }
     </style>
   </head>
   <body>
     <main class="cv-page">
       <header class="cv-header">
-        <div class="cv-identity">
-          ${portraitMarkup}
-          <div>
-            <p class="cv-kicker">Generated website CV</p>
-            <h1>${escapeHtml(cv.author)}</h1>
-            <p class="cv-title">${escapeHtml(cv.title)}</p>
-            <p class="cv-summary">${escapeHtml(cv.intro)}</p>
-            <p class="cv-objective">${escapeHtml(cv.objective)}</p>
-          </div>
+        <div>
+          <p class="cv-kicker">Generated CV · ${escapeHtml(cv.author)} · SQU Physics</p>
+          <h1>${escapeHtml(cv.author)}</h1>
+          <p class="cv-title">${escapeHtml(cv.title)}</p>
+          <p class="cv-summary">${escapeHtml(cv.intro)}</p>
+          ${objectivePills.length ? renderList(objectivePills.map((pill) => escapeHtml(pill)), 'cv-objective') : ''}
         </div>
-        <aside class="cv-contact" aria-label="Contact links">
-          ${contactMarkup}
+        <aside class="cv-contact-card" aria-label="Comms uplink">
+          ${portraitMarkup}
+          <h2>Comms uplink</h2>
+          <nav class="cv-contact">${contactMarkup}</nav>
         </aside>
       </header>
-      <div class="cv-grid">
-        <div>
-          ${renderSection('Profile', `<article class="cv-entry"><p>${escapeHtml(cv.mission)} ${escapeHtml(cv.fieldNote)}</p></article>`)}
-          ${renderSection('Selected Work', renderEntries(cv.projects))}
-          ${renderSection('Breakthroughs & Experience', renderEntries(cv.breakthroughs))}
-          ${renderSection('Certificates', renderEntries(cv.certificates))}
-        </div>
-        <div>
-          ${renderSection('Current Trajectory', renderEntries(cv.trajectory))}
-          ${renderSection('Capabilities', `<div class="cv-compact">${renderEntries(cv.capabilities)}</div>`)}
-          ${renderSection('Education & Credentials', renderEntries(cv.credentials))}
-          ${renderSection('Rocket Science Learning', renderEntries(cv.rocketLog))}
-          ${renderSection('Astronaut Path Foundations', renderEntries(cv.missionPillars))}
-          ${renderSection('Next Steps', renderEntries(cv.nextSteps))}
-        </div>
+      <div class="cv-layout">
+        <section class="cv-main">
+          ${renderSystemSection('SYS://PROFILE', `<div class="cv-profile"><p>${escapeHtml(cv.mission)} ${escapeHtml(cv.fieldNote)}</p></div>`)}
+          ${renderSystemSection('SYS://TRAJECTORY', renderNumberedEntries(cv.trajectory))}
+          ${renderSystemSection('SYS://WORK', renderEntries(cv.projects, 'card'))}
+          ${renderSystemSection('SYS://ASTRONAUT-PATH', renderEntries(cv.missionPillars))}
+          ${renderSystemSection('SYS://BREAKTHROUGHS', renderTimeline(cv.breakthroughs))}
+        </section>
+        <aside class="cv-sidebar">
+          ${renderPanel('Status', `<div class="cv-status">${statusMarkup}</div>`)}
+          ${renderPanel('Capabilities', capabilityMarkup)}
+          ${renderPanel('Rocket Science Learning', renderEntries(cv.rocketLog))}
+          ${renderPanel('Next Steps', renderEntries(cv.nextSteps))}
+          ${renderPanel('Certificates', renderEntries(cv.certificates, 'certificate'))}
+        </aside>
       </div>
       <p class="cv-generated">Generated from the live website on ${escapeHtml(cv.generatedAt)}. Source: ${escapeHtml(cv.source)}</p>
     </main>
