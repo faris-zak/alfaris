@@ -1,0 +1,76 @@
+"use client";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, DownloadSimple, FloppyDisk, LockKey, Plus, SignOut, Trash, Warning } from "@phosphor-icons/react";
+import { createClient } from "@/lib/supabase/client";
+import { emptyPrivateProfile, mergeEvidence } from "@/lib/profile";
+import type { Evidence, PrivateProfile, TailoredCvDraft } from "@/lib/schemas";
+import type { PaperSize } from "@/lib/pdf";
+
+const STEPS = ["Profile", "Job Brief", "Evidence", "Review"];
+const DISCLOSURE_KEY = "afm-cv-lab-pii-disclosure";
+
+export function LabWorkspace({ publicEvidence, ownerEmail }: { publicEvidence: Evidence[]; ownerEmail?: string }) {
+  const [step, setStep] = useState(0); const [profile, setProfile] = useState<PrivateProfile>(emptyPrivateProfile); const [selected, setSelected] = useState(() => publicEvidence.map((item) => item.id));
+  const [job, setJob] = useState({ company: "SpaceX", role: "Software Engineer, Starship", location: "Hawthorne, CA", jobDescription: "" });
+  const [draft, setDraft] = useState<TailoredCvDraft | null>(null); const [paper, setPaper] = useState<PaperSize>("letter"); const [confirmed, setConfirmed] = useState(false);
+  const [busy, setBusy] = useState(false); const [notice, setNotice] = useState(""); const [showDisclosure, setShowDisclosure] = useState(false);
+  const [newFact, setNewFact] = useState({ title: "", body: "" });
+  const allEvidence = useMemo(() => mergeEvidence(publicEvidence, profile), [publicEvidence, profile]);
+
+  useEffect(() => { fetch("/api/profile", { cache: "no-store" }).then((response) => response.ok ? response.json() : Promise.reject()).then((data) => { setProfile(data.profile); setSelected((current) => [...new Set([...current, ...data.profile.privateEvidence.map((item: Evidence) => item.id)])]); }).catch(() => setNotice("Private profile is unavailable. Public evidence is still visible.")); setShowDisclosure(localStorage.getItem(DISCLOSURE_KEY) !== "seen"); }, []);
+  useEffect(() => { setConfirmed(false); }, [draft]);
+
+  async function saveProfile() {
+    setBusy(true); const response = await fetch("/api/profile", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(profile) }); setBusy(false);
+    setNotice(response.ok ? "Private profile saved." : "Profile could not be saved.");
+  }
+  async function analyze() {
+    setBusy(true); setNotice("");
+    const response = await fetch("/api/tailor", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...job, selectedEvidenceIds: selected }) });
+    const data = await response.json(); setBusy(false);
+    if (!response.ok && !data.baseline) return setNotice(data.error || "Tailoring failed.");
+    setDraft(data.draft || data.baseline); setStep(2); if (!response.ok) setNotice("Gemini was unavailable; showing deterministic relevance analysis.");
+  }
+  async function logout() {
+    try { const supabase = createClient(); await supabase.auth.signOut(); } catch { /* demo mode */ }
+    sessionStorage.clear(); location.assign("/");
+  }
+  const updateSummary = (text: string) => setDraft((current) => current ? { ...current, summary: { ...current.summary, text } } : current);
+  const updateBullet = (section: "education" | "experience" | "projects", entryIndex: number, bulletIndex: number, text: string) => setDraft((current) => {
+    if (!current) return current; const entries = current[section].map((entry, index) => index !== entryIndex ? entry : { ...entry, bullets: entry.bullets.map((bullet, index2) => index2 === bulletIndex ? { ...bullet, text } : bullet) }); return { ...current, [section]: entries };
+  });
+  async function exportPdf() {
+    if (!draft || !confirmed) return; setBusy(true); setNotice("");
+    try { const { downloadAtsPdf } = await import("@/lib/pdf"); await downloadAtsPdf({ profile, draft, company: job.company, role: job.role, paper }); setNotice("One-page ATS PDF downloaded."); } catch (error) { setNotice(error instanceof Error && error.message === "OVERFLOW" ? "Export blocked: the CV exceeds one page. Shorten bullets or remove an entry; text will never shrink below 10pt." : "PDF export failed."); } finally { setBusy(false); }
+  }
+
+  return <main className="workspace-shell">
+    <header className="workspace-header"><div className="brand-lockup"><span>AFM</span><div><strong>ATS CV LAB</strong><small>EVIDENCE CONSOLE</small></div></div><nav aria-label="CV workflow">{STEPS.map((label, index) => <button key={label} className={step === index ? "active" : step > index ? "complete" : ""} onClick={() => index <= step && setStep(index)}><span>{String(index + 1).padStart(2, "0")}</span>{label}</button>)}</nav><button className="icon-button" onClick={logout} title="Sign out"><SignOut size={19} /><span>Sign out</span></button></header>
+    {showDisclosure && <aside className="disclosure"><LockKey size={22} /><div><strong>Free-tier Gemini boundary</strong><p>Job content and selected professional evidence are sent to Google for stateless tailoring. Your name, email, phone, exact address, birth date, nationality, IDs, and private URLs are removed first. Nothing is saved by this lab.</p></div><button onClick={() => { localStorage.setItem(DISCLOSURE_KEY, "seen"); setShowDisclosure(false); }}>I understand</button></aside>}
+    {notice && <p className="notice" role="status">{notice}</p>}
+    {step === 0 && <section className="step-panel profile-step"><StepIntro eyebrow="01 / FACTUAL PROFILE" title="Review the facts before tailoring." body="Public portfolio facts are extracted during the build and remain view-only. Only your private contact details and private evidence are saved." />
+      <div className="split-layout"><div className="form-stack"><h2>Private contact details</h2><Field label="Full name" value={profile.fullName} onChange={(fullName) => setProfile({ ...profile, fullName })} /><Field label="Email" type="email" value={profile.email} onChange={(email) => setProfile({ ...profile, email })} /><Field label="Phone" value={profile.phone} onChange={(phone) => setProfile({ ...profile, phone })} /><Field label="Location" value={profile.location} onChange={(location) => setProfile({ ...profile, location })} /><Field label="Professional links (one per line)" multiline value={profile.links.join("\n")} onChange={(value) => setProfile({ ...profile, links: value.split("\n").map((line) => line.trim()).filter(Boolean) })} /><div className="private-facts"><h2>Private CV-only evidence</h2>{profile.privateEvidence.map((item) => <div className="private-fact" key={item.id}><span><strong>{item.title}</strong><small>{item.body}</small></span><button title="Remove private evidence" onClick={() => { setProfile({ ...profile, privateEvidence: profile.privateEvidence.filter((fact) => fact.id !== item.id) }); setSelected(selected.filter((id) => id !== item.id)); }}><Trash size={16} /></button></div>)}<Field label="Evidence title" value={newFact.title} onChange={(title) => setNewFact({ ...newFact, title })} /><Field label="Factual evidence" multiline value={newFact.body} onChange={(body) => setNewFact({ ...newFact, body })} /><button className="secondary-button" disabled={!newFact.title.trim() || !newFact.body.trim()} onClick={() => { const id = `private-${crypto.randomUUID()}`; setProfile({ ...profile, privateEvidence: [...profile.privateEvidence, { id, type: "experience", title: newFact.title.trim(), body: newFact.body.trim(), tags: [], visibility: "private" }] }); setSelected([...selected, id]); setNewFact({ title: "", body: "" }); }}><Plus size={17} />Add private evidence</button></div><button className="secondary-button" onClick={saveProfile} disabled={busy}><FloppyDisk size={18} />Save private profile</button></div><EvidencePicker evidence={allEvidence} selected={selected} onChange={setSelected} readOnlyLabel /></div>
+      <StepActions next={() => setStep(1)} nextLabel="Continue to job brief" />
+    </section>}
+    {step === 1 && <section className="step-panel"><StepIntro eyebrow="02 / JOB BRIEF" title="Paste the role. Keep the instructions out." body="The job description is treated as untrusted reference data. URLs, tool requests, and embedded instructions cannot change the tailoring rules." />
+      <div className="job-grid"><div className="job-meta"><Field label="Company" value={job.company} onChange={(company) => setJob({ ...job, company })} /><Field label="Role" value={job.role} onChange={(role) => setJob({ ...job, role })} /><Field label="Location" value={job.location} onChange={(location) => { setJob({ ...job, location }); setPaper(/\b(US|USA|United States|,\s*[A-Z]{2})\b/i.test(location) ? "letter" : "a4"); }} /></div><label className="jd-field"><span>Job description <b>{job.jobDescription.length.toLocaleString()} / 25,000</b></span><textarea value={job.jobDescription} onChange={(event) => setJob({ ...job, jobDescription: event.target.value })} minLength={300} maxLength={25000} placeholder="Paste the complete job description here…" /></label></div>
+      <StepActions back={() => setStep(0)} next={analyze} nextLabel={busy ? "Analyzing…" : "Map evidence"} disabled={busy || job.jobDescription.trim().length < 300 || selected.length === 0} />
+    </section>}
+    {step === 2 && draft && <section className="step-panel evidence-step"><div className="evidence-console"><div className="evidence-left"><StepIntro eyebrow="03 / EVIDENCE MAP" title="Map every claim to evidence." body="Deterministic phrase matching runs first. This is relevance coverage—not an ATS score, ranking prediction, or interview guarantee." /><div className="requirements-table"><div className="requirements-head"><span>#</span><span>Requirement</span><span>Status</span><span>Supporting evidence</span></div>{draft.roleRequirements.map((requirement, index) => <div className="requirement-row" key={requirement.id}><span>{String(index + 1).padStart(2, "0")}</span><strong>{requirement.text}</strong><em className={requirement.status}>{requirement.status === "matched" ? <Check size={14} /> : <Warning size={14} />}{requirement.status}</em><div>{requirement.evidenceIds.length ? requirement.evidenceIds.map((id) => <span className="evidence-chip" key={id}>{allEvidence.find((item) => item.id === id)?.title || id}</span>) : <span className="gap-copy">No verified evidence</span>}</div></div>)}</div></div>
+        <aside className="coverage-panel"><p>RELEVANCE COVERAGE</p><strong>{draft.relevanceCoverage}<small>%</small></strong><div><span><b>{draft.roleRequirements.filter((item) => item.status === "matched").length}</b>Matched</span><span><b>{draft.roleRequirements.filter((item) => item.status === "gap").length}</b>Gaps</span></div><p className="coverage-warning"><Warning size={17} />Gaps stay visible.<br />Nothing is invented.</p><button onClick={() => setStep(3)}>Review tailored draft<ArrowRight size={18} /></button></aside></div>
+      <StepActions back={() => setStep(1)} next={() => setStep(3)} nextLabel="Review tailored draft" />
+    </section>}
+    {step === 3 && draft && <section className="step-panel"><StepIntro eyebrow="04 / TRUTH REVIEW" title="Approve the document, claim by claim." body="Edit the language, inspect the source beside every bullet, and confirm accuracy before export." />
+      <div className="review-layout"><div className="draft-editor"><ReviewField label="Summary" value={draft.summary.text} sourceIds={draft.summary.sourceIds} evidence={allEvidence} onChange={updateSummary} />{(["education", "experience", "projects"] as const).map((section) => <section className="draft-section" key={section}><h2>{section}</h2>{draft[section].map((entry, entryIndex) => <article key={`${section}-${entryIndex}`}><h3>{entry.title}</h3>{entry.bullets.map((bullet, bulletIndex) => <ReviewField key={bulletIndex} value={bullet.text} sourceIds={bullet.sourceIds} evidence={allEvidence} onChange={(text) => updateBullet(section, entryIndex, bulletIndex, text)} />)}</article>)}</section>)}<section className="draft-section"><h2>Skills</h2><p>{draft.skills.map((skill) => skill.name).join(" • ")}</p></section></div>
+        <aside className="export-panel"><p>EXPORT CONTROL</p><label>Page size<select value={paper} onChange={(event) => setPaper(event.target.value as PaperSize)}><option value="letter">US Letter</option><option value="a4">A4</option></select></label><ul><li>One page, one column</li><li>Searchable text</li><li>Minimum 10pt</li><li>No graphics or hidden keywords</li></ul><label className="confirm"><input type="checkbox" checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} /><span>I confirm these claims are accurate and supported by the evidence shown.</span></label><button onClick={exportPdf} disabled={!confirmed || busy}><DownloadSimple size={19} />{busy ? "Preparing…" : "Download ATS PDF"}</button></aside></div>
+      <StepActions back={() => setStep(2)} />
+    </section>}
+    <footer><span>SESSION-ONLY JOB DATA</span><span>{ownerEmail || "VERIFIED OWNER"}</span><span>NO PUBLIC INDEX</span></footer>
+  </main>;
+}
+
+function StepIntro({ eyebrow, title, body }: { eyebrow: string; title: string; body: string }) { return <header className="step-intro"><p>{eyebrow}</p><h1>{title}</h1><span>{body}</span></header>; }
+function Field({ label, value, onChange, type = "text", multiline = false }: { label: string; value: string; onChange: (value: string) => void; type?: string; multiline?: boolean }) { return <label className="field"><span>{label}</span>{multiline ? <textarea value={value} onChange={(event) => onChange(event.target.value)} /> : <input type={type} value={value} onChange={(event) => onChange(event.target.value)} />}</label>; }
+function StepActions({ back, next, nextLabel, disabled }: { back?: () => void; next?: () => void; nextLabel?: string; disabled?: boolean }) { return <div className="step-actions">{back && <button className="back-button" onClick={back}><ArrowLeft size={17} />Back</button>}{next && <button onClick={next} disabled={disabled}>{nextLabel}<ArrowRight size={17} /></button>}</div>; }
+function EvidencePicker({ evidence, selected, onChange, readOnlyLabel }: { evidence: Evidence[]; selected: string[]; onChange: (ids: string[]) => void; readOnlyLabel?: boolean }) { return <section className="evidence-picker"><div><h2>Evidence library</h2><span>{selected.length} / {evidence.length} selected</span></div>{evidence.map((item) => <label key={item.id}><input type="checkbox" checked={selected.includes(item.id)} onChange={(event) => onChange(event.target.checked ? [...selected, item.id] : selected.filter((id) => id !== item.id))} /><span><strong>{item.title}</strong><small>{item.type} · {item.visibility}{readOnlyLabel && item.visibility === "public" ? " · view only" : ""}</small><em>{item.body}</em></span></label>)}</section>; }
+function ReviewField({ label, value, sourceIds, evidence, onChange }: { label?: string; value: string; sourceIds: string[]; evidence: Evidence[]; onChange: (value: string) => void }) { return <label className="review-field">{label && <strong>{label}</strong>}<textarea value={value} onChange={(event) => onChange(event.target.value)} /><span>SUPPORTED BY {sourceIds.map((id) => evidence.find((item) => item.id === id)?.title || id).join(" · ")}</span></label>; }

@@ -1,0 +1,229 @@
+[
+  {
+    "id": "summary-professional-profile",
+    "type": "summary",
+    "title": "Building toward the astronaut path.",
+    "body": "FIELD JOURNAL / 2026 Empower my surroundings to do more.. I am Al-Faris Mujahid AlZakwani, an Omani physics student at SQU combining rocket-science curiosity, front-end software, AI-agent workflows, and leadership toward one long-range objective: becoming useful to human spaceflight and the future of Moon-and-Mars exploration.",
+    "meta": "--:--",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "skill-physics-foundation",
+    "type": "skill",
+    "title": "Physics foundation",
+    "body": "SQU Physics is the base layer: mechanics, waves, dynamics, and the scientific discipline needed to understand motion, forces, and space environments.",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "skill-spaceflight-systems",
+    "type": "skill",
+    "title": "Rocket science & spaceflight",
+    "body": "Active study of orbital mechanics, propulsion fundamentals, spacecraft systems, human spaceflight, and the engineering logic behind launch and re-entry.",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "skill-software-ai-systems",
+    "type": "skill",
+    "title": "Software & AI systems",
+    "body": "Front-end engineering, AI skills, and agent workflows become mission interfaces: tools for research, planning, simulation thinking, and decision support.",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "skill-leadership-pressure",
+    "type": "skill",
+    "title": "Leadership under pressure",
+    "body": "Founder work, Best Leader recognition, workshops, and SQU leadership nominations build the human side of the astronaut path: communication, responsibility, and calm execution.",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "project-portfolio",
+    "type": "project",
+    "title": "My Portfolio",
+    "body": "A responsive mission record for technical work, achievements, CV, and the evolving story behind my astronaut trajectory.",
+    "meta": "DEVELOPER & DESIGNER / PERSONAL PLATFORM",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "visibility": "public"
+  },
+  {
+    "id": "project-ai-family-corp",
+    "type": "project",
+    "title": "AI Family Corp",
+    "body": "Working with my father and family to establish a family business focused on empowering family members to do more, solve practical problems, and use technology and artificial intelligence in meaningful ways.",
+    "meta": "CO-FOUNDER / FAMILY AI BUSINESS",
+    "tags": [
+      "Family business",
+      "AI",
+      "Technology",
+      "Problem-solving"
+    ],
+    "visibility": "public"
+  },
+  {
+    "id": "project-alduwiki",
+    "type": "project",
+    "title": "AlDuwiki Cement Products",
+    "body": "Developed a company website for AlDuwiki Cement Products, presenting their cement-products business with a clear public web presence and direct contact path.",
+    "meta": "WEB DEVELOPER / BUSINESS WEBSITE",
+    "tags": [
+      "Business website",
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "visibility": "public"
+  },
+  {
+    "id": "project-scorleaf",
+    "type": "project",
+    "title": "Scorleaf",
+    "body": "Created the official website for Scorleaf, an Omani student-run health startup developing a natural licorice root extract to relieve the effects of scorpion bites.",
+    "meta": "WEB DEVELOPER / STARTUP WEBSITE",
+    "tags": [
+      "Startup website",
+      "Health",
+      "HTML",
+      "CSS"
+    ],
+    "visibility": "public"
+  },
+  {
+    "id": "experience-solvex",
+    "type": "experience",
+    "title": "Solvex",
+    "body": "Joined a Sultan Qaboos University student startup working on smart agricultural tiles, integrating AI into the work and website, and creating a 3D simulation for the concept. I later resigned after realizing the energy and environment sector was not the direction I wanted to build in long-term.",
+    "meta": "FORMER SOFTWARE ENGINEER / AI & 3D STARTUP WORK",
+    "tags": [
+      "AI integration",
+      "3D simulation",
+      "Startup",
+      "Sustainability"
+    ],
+    "visibility": "public"
+  },
+  {
+    "id": "project-mindsync",
+    "type": "project",
+    "title": "MindSync مايندسينك",
+    "body": "A web platform for academic and self-development tools, built to help students make deliberate progress - the same discipline that powers long missions.",
+    "meta": "FOUNDER & LEAD DEVELOPER / WEB PLATFORM",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "visibility": "public"
+  },
+  {
+    "id": "experience-nexcore-labs",
+    "type": "experience",
+    "title": "NexCore Labs",
+    "body": "Digital solutions, rapid prototypes, and polished showcases that train founder execution, team leadership, and useful engineering under real constraints.",
+    "meta": "CEO / STUDENT-DRIVEN DIGITAL STUDIO",
+    "tags": [
+      "Leadership",
+      "Product",
+      "Prototyping"
+    ],
+    "visibility": "public"
+  },
+  {
+    "id": "project-space-research",
+    "type": "project",
+    "title": "Space Research Initiative",
+    "body": "Exploring Low Earth Orbit debris through orbital mechanics, debris mitigation, and satellite-interception feasibility - direct practice in aerospace problem framing.",
+    "meta": "INDEPENDENT STUDY / EARLY-STAGE RESEARCH",
+    "tags": [
+      "Orbital mechanics",
+      "Research",
+      "Systems thinking"
+    ],
+    "visibility": "public"
+  },
+  {
+    "id": "achievement-design-award",
+    "type": "achievement",
+    "title": "Design Award",
+    "body": "An early signal that technical work and creative thinking belong together.",
+    "meta": "2022",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "achievement-best-leader",
+    "type": "achievement",
+    "title": "Best Leader",
+    "body": "Recognition for bringing people together around a shared direction.",
+    "meta": "2023",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "achievement-programming-first",
+    "type": "achievement",
+    "title": "1st Place Programmer",
+    "body": "A milestone that reinforced the value of steady technical practice.",
+    "meta": "2024",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "experience-city-technical-experts",
+    "type": "experience",
+    "title": "City of Technical Experts(CTE)",
+    "body": "Gained retail-store experience at my father's Company: City of Technical Experts, working with customers and handling technical equipment in a practical sales and support environment.",
+    "meta": "2024",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "experience-squ-open-source",
+    "type": "experience",
+    "title": "SQU Open Source Group",
+    "body": "Selected as a member and delivered HTML and CSS workshops through the Open Source Initiative.",
+    "meta": "2025",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "education-squ-physics",
+    "type": "education",
+    "title": "Physics at SQU",
+    "body": "Beginning a BSc journey in the College of Science and extending my work toward aerospace systems.",
+    "meta": "2025 - now",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "skills-scientific",
+    "type": "skill",
+    "title": "Scientific foundation",
+    "body": "Mechanics · waves · space science · astronomy outreach · dynamics · research analysis",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "skills-digital",
+    "type": "skill",
+    "title": "Digital building",
+    "body": "HTML · CSS · JavaScript · responsive design · Git & GitHub · basic machine learning · technical equipment",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "skills-human",
+    "type": "skill",
+    "title": "Human skills",
+    "body": "Problem-solving · leadership · public speaking · collaboration · retail service · volunteer service · youth engagement",
+    "tags": [],
+    "visibility": "public"
+  }
+]
