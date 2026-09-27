@@ -1,4 +1,4 @@
-const CACHE_NAME = 'afm-field-notes-v12';
+const CACHE_NAME = 'afm-field-notes-v13';
 
 const APP_SHELL = [
   './',
@@ -16,6 +16,7 @@ const APP_SHELL = [
   './assets/imgs/portrait.webp',
   './assets/imgs/og-image.png',
   './assets/imgs/crunchlabs-space-selfie.webp',
+  './assets/certificates/NASA-Space-Apps-Challenge-2023.pdf',
 ];
 
 self.addEventListener('install', (event) => {
