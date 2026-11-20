@@ -1,9 +1,9 @@
-const CACHE_NAME = 'afm-field-notes-v14';
+const CACHE_NAME = 'afm-field-notes-v15';
 
 const APP_SHELL = [
   './',
   './index.html',
-  './styles.css',
+  './styles.css?v=15',
   './script.js',
   './site.webmanifest',
   './assets/imgs/favicon.ico',
