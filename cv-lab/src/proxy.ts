@@ -12,4 +12,4 @@ export async function proxy(request: NextRequest) {
   response.headers.set("Cache-Control", "private, no-store");
   return response;
 }
-export const config = { matcher: ["/((?!_next/static|_next/image|favicon.ico|orbital-grid.png).*)"] };
+export const config = { matcher: ["/((?!_next/static|_next/image|favicon.ico|orbital-grid.webp).*)"] };

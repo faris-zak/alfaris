@@ -1,4 +1,4 @@
-const CACHE_NAME = 'afm-field-notes-v16';
+const CACHE_NAME = 'afm-field-notes-v17';
 
 const APP_SHELL = [
   './',
@@ -7,8 +7,8 @@ const APP_SHELL = [
   './script.js',
   './site.webmanifest',
   './assets/imgs/favicon.ico',
-  './assets/imgs/favicon-16x16.png',
-  './assets/imgs/favicon-32x32.png',
+  './assets/imgs/favicon-16x16.webp',
+  './assets/imgs/favicon-32x32.webp',
   './assets/imgs/apple-touch-icon.png',
   './assets/imgs/android-chrome-192x192.png',
   './assets/imgs/android-chrome-512x512.png',
@@ -17,7 +17,7 @@ const APP_SHELL = [
   './assets/imgs/og-image.png',
   './assets/imgs/crunchlabs-space-selfie.webp',
   './assets/certificates/NASA-Space-Apps-Challenge-2023.pdf',
-  './assets/certificates/IELTS-Academic-IDP-results-redacted.png',
+  './assets/certificates/IELTS-Academic-IDP-results-redacted.webp',
 ];
 
 const publicUrls = new Set(APP_SHELL.map((path) => new URL(path, self.location.href).href));
