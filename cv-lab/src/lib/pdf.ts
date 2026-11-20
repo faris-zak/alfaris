@@ -1,4 +1,5 @@
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { portfolioOwnerName } from "./profile";
 import type { PrivateProfile, TailoredCvDraft } from "./schemas";
 
 export type PaperSize = "letter" | "a4";
@@ -28,8 +29,9 @@ function wrap(text: string, maxWidth: number, measure: (text: string) => number)
 
 export async function createAtsPdf(args: { profile: PrivateProfile; draft: TailoredCvDraft; company: string; role: string; paper: PaperSize }) {
   const doc = await PDFDocument.create();
-  doc.setTitle(`${args.profile.fullName || "Al-Faris AlZakwani"} - ${args.role} ATS CV`);
-  doc.setAuthor(args.profile.fullName || "Al-Faris Mujahid AlZakwani");
+  const fullName = args.profile.fullName || portfolioOwnerName;
+  doc.setTitle(`${fullName} - ${args.role} ATS CV`);
+  doc.setAuthor(fullName);
   const page = doc.addPage(SIZES[args.paper]); const { width, height } = page.getSize();
   const regular = await doc.embedFont(StandardFonts.Helvetica); const bold = await doc.embedFont(StandardFonts.HelveticaBold);
   let y = height - MARGIN;
@@ -44,7 +46,7 @@ export async function createAtsPdf(args: { profile: PrivateProfile; draft: Tailo
     draw([item.title, item.organization, item.period].filter(Boolean).join(" | "), { isBold: true, after: 1 });
     item.bullets.forEach((bullet) => draw(`• ${bullet.text}`, { indent: 9 }));
   };
-  draw(args.profile.fullName || "Al-Faris Mujahid AlZakwani", { size: 16, isBold: true, after: 1 });
+  draw(fullName, { size: 16, isBold: true, after: 1 });
   draw([args.profile.email, args.profile.phone, args.profile.location, ...args.profile.links].filter(Boolean).join(" | "), { size: 10, after: 4 });
   heading("Summary"); draw(args.draft.summary.text);
   heading("Education"); args.draft.education.forEach(entry);

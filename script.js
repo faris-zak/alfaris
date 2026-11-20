@@ -1,3 +1,22 @@
+const fieldJournalDate = document.querySelector('[data-field-journal-date]');
+if (fieldJournalDate) {
+  const now = new Date();
+  const timeZone = 'Asia/Muscat';
+  const dateParts = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(now);
+  const { year, month, day } = Object.fromEntries(dateParts.map(({ type, value }) => [type, value]));
+  const shortMonth = new Intl.DateTimeFormat('en-US', { timeZone, month: 'short' }).format(now);
+
+  fieldJournalDate.dateTime = `${year}-${month}-${day}`;
+  fieldJournalDate.textContent = `${day}-${shortMonth}-${year.slice(-2)}`;
+  fieldJournalDate.before('/ ');
+  fieldJournalDate.hidden = false;
+}
+
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.site-nav');
 const performanceToggle = document.querySelector('[data-performance-toggle]');
@@ -1039,7 +1058,7 @@ if (generateCvButton) {
   ` : '';
 
   const collectCvData = () => {
-    const author = document.querySelector('meta[name="author"]')?.content || 'Al-Faris Mujahid AlZakwani';
+    const author = document.querySelector('meta[name="author"]')?.content || 'Al-Faris Mujahid Hamood AlZakwani';
     const contactLinks = Array.from(document.querySelectorAll('.social-links a')).map((link) => ({
       label: cleanText(link.querySelector('.social-links__label')?.textContent || link.textContent),
       href: linkHref(link),

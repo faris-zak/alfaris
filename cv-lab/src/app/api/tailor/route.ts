@@ -3,7 +3,7 @@ import { getOwner, isAllowedOrigin, isDemoMode } from "@/lib/auth";
 import { buildDeterministicDraft } from "@/lib/draft";
 import { tailorWithGemini } from "@/lib/gemini";
 import { getPublicEvidence } from "@/lib/public-profile";
-import { emptyPrivateProfile, mergeEvidence } from "@/lib/profile";
+import { emptyPrivateProfile, mergeEvidence, portfolioOwnerName } from "@/lib/profile";
 import { createClient } from "@/lib/supabase/server";
 import { privateProfileSchema, tailorRequestSchema } from "@/lib/schemas";
 import { readJsonBody } from "@/lib/request-body";
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
   const baseline = buildDeterministicDraft(parsed.data.jobDescription, selected, parsed.data.role);
   if (isDemoMode()) return NextResponse.json({ draft: baseline, provider: "deterministic-demo" });
   try {
-    const draft = await tailorWithGemini({ ...parsed.data, evidence: selected, baseline, directIdentifiers: [profile.fullName, "Al-Faris Mujahid AlZakwani", "Al-Faris AlZakwani", "Omani"] });
+    const draft = await tailorWithGemini({ ...parsed.data, evidence: selected, baseline, directIdentifiers: [profile.fullName, portfolioOwnerName, "Al-Faris Mujahid AlZakwani", "Al-Faris AlZakwani", "Omani"] });
     return NextResponse.json({ draft, provider: "gemini" });
   } catch (error) {
     const message = error instanceof Error && /abort/i.test(error.name) ? "Tailoring timed out. Try again." : "Tailoring service is unavailable. Your data was not saved.";

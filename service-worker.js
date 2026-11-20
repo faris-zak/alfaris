@@ -1,10 +1,10 @@
-const CACHE_NAME = 'afm-field-notes-v20';
+const CACHE_NAME = 'afm-field-notes-v21';
 
 const APP_SHELL = [
   './',
   './index.html',
   './styles.css?v=18',
-  './script.js',
+  './script.js?v=21',
   './site.webmanifest',
   './assets/imgs/favicon.ico',
   './assets/imgs/favicon-16x16.webp',
@@ -14,7 +14,7 @@ const APP_SHELL = [
   './assets/imgs/android-chrome-512x512.png',
   './assets/imgs/ascent-window-transparent.svg',
   './assets/imgs/portrait.webp',
-  './assets/imgs/og-image.png',
+  './assets/imgs/og-image.png?v=2',
   './assets/imgs/crunchlabs-space-selfie.webp',
   './assets/certificates/NASA-Space-Apps-Challenge-2023.pdf',
   './assets/certificates/IELTS-Academic-IDP-results-redacted.webp',

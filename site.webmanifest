@@ -1,7 +1,7 @@
 {
-  "name": "Al-Faris Mujahid | Orbital Field Journal",
+  "name": "Al-Faris Mujahid Hamood AlZakwani | Orbital Field Journal",
   "short_name": "AFM Field Notes",
-  "description": "Portfolio of Al-Faris Mujahid AlZakwani, an Omani physics student, front-end engineer, AI-agent builder, and aspiring astronaut.",
+  "description": "Portfolio of Al-Faris Mujahid Hamood AlZakwani, an Omani physics student, front-end engineer, AI-agent builder, and aspiring astronaut.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

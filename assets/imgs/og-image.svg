@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">Al-Faris Mujahid AlZakwani - Orbital Field Journal</title>
+  <title id="title">Al-Faris Mujahid Hamood AlZakwani - Orbital Field Journal</title>
   <desc id="desc">Social preview for an Omani physics student, front-end engineer, AI-agent builder, and aspiring astronaut.</desc>
   <defs>
     <radialGradient id="background" cx="23%" cy="48%" r="82%">
@@ -49,7 +49,7 @@
   <g font-family="'Space Grotesk', 'Segoe UI', Arial, sans-serif">
     <text x="492" y="151" fill="#86e5e0" font-family="'IBM Plex Mono', Consolas, monospace" font-size="16" font-weight="600" letter-spacing="3">ORBITAL FIELD JOURNAL / 2026</text>
     <text x="492" y="245" fill="#eef4f1" font-size="60" font-weight="700" letter-spacing="-2.7">AL-FARIS MUJAHID</text>
-    <text x="492" y="310" fill="#eef4f1" font-size="60" font-weight="700" letter-spacing="-2.7">ALZAKWANI</text>
+    <text x="492" y="310" fill="#eef4f1" font-size="60" font-weight="700" letter-spacing="-2.7">HAMOOD ALZAKWANI</text>
     <rect x="492" y="352" width="64" height="2" fill="#f4b860"/>
     <text x="492" y="401" fill="#a1b2be" font-size="24" font-weight="500">
       <tspan x="492" dy="0">Omani physics student, front-end engineer,</tspan>

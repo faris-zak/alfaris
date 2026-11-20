@@ -1,5 +1,7 @@
 import type { Evidence, PrivateProfile } from "./schemas";
 
+export const portfolioOwnerName = "Al-Faris Mujahid Hamood AlZakwani";
+
 const IDENTIFIER_KEYS = /^(fullName|name|email|phone|address|exactAddress|birthDate|nationality|id|privateUrl|links)$/i;
 const EMAIL = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
 const PHONE = /(?:\+?\d[\d\s().-]{7,}\d)/g;

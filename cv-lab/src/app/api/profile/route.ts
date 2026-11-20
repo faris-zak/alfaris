@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getOwner, isAllowedOrigin, isDemoMode } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { emptyPrivateProfile } from "@/lib/profile";
+import { emptyPrivateProfile, portfolioOwnerName } from "@/lib/profile";
 import { privateProfileSchema } from "@/lib/schemas";
 import { readJsonBody } from "@/lib/request-body";
 
@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   const owner = await getOwner();
   if (!owner) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  if (isDemoMode()) return NextResponse.json({ profile: { ...emptyPrivateProfile, fullName: "Al-Faris Mujahid AlZakwani", email: "owner@example.com", location: "Muscat, Oman" }, version: 1 });
+  if (isDemoMode()) return NextResponse.json({ profile: { ...emptyPrivateProfile, fullName: portfolioOwnerName, email: "owner@example.com", location: "Muscat, Oman" }, version: 1 });
   const supabase = await createClient();
   const { data, error } = await supabase.from("career_profiles").select("profile_data, version").eq("user_id", owner.id).single();
   if (error) return NextResponse.json({ error: "Profile unavailable" }, { status: 503 });

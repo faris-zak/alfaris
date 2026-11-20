@@ -2,7 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { createAtsPdf } from "../src/lib/pdf.ts";
 import type { PrivateProfile, TailoredCvDraft } from "../src/lib/schemas.ts";
 
-const profile: PrivateProfile = { fullName: "Al-Faris Mujahid AlZakwani", email: "alfaris@example.com", phone: "+968 9000 0000", location: "Muscat, Oman", links: ["linkedin.com/in/alfaris"], privateEvidence: [] };
+const profile: PrivateProfile = { fullName: "Al-Faris Mujahid Hamood AlZakwani", email: "alfaris@example.com", phone: "+968 9000 0000", location: "Muscat, Oman", links: ["linkedin.com/in/alfaris"], privateEvidence: [] };
 const draft: TailoredCvDraft = {
   roleRequirements: [{ id: "REQ-01", text: "Build responsive software", status: "matched", evidenceIds: ["project-portfolio"] }], relevanceCoverage: 83,
   summary: { text: "Physics student and software builder combining aerospace curiosity, responsive front-end development, research, and technical leadership.", sourceIds: ["summary-professional-profile"] },

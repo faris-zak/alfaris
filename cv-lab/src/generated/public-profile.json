@@ -3,8 +3,7 @@
     "id": "summary-professional-profile",
     "type": "summary",
     "title": "Building toward the astronaut path.",
-    "body": "FIELD JOURNAL / 2026 Empower my surroundings to do more.. I am Al-Faris Mujahid AlZakwani, an Omani physics student at SQU combining rocket-science curiosity, front-end software, AI-agent workflows, and leadership toward one long-range objective: becoming useful to human spaceflight and the future of Moon-and-Mars exploration.",
-    "meta": "--:--",
+    "body": "FIELD JOURNAL Empower my surroundings to do more.. I am Al-Faris Mujahid Hamood AlZakwani, an Omani physics student at SQU combining rocket-science curiosity, front-end software, AI-agent workflows, and leadership toward one long-range objective: becoming useful to human spaceflight and the future of Moon-and-Mars exploration.",
     "tags": [],
     "visibility": "public"
   },
@@ -199,6 +198,15 @@
     "title": "Physics at SQU",
     "body": "Beginning a BSc journey in the College of Science and extending my work toward aerospace systems.",
     "meta": "2025 - now",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "achievement-nasa-space-apps-2026",
+    "type": "achievement",
+    "title": "NASA Space Apps Challenge 2026",
+    "body": "Represented Novacare in Bidiyah, contributing front-end engineering, AI-assisted problem-solving, technical discussions, and networking during the international hackathon. Earned the Galactic Problem Solver certificate.",
+    "meta": "14–15 Nov",
     "tags": [],
     "visibility": "public"
   },
