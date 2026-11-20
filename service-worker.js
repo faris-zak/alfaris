@@ -1,4 +1,4 @@
-const CACHE_NAME = 'afm-field-notes-v15';
+const CACHE_NAME = 'afm-field-notes-v16';
 
 const APP_SHELL = [
   './',
@@ -20,9 +20,16 @@ const APP_SHELL = [
   './assets/certificates/IELTS-Academic-IDP-results-redacted.png',
 ];
 
+const publicUrls = new Set(APP_SHELL.map((path) => new URL(path, self.location.href).href));
+const canCache = (response) => response.ok && !response.redirected
+  && !/\b(?:private|no-store)\b/i.test(response.headers.get('cache-control') || '');
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL))
+    caches.open(CACHE_NAME).then((cache) => Promise.all(APP_SHELL.map(async (path) => {
+      const response = await fetch(new URL(path, self.location.href).href, { credentials: 'omit' });
+      if (canCache(response)) await cache.put(path, response);
+    })))
   );
   self.skipWaiting();
 });
@@ -31,7 +38,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => Promise.all(
       cacheNames
-        .filter((cacheName) => cacheName !== CACHE_NAME)
+        .filter((cacheName) => cacheName.startsWith('afm-field-notes-') && cacheName !== CACHE_NAME)
         .map((cacheName) => caches.delete(cacheName))
     ))
   );
@@ -45,7 +52,7 @@ self.addEventListener('fetch', (event) => {
 
   const requestUrl = new URL(event.request.url);
 
-  if (requestUrl.origin !== self.location.origin) {
+  if (requestUrl.origin !== self.location.origin || !publicUrls.has(requestUrl.href)) {
     return;
   }
 
@@ -53,21 +60,23 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
-          const responseCopy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', responseCopy));
+          if (canCache(response)) {
+            const responseCopy = response.clone();
+            event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', responseCopy)));
+          }
           return response;
         })
-        .catch(() => caches.match('./index.html'))
+        .catch(() => caches.open(CACHE_NAME).then((cache) => cache.match('./index.html')))
     );
     return;
   }
 
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => (
+    caches.open(CACHE_NAME).then((cache) => cache.match(event.request)).then((cachedResponse) => (
       cachedResponse || fetch(event.request).then((response) => {
-        if (response.ok) {
+        if (canCache(response)) {
           const responseCopy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseCopy));
+          event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseCopy)));
         }
         return response;
       })
