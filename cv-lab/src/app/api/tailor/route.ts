@@ -6,6 +6,7 @@ import { getPublicEvidence } from "@/lib/public-profile";
 import { emptyPrivateProfile, mergeEvidence } from "@/lib/profile";
 import { createClient } from "@/lib/supabase/server";
 import { privateProfileSchema, tailorRequestSchema } from "@/lib/schemas";
+import { readJsonBody } from "@/lib/request-body";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 40;
@@ -14,9 +15,9 @@ export async function POST(request: Request) {
   if (!isAllowedOrigin(request)) return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
   const owner = await getOwner();
   if (!owner) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const length = Number(request.headers.get("content-length") || "0");
-  if (length > 80_000) return NextResponse.json({ error: "Request too large" }, { status: 413 });
-  const parsed = tailorRequestSchema.safeParse(await request.json());
+  const input = await readJsonBody(request, 80_000);
+  if (!input.ok) return NextResponse.json({ error: input.error }, { status: input.status });
+  const parsed = tailorRequestSchema.safeParse(input.data);
   if (!parsed.success) return NextResponse.json({ error: "Invalid job brief", details: parsed.error.issues }, { status: 400 });
   let profile = emptyPrivateProfile;
   if (!isDemoMode()) {
