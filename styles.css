@@ -87,7 +87,7 @@ h1 em { color: var(--cyan); font-style: normal; }
 .button--primary { color: var(--ink); background: var(--cyan); }
 .button--primary:hover { background: #b1f2ed; }
 .button--quiet { color: var(--paper); border-color: var(--line); background: rgba(255,255,255,.025); }
-.button--quiet:hover { border-color: var(--cyan); color: var(--cyan); }
+.button--quiet:hover, .button--quiet:focus-visible { border-color: var(--cyan); color: var(--cyan); }
 
 .hero__portrait { position: relative; width: min(100%, 440px); justify-self: end; margin: 0; aspect-ratio: .84; }
 .portrait-frame, .origin-globe { position: absolute; inset: 5%; overflow: hidden; border-radius: 49% 51% 47% 53% / 42% 43% 57% 58%; border: 1px solid rgba(134, 229, 224, .42); background: var(--ink-raised); box-shadow: 0 28px 80px rgba(0, 0, 0, .35); }
@@ -222,8 +222,7 @@ h2 { max-width: 730px; margin-bottom: 0; font-size: clamp(2.4rem, 5vw, 4.8rem); 
 .passport-feature dl div { padding: .75rem; border: 1px solid var(--line); background: rgba(255,255,255,.025); }
 .passport-feature dt { margin-bottom: .3rem; color: var(--cyan); font: 600 .58rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
 .passport-feature dd { margin: 0; color: var(--paper); font-size: .92rem; line-height: 1.35; }
-.passport-feature__details a { width: fit-content; margin-top: 1rem; color: var(--paper); text-decoration-color: rgba(134,229,224,.45); text-underline-offset: .18em; }
-.passport-feature__details a:hover, .passport-feature__details a:focus-visible { color: var(--cyan); }
+.passport-feature__details > .button, .science-festival-feature__copy > .button { align-self: start; margin-top: 1rem; }
 .conference-feature { margin: 1rem 0 0; padding: clamp(1.2rem, 3vw, 2rem); border: 1px solid var(--line); background: linear-gradient(145deg, rgba(134,229,224,.04), rgba(12,21,40,.32)); }
 .conference-feature > span { color: var(--amber); font: 600 .62rem var(--mono); letter-spacing: .12em; }
 .conference-feature h3 { max-width: 520px; margin: 1rem 0 .75rem; font-size: clamp(1.55rem, 3vw, 2.45rem); letter-spacing: -.05em; line-height: 1; }
@@ -240,8 +239,6 @@ h2 { max-width: 730px; margin-bottom: 0; font-size: clamp(2.4rem, 5vw, 4.8rem); 
 .science-festival-feature__copy h3 { max-width: 520px; margin: 1rem 0 .75rem; font-size: clamp(1.55rem, 3vw, 2.45rem); letter-spacing: -.05em; line-height: 1; }
 .science-festival-feature__copy p { margin: 0; color: var(--muted); line-height: 1.7; }
 .science-festival-feature__copy .science-festival-feature__note { margin-top: 1rem; color: var(--paper); font: 600 .64rem var(--mono); letter-spacing: .08em; text-transform: uppercase; }
-.science-festival-feature__copy a { width: fit-content; margin-top: 1rem; color: var(--paper); text-decoration-color: rgba(134,229,224,.45); text-underline-offset: .18em; }
-.science-festival-feature__copy a:hover, .science-festival-feature__copy a:focus-visible { color: var(--cyan); }
 .space-apps-feature { display: grid; grid-template-columns: minmax(0, 1.16fr) minmax(19rem, .84fr); gap: 1rem; align-items: stretch; margin: 1rem 0 0; border: 1px solid rgba(244,184,96,.25); background: linear-gradient(145deg, rgba(244,184,96,.07), rgba(12,21,40,.38)); }
 .space-apps-feature__media { display: grid; grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr); grid-template-rows: 1fr 1fr; gap: 1px; min-height: 31rem; background: var(--line); }
 .space-apps-feature__media figure { min-width: 0; margin: 0; background: rgba(6,11,24,.82); }
@@ -260,8 +257,6 @@ h2 { max-width: 730px; margin-bottom: 0; font-size: clamp(2.4rem, 5vw, 4.8rem); 
 .space-apps-feature__tags li { padding: .32rem .48rem; border: 1px solid rgba(244,184,96,.25); color: var(--paper); background: rgba(244,184,96,.05); font: 600 .56rem var(--mono); letter-spacing: .05em; }
 .space-apps-feature__copy .space-apps-feature__note { margin-top: 1rem; color: var(--paper); font: 600 .64rem var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 .space-apps-feature__links { display: flex; flex-wrap: wrap; gap: .8rem 1rem; margin-top: 1rem; }
-.space-apps-feature__links a { color: var(--paper); text-decoration-color: rgba(134,229,224,.45); text-underline-offset: .18em; }
-.space-apps-feature__links a:hover, .space-apps-feature__links a:focus-visible { color: var(--cyan); }
 .inspiration-band { margin-top: 1rem; padding: 1rem 1.15rem; border: 1px solid rgba(244,184,96,.22); background: rgba(244,184,96,.04); }
 .inspiration-band p { max-width: 940px; margin: .45rem 0 0; color: var(--muted); line-height: 1.7; }
 
