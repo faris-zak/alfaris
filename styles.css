@@ -234,6 +234,10 @@ h2 { max-width: 730px; margin-bottom: 0; font-size: clamp(2.4rem, 5vw, 4.8rem); 
 .outreach-feature__copy span { color: var(--amber); font: 600 .62rem var(--mono); letter-spacing: .12em; }
 .outreach-feature__copy h3 { max-width: 520px; margin: 1rem 0 .75rem; font-size: clamp(1.55rem, 3vw, 2.45rem); letter-spacing: -.05em; line-height: 1; }
 .outreach-feature__copy p { margin: 0; color: var(--muted); line-height: 1.7; }
+.outreach-feature__actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1rem; }
+.broadcast-still { align-content: center; gap: .55rem; margin: 0; }
+.outreach-feature__media .broadcast-still__image { height: auto; min-height: 0; }
+.broadcast-still figcaption { color: var(--muted); font: .68rem/1.5 var(--mono); }
 
 .credentials { display: grid; grid-template-columns: 1fr .82fr; gap: clamp(2.5rem, 7vw, 7rem); align-items: end; border-top: 1px solid var(--line); }
 .credentials__content h2 { margin-bottom: 1rem; }

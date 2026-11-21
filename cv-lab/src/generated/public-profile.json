@@ -148,6 +148,14 @@
     "visibility": "public"
   },
   {
+    "id": "experience-astra-tv-interview",
+    "type": "experience",
+    "title": "Representing the Astronomy Club on Oman Sports TV",
+    "body": "I represented the Astronomy Club in an Oman Sports TV interview during Sultan Qaboos University’s Sports Village event at Al Andalus Garden. The club organized Astra, an outdoor stargazing event, and I spoke about the club and its activities.",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
     "id": "achievement-design-award",
     "type": "achievement",
     "title": "Design Award",
