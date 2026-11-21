@@ -85,7 +85,7 @@ const createOriginGlobe = () => {
   const worldAtlasUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json';
   const revealZoomDuration = 1800;
   const cameraZoomStart = 6.9;
-  const cameraZoomEnd = 4.7;
+  const cameraZoomEnd = 5.25;
   const globeScaleStart = 0.76;
   const globeScaleEnd = 1;
 
@@ -552,6 +552,8 @@ const createOriginGlobe = () => {
     lastWidth = safeWidth;
     lastHeight = safeHeight;
     camera.aspect = safeWidth / safeHeight;
+    // Fit the globe to the short side of the canvas at every aspect ratio.
+    camera.zoom = Math.min(1, camera.aspect);
     camera.updateProjectionMatrix();
     renderer.setSize(safeWidth, safeHeight, false);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
@@ -605,10 +607,6 @@ const createOriginGlobe = () => {
     stop();
     revealStartedAt = performance.now();
     render();
-
-    if (isVisible && !shouldReduceDecorativeMotion()) {
-      frameId = window.requestAnimationFrame(render);
-    }
   };
 
   const init = async () => {
@@ -630,7 +628,7 @@ const createOriginGlobe = () => {
 
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-      camera.position.set(0, 0, 4.7);
+      camera.position.z = cameraZoomStart;
 
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
       renderer.setClearColor(0x000000, 0);
@@ -709,6 +707,7 @@ if (originTrigger && originFigure && originGlobe) {
   });
 
   window.addEventListener('performance-mode-change', originGlobeController.renderStatic);
+  window.addEventListener('resize', originGlobeController.renderStatic);
 }
 
 if ('serviceWorker' in navigator) {

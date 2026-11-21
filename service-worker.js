@@ -1,11 +1,11 @@
-const CACHE_NAME = 'afm-field-notes-v26';
+const CACHE_NAME = 'afm-field-notes-v27';
 
 const APP_SHELL = [
   './',
   './index.html',
   './cv.html',
-  './styles.css?v=20',
-  './script.js?v=23',
+  './styles.css?v=21',
+  './script.js?v=24',
   './site.webmanifest',
   './assets/imgs/favicon.ico',
   './assets/imgs/favicon-16x16.webp',
