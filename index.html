@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Al-Faris Mujahid Hamood AlZakwani - Physics student, front-end engineer, AI-agent builder, and aspiring astronaut focused on rocket science and space systems."
+      content="Al-Faris Mujahid Hamood AlZakwani - Physics undergraduate at Sultan Qaboos University in Oman building web interfaces and interactive simulations."
     />
     <meta name="author" content="Al-Faris Mujahid Hamood AlZakwani" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -19,7 +19,7 @@
     <meta property="og:title" content="Al-Faris Mujahid Hamood AlZakwani | Orbital Field Journal" />
     <meta
       property="og:description"
-      content="Omani physics student, front-end engineer, AI-agent builder, and aspiring astronaut exploring rocket science and space systems."
+      content="Physics undergraduate at Sultan Qaboos University in Oman. Front-end development, interactive simulations, and space technology."
     />
     <meta property="og:url" content="https://alfarismujahid.vercel.app" />
     <meta property="og:image" content="https://alfarismujahid.vercel.app/assets/imgs/og-image.png?v=2" />
@@ -36,7 +36,7 @@
     <meta name="twitter:title" content="Al-Faris Mujahid Hamood AlZakwani | Orbital Field Journal" />
     <meta
       name="twitter:description"
-      content="Omani physics student, front-end engineer, AI-agent builder, and aspiring astronaut exploring rocket science and space systems."
+      content="Physics undergraduate at Sultan Qaboos University in Oman. Front-end development, interactive simulations, and space technology."
     />
     <meta name="twitter:image" content="https://alfarismujahid.vercel.app/assets/imgs/og-image.png?v=2" />
     <meta
@@ -67,9 +67,8 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=18" />
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
-    <script defer src="script.js?v=21"></script>
+    <link rel="stylesheet" href="styles.css?v=20" />
+    <script defer src="script.js?v=23"></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -86,10 +85,10 @@
         <span class="sr-only">Toggle navigation</span>
       </button>
       <nav id="site-nav" class="site-nav" aria-label="Main navigation">
-        <a href="#trajectory">Trajectory</a>
-        <a href="#astronaut-path">Astronaut Path</a>
         <a href="#projects">Work</a>
-        <a href="#breakthroughs">Breakthroughs</a>
+        <a href="#breakthroughs">Experience</a>
+        <a href="#credentials">Education</a>
+        <a href="#rocket-log">Field Journal</a>
         <a href="#contact">Contact</a>
         <button class="performance-toggle" type="button" aria-pressed="false" aria-label="Increase performance mode" data-performance-toggle>
           <span class="performance-toggle__copy">
@@ -109,27 +108,17 @@
           <span class="telemetry-line telemetry-line--two"></span>
           <span class="telemetry-node telemetry-node--one"></span>
           <span class="telemetry-node telemetry-node--two"></span>
-          <span class="telemetry-label telemetry-label--one">LAUNCH WINDOW / ACTIVE</span>
-          <span class="telemetry-label telemetry-label--two">DELTA-V STUDY / 23.58N</span>
-          <span class="telemetry-label telemetry-label--three">MISSION CLOCK 2026</span>
         </div>
         <div class="hero__copy reveal" data-cv-id="summary-professional-profile" data-cv-type="summary" data-cv-title="Professional profile">
           <p class="eyebrow"><span></span> FIELD JOURNAL <time data-field-journal-date hidden></time></p>
-          <p class="hero__kicker">Empower my surroundings to do more..</p>
-          <h1 id="hero-title">Building toward the <em>astronaut path.</em></h1>
-          <p class="hero__intro">
-            I am Al-Faris Mujahid Hamood AlZakwani, an Omani physics student at SQU combining rocket-science curiosity,
-            front-end software, AI-agent workflows, and leadership toward one long-range objective:
-            becoming useful to human spaceflight and the future of Moon-and-Mars exploration.
-          </p>
-          <div class="hero-objective" aria-label="Long-range objective">
-            <span>LONG-RANGE OBJECTIVE</span>
-            <strong>Astronaut candidate path · Space-systems contributor · Moon &amp; Mars ambition</strong>
-          </div>
+          <p class="hero__kicker">Al-Faris Mujahid Hamood AlZakwani</p>
+          <h1 id="hero-title">Physics undergraduate &amp; <em>front-end developer</em></h1>
+          <p class="hero__intro">I study at Sultan Qaboos University in Oman and founded NexCore Labs, a bilingual student platform. I contributed to the front-end engineering of VitalX, an astronaut health-monitoring proposal.</p>
           <div class="hero__actions">
-            <a class="button button--primary" href="#astronaut-path">Trace the mission <span aria-hidden="true">↘</span></a>
-            <button class="button button--quiet" type="button" data-generate-cv>Build my CV from the website<span aria-hidden="true">↗</span></button>
+            <a class="button button--primary" href="#projects">Explore my work <span aria-hidden="true">↓</span></a>
+            <a class="button button--quiet" href="cv.html">View my CV <span aria-hidden="true">→</span></a>
           </div>
+          <p class="hero__direction">My long-term goal is to apply physics and software to human spaceflight.</p>
         </div>
 
         <figure class="hero__portrait reveal" aria-label="Portrait of Al-Faris Mujahid Hamood AlZakwani">
@@ -152,7 +141,7 @@
             <div class="origin-globe__fallback" data-origin-globe-fallback>WEBGL SIGNAL UNAVAILABLE</div>
             <div class="origin-globe__readout">
               <span>OMAN FIX</span>
-              <strong>23.58° N / 58.41° E</strong>
+              <strong>23.61° N / 58.59° E</strong>
             </div>
           </div>
           <figcaption
@@ -164,167 +153,187 @@
             data-origin-trigger
           >
             <span>ORIGIN</span>
-            <strong>Oman / 23.58° N, 58.41° E</strong>
+            <strong>Oman / 23.61° N, 58.59° E</strong>
           </figcaption>
         </figure>
+      </section>
 
-        <div class="hero__mission reveal">
-          <p class="eyebrow">MISSION STATEMENT</p>
-          <p>
-            Become useful where physics, engineering, courage, and discipline meet: the environments that take human possibility beyond Earth.
-          </p>
-          <div class="field-note">
-            <span>FIELD NOTE</span>
-            <p>My work is still early, but the signal is clear: physics gives me the laws, software gives me the instrument, AI extends the cockpit, and leadership gives the mission a crew.</p>
-          </div>
+      <section id="projects" class="projects section-shell" aria-labelledby="projects-title">
+        <div class="section-heading reveal">
+          <h2 id="projects-title">Selected work</h2>
+        </div>
+        <div class="project-list">
+          <article class="project reveal" data-cv-id="project-portfolio" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">A</div>
+            <div class="project__body">
+              <p class="project__meta">DESIGN &amp; DEVELOPMENT</p>
+              <h3>My Portfolio</h3>
+              <p>I designed and built this portfolio in HTML, CSS and JavaScript, including a reduced-motion experience for its orbital visuals.</p>
+              <ul class="tag-list" aria-label="My Portfolio technologies"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+            </div>
+          </article>
+          <article id="solvex" class="project reveal" data-cv-id="experience-solvex" data-cv-type="experience">
+            <div class="project__number" aria-hidden="true">B</div>
+            <div class="project__body">
+              <p class="project__meta">FORMER SOFTWARE ENGINEER / INTERACTIVE SIMULATION</p>
+              <h3>Solvex</h3>
+              <p>I built a 3D simulator for a Sultan Qaboos University student team exploring smart agricultural tiles. Adjust solar intensity to see how the model changes the temperature difference and estimated power. The model assumes an ambient range of 28–42 °C and estimates power using a simplified curve proportional to the square of the temperature difference. Physical tile performance would require testing. I later resigned to focus on other fields.</p>
+              <ul class="tag-list" aria-label="Solvex startup work focus"><li>AI integration</li><li>3D simulation</li><li>Startup</li><li>Sustainability</li></ul>
+              <div class="project__actions">
+                <a href="https://faris-zak.github.io/SOLVEX/tile.html" target="_blank" rel="noopener noreferrer">Try the thermal simulation</a>
+                <a href="https://github.com/faris-zak/SOLVEX/blob/main/tile.html#L541-L575" target="_blank" rel="noopener noreferrer">Read the model code</a>
+                <a href="https://faris-zak.github.io/SOLVEX/" target="_blank" rel="noopener noreferrer">Visit Solvex</a>
+              </div>
+            </div>
+          </article>
+          <article id="nexcore" class="project reveal" data-cv-id="experience-nexcore-labs" data-cv-type="experience">
+            <div class="project__number" aria-hidden="true">C</div>
+            <div class="project__body">
+              <p class="project__meta">FOUNDER &amp; LEAD DEVELOPER / RELEASED PLATFORM</p>
+              <h3>NexCore Labs</h3>
+              <p>I founded NexCore Labs, an independent student platform in Arabic and English. Students can discover projects through the Project Hub and share ideas through the Contributor Center. For v3.3.0, I fixed the release timeline so readers could see complete release details in both languages and added browser regression coverage.</p>
+              <ul class="tag-list" aria-label="NexCore Labs focus"><li>Leadership</li><li>Product</li><li>Prototyping</li></ul>
+              <div class="project__actions">
+                <a href="https://nexcorelabs.vercel.app/" target="_blank" rel="noopener noreferrer">Open NexCore Labs</a>
+                <a href="https://github.com/NexCore-Labs-Initiative/NexCore/releases/tag/v3.3.0" target="_blank" rel="noopener noreferrer">Read the v3.3.0 release</a>
+                <a href="https://github.com/NexCore-Labs-Initiative/NexCore/commit/26ea0b608673f38d6940c9934295622a1a0cf324" target="_blank" rel="noopener noreferrer">Inspect my timeline fix</a>
+                <a href="https://github.com/NexCore-Labs-Initiative/NexCore" target="_blank" rel="noopener noreferrer">View the project source</a>
+              </div>
+            </div>
+          </article>
+          <article id="vitalx" class="project reveal" data-cv-id="project-vitalx" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">D</div>
+            <div class="project__body">
+              <p class="project__meta">FRONT-END CONTRIBUTOR / HACKATHON PROPOSAL</p>
+              <h3>VitalX</h3>
+              <p>I contributed front-end development to Team Novacare’s proposed astronaut health-monitoring tool at the 2026 NASA Space Apps Challenge in Bidiyah. I received the Galactic Problem Solver participation certificate.</p>
+              <div class="project__actions">
+                <a href="#space-apps-2026">View the hackathon record</a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" data-cv-id="project-alduwiki" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">E</div>
+            <div class="project__body">
+              <p class="project__meta">WEB DEVELOPER / BUSINESS WEBSITE</p>
+              <h3>AlDuwiki Cement Products</h3>
+              <p>I developed a company website where customers can browse cement products and approvals, find the company’s location and contact the team.</p>
+              <ul class="tag-list" aria-label="AlDuwiki Cement Products website focus"><li>Business website</li><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+              <div class="project__actions">
+                <a href="https://alduwiki-cp.com/" target="_blank" rel="noopener noreferrer">Visit the company website</a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" data-cv-id="project-scorleaf" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">F</div>
+            <div class="project__body">
+              <p class="project__meta">WEB DEVELOPER / STARTUP WEBSITE</p>
+              <h3>Scorleaf</h3>
+              <p>I built the Arabic-language website for Scorleaf, an Omani student health startup. The site introduces the team, its product concept and how to get in touch.</p>
+              <ul class="tag-list" aria-label="Scorleaf website focus"><li>Startup website</li><li>Health</li><li>HTML</li><li>CSS</li></ul>
+              <div class="project__actions">
+                <a href="https://faris-zak.github.io/Scorleaf/" target="_blank" rel="noopener noreferrer">Visit the startup website</a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" data-cv-id="project-mindsync" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">G</div>
+            <div class="project__body">
+              <p class="project__meta">FOUNDER &amp; LEAD DEVELOPER / WEB PLATFORM</p>
+              <h3>MindSync <span lang="ar">مايندسينك</span></h3>
+              <p>I built an education website for student academic and self-development resources using HTML, CSS and JavaScript.</p>
+              <ul class="tag-list" aria-label="MindSync technologies"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+              <div class="project__actions">
+                <a href="https://github.com/faris-zak/MindSync" target="_blank" rel="noopener noreferrer">View the MindSync source</a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" data-cv-id="project-ai-family-corp" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">H</div>
+            <div class="project__body">
+              <p class="project__meta">CO-FOUNDER / IN FORMATION</p>
+              <h3>AI Family Corp</h3>
+              <p>I am working with my father and family to establish a venture focused on using AI and other technology to solve practical problems.</p>
+              <ul class="tag-list" aria-label="AI Family Corp focus"><li>Family business</li><li>AI</li><li>Technology</li><li>Problem-solving</li></ul>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section id="astronaut-path" class="astronaut-path section-shell" aria-labelledby="astronaut-path-title">
+      <section id="breakthroughs" class="breakthroughs section-shell" aria-labelledby="breakthroughs-title">
         <div class="section-heading reveal">
-          <p class="eyebrow">01 / ASTRONAUT TRAJECTORY</p>
-          <h2 id="astronaut-path-title">The dream is not decoration. It is the operating plan.</h2>
+          <h2 id="breakthroughs-title">Experience &amp; achievements</h2>
         </div>
-        <div class="mission-board reveal">
-          <aside class="training-roadmap" aria-labelledby="training-roadmap-title">
-            <div class="training-roadmap__topline">
-              <span>Candidate route</span>
-              <span>STATUS: IN TRAINING</span>
-            </div>
-            <div class="training-roadmap__header">
-              <p class="eyebrow">TRAINING ROADMAP</p>
-              <h3 id="training-roadmap-title">Current preparation path</h3>
-              <p>A practical route: physics first, then space systems, software tools, and leadership under pressure.</p>
-            </div>
-            <ol class="roadmap-steps" aria-label="Astronaut preparation stages">
-              <li>
-                <span>Now</span>
-                <strong>Physics foundation</strong>
-                <p>Build the scientific base: mechanics, motion, forces, and disciplined problem solving.</p>
-              </li>
-              <li>
-                <span>Next</span>
-                <strong>Space systems study</strong>
-                <p>Connect physics to propulsion, orbital mechanics, spacecraft systems, and mission constraints.</p>
-              </li>
-              <li>
-                <span>Build toward</span>
-                <strong>Human spaceflight readiness</strong>
-                <p>Use software, AI, teamwork, and pressure training to become useful in mission environments.</p>
-              </li>
-            </ol>
-            <div class="roadmap-focus">
-              <span>Current focus</span>
-              <p>Study deeply, build real tools, document progress, and keep leadership practice active.</p>
-            </div>
-          </aside>
-          <div class="mission-pillars">
-            <article class="mission-pillar" data-cv-id="skill-physics-foundation" data-cv-type="skill">
-              <span>ΔV-01</span>
-              <h3>Physics foundation</h3>
-              <p>SQU Physics is the base layer: mechanics, waves, dynamics, and the scientific discipline needed to understand motion, forces, and space environments.</p>
-            </article>
-            <article class="mission-pillar" data-cv-id="skill-spaceflight-systems" data-cv-type="skill">
-              <span>ΔV-02</span>
-              <h3>Rocket science &amp; spaceflight</h3>
-              <p>Active study of orbital mechanics, propulsion fundamentals, spacecraft systems, human spaceflight, and the engineering logic behind launch and re-entry.</p>
-            </article>
-            <article class="mission-pillar" data-cv-id="skill-software-ai-systems" data-cv-type="skill">
-              <span>ΔV-03</span>
-              <h3>Software &amp; AI systems</h3>
-              <p>Front-end engineering, AI skills, and agent workflows become mission interfaces: tools for research, planning, simulation thinking, and decision support.</p>
-            </article>
-            <article class="mission-pillar" data-cv-id="skill-leadership-pressure" data-cv-type="skill">
-              <span>ΔV-04</span>
-              <h3>Leadership under pressure</h3>
-              <p>Founder work, Best Leader recognition, workshops, and SQU leadership nominations build the human side of the astronaut path: communication, responsibility, and calm execution.</p>
-            </article>
+        <ol class="timeline">
+          <li class="timeline__item reveal" data-cv-id="experience-city-technical-experts" data-cv-type="experience"><time datetime="2024">2024</time><div><h3><a href="https://www.cteoman.com/" target="_blank" rel="noopener noreferrer">City of Technical Experts (CTE)</a></h3><p>Worked with customers and handled technical equipment in sales and support at my father's company.</p></div></li>
+          <li class="timeline__item reveal" data-cv-id="experience-squ-open-source" data-cv-type="experience"><time datetime="2025">2025</time><div><h3>SQU Open Source Group</h3><p>Selected as a member and delivered HTML and CSS workshops through the Open Source Initiative.</p></div></li>
+          <li class="timeline__item reveal"><time datetime="2026">2026</time><div><h3><a href="https://www.youtube.com/watch?v=NcdIrm2OG9c" target="_blank" rel="noopener noreferrer">Middle East Space Conference</a></h3><p>Visited the conference in Muscat at the Oman Convention and Exhibition Centre, connected with space-sector startups, companies, and ambitious peers, and asked a recorded question during an open dialogue with international space experts.</p></div></li>
+          <li class="timeline__item reveal"><time datetime="2026-11">Nov 2026</time><div><h3><a href="https://home.moe.gov.om/en/topics/1/show/2671" target="_blank" rel="noopener noreferrer">Oman Science Festival</a></h3><p>Explored modern-physics exhibits at the fifth Oman Science Festival at OCEC, including gravitational waves, black holes, and laser interferometry, and connected with a visiting science presenter.</p></div></li>
+          <li class="timeline__item reveal" data-cv-id="achievement-nasa-space-apps-2026" data-cv-type="achievement"><time datetime="2026-11-14">14–15 Nov 2026</time><div><h3><a href="#vitalx">NASA Space Apps Challenge</a></h3><p>Contributed front-end development to VitalX with Team Novacare in Bidiyah and received the Galactic Problem Solver participation certificate.</p></div></li>
+          <li class="timeline__item reveal"><time datetime="2026">2026</time><div><h3>Little Einstein 6</h3><p>Participated as an instructor at the Astronomy Club station during the sixth Little Einstein event, organized by the Physics Group in collaboration with the Astronomy Club, giving astronomy presentations to children across different age groups over two days.</p></div></li>
+          <li class="timeline__item reveal"><time datetime="2026">2026</time><div><h3>Esnad Volunteer Program</h3><p>Completed a training camp hosted by Sultan Qaboos University and offered by the Ministry of Culture, Sports and Youth, including 20 hours of workshops followed by direct practical application with young people from Al Rahma Association.</p></div></li>
+          <li class="timeline__item reveal" data-cv-id="experience-utas-summer-challenge" data-cv-type="experience"><time datetime="2026-06-28">28 Jun 2026</time><div><h3>UTAS Summer Challenge</h3><p>At the University of Technology and Applied Sciences in Ibra, our platform team proposed a way to support students from entry through graduation. We did not win.</p></div></li>
+          <li class="timeline__item reveal"><time datetime="2026">2026</time><div><h3>SQU Leadership Nominations</h3><p>In my second year at SQU, nominated for President of the Astronomy Club of the Physics Group in the Faculty of Science, and Head of the Technology and Workshops Committee of the History and Archaeology Group in the Faculty of Arts.</p></div></li>
+        </ol>
+        <figure class="service-feature reveal">
+          <img src="assets/imgs/esnad-volunteer-program.webp" alt="Al-Faris Mujahid at the Esnad Volunteer Program hosted by Sultan Qaboos University" loading="lazy" />
+          <figcaption>
+            <span>ESNAD VOLUNTEER PROGRAM / SQU</span>
+            <h3>Training, service, and practical work with young people.</h3>
+            <p>A volunteer-services training camp hosted by Sultan Qaboos University and offered by the Ministry of Culture, Sports and Youth. After 20 hours of workshops, I joined direct practical application with young people from Al Rahma Association.</p>
+          </figcaption>
+        </figure>
+        <article class="outreach-feature reveal">
+          <div class="outreach-feature__media">
+            <img src="assets/imgs/little-einstein-astronomy-station.webp" alt="Al-Faris Mujahid presenting astronomy concepts to children at the Little Einstein event" loading="lazy" />
           </div>
+          <div class="outreach-feature__copy">
+            <span>LITTLE EINSTEIN 6 / ASTRONOMY OUTREACH</span>
+            <h3>Teaching astronomy to children at SQU.</h3>
+            <p>Served as an instructor at the Astronomy Club station during the two-day Little Einstein event. I presented astronomy concepts to children across several age groups and received a participation certificate.</p>
+          </div>
+        </article>
+        <div class="earlier-awards reveal">
+          <h3>Earlier recognition</h3>
+          <ul>
+            <li data-cv-id="achievement-design-award" data-cv-type="achievement"><strong>Design Award</strong> · <time datetime="2022">2022</time></li>
+            <li data-cv-id="achievement-best-leader" data-cv-type="achievement"><strong>Best Leader</strong> · <time datetime="2023">2023</time></li>
+            <li data-cv-id="achievement-programming-first" data-cv-type="achievement"><strong>First-place programming award</strong> · <time datetime="2024">2024</time></li>
+          </ul>
         </div>
       </section>
 
-      <section id="trajectory" class="trajectory section-shell" aria-labelledby="trajectory-title">
-        <div class="section-heading reveal">
-          <p class="eyebrow">02 / CURRENT TRAJECTORY</p>
-          <h2 id="trajectory-title">5 forces shaping my work.</h2>
-        </div>
-        <div class="trajectory-console reveal" aria-label="Interactive trajectory console">
-          <div class="trajectory-console__visual" aria-hidden="true">
-            <span class="console-orbit console-orbit--outer"></span>
-            <span class="console-orbit console-orbit--middle"></span>
-            <span class="console-orbit console-orbit--inner"></span>
-            <span class="console-vector console-vector--physics" data-vector-line="physics"></span>
-            <span class="console-vector console-vector--it" data-vector-line="it"></span>
-            <span class="console-vector console-vector--front-end" data-vector-line="front-end"></span>
-            <span class="console-vector console-vector--ai" data-vector-line="ai"></span>
-            <span class="console-vector console-vector--leadership" data-vector-line="leadership"></span>
-            <span class="console-core">AFM</span>
-            <span class="console-readout console-readout--one">LEO STUDY / ACTIVE</span>
-            <span class="console-readout console-readout--two">LAUNCH VECTOR / ONLINE</span>
+      <section id="credentials" class="credentials section-shell" aria-labelledby="credentials-title">
+        <div class="credentials__content reveal">
+          <h2 id="credentials-title">Education &amp; training</h2>
+          <div data-cv-id="education-squ-physics" data-cv-type="education">
+            <h3>BSc Physics, Sultan Qaboos University</h3>
+            <p><time datetime="2025">2025</time>–present · College of Science, Oman</p>
           </div>
-          <div class="trajectory-console__controls">
-            <button class="vector-control is-active" type="button" data-vector="physics" aria-pressed="true">
-              <span>01</span>
-              <strong>Physics</strong>
-              <small>Mechanics, dynamics, and the foundation for aerospace systems.</small>
-            </button>
-            <button class="vector-control" type="button" data-vector="it" aria-pressed="false">
-              <span>02</span>
-              <strong>IT</strong>
-              <small>Research, technical problem-solving, and digital systems thinking.</small>
-            </button>
-            <button class="vector-control" type="button" data-vector="front-end" aria-pressed="false">
-              <span>03</span>
-              <strong>Front-End</strong>
-              <small>Responsive interfaces built with HTML, CSS, JavaScript, and care.</small>
-            </button>
-            <button class="vector-control" type="button" data-vector="ai" aria-pressed="false">
-              <span>04</span>
-              <strong>AI Agents</strong>
-              <small>Agent workflows for research, planning, learning, and product building.</small>
-            </button>
-            <button class="vector-control" type="button" data-vector="leadership" aria-pressed="false">
-              <span>05</span>
-              <strong>Leadership</strong>
-              <small>Founder energy, family business building, club leadership, and peer teaching.</small>
-            </button>
+          <ul class="training-highlights">
+            <li><strong>Workshop presenter</strong> · HTML and CSS, SQU Open Source Group, 2025</li>
+            <li><strong>Workshop participant</strong> · SQU &amp; R2S Oman Space &amp; Rocketry Workshop, December 2025</li>
+            <li><strong>Hackathon participant</strong> · Galactic Problem Solver certificate, NASA Space Apps Challenge, November 2026</li>
+          </ul>
+          <div class="skills-summary" data-cv-id="skills-digital" data-cv-type="skill">
+            <h3>Front-end skills</h3>
+            <p>HTML, CSS, JavaScript, responsive design, Git and GitHub</p>
           </div>
         </div>
-        <div class="trajectory__grid">
-          <article class="trajectory-card reveal" data-vector-card="physics">
-            <span class="card-index">01</span>
-            <h3>Physics &amp; space</h3>
-            <p>Studying physics at Sultan Qaboos University as the academic backbone for astronaut preparation, space science, and aerospace systems thinking.</p>
-          </article>
-          <article class="trajectory-card reveal" data-vector-card="it">
-            <span class="card-index">02</span>
-            <h3>IT &amp; software</h3>
-            <p>Using research, analytical thinking, AI tools, and engineering fundamentals to solve practical problems with clarity.</p>
-          </article>
-          <article class="trajectory-card reveal" data-vector-card="front-end">
-            <span class="card-index">03</span>
-            <h3>Front-end craft</h3>
-            <p>Designing responsive web experiences with HTML, CSS, JavaScript, Git, and a focus on useful, polished interfaces.</p>
-          </article>
-          <article class="trajectory-card reveal" data-vector-card="ai">
-            <span class="card-index">04</span>
-            <h3>AI skills &amp; agents</h3>
-            <p>Using AI skills and agent-based workflows to extend research, planning, problem-solving, and the way I build digital products.</p>
-          </article>
-          <article class="trajectory-card reveal" data-vector-card="leadership">
-            <span class="card-index">05</span>
-            <h3>Leadership</h3>
-            <p>Founding projects, helping build a family AI business, teaching peers, and being nominated for student leadership roles across science, technology, workshops, and culture.</p>
-          </article>
+        <div class="credentials__stats reveal" aria-label="Education and certification highlights">
+          <button class="credential-stat credential-stat--button" type="button" data-certificates-open aria-expanded="false" aria-controls="certificates-modal">
+            <strong>20+</strong>
+            <span>Certificates &amp; learning milestones</span>
+          </button>
+          <div><strong>Arabic / English</strong><span>Native Arabic · Academic English</span></div>
         </div>
       </section>
 
       <section id="rocket-log" class="rocket-log section-shell" aria-labelledby="rocket-log-title">
         <div class="section-heading reveal">
-          <p class="eyebrow">03 / ROCKET SCIENCE LEARNING LOG</p>
-          <h2 id="rocket-log-title">The subjects I keep returning to.</h2>
+          <h2 id="rocket-log-title">Space field journal</h2>
         </div>
-        <div class="learning-log">
+        <div id="trajectory" class="learning-log">
           <article class="log-panel reveal">
             <span>FIELD NOTE / ORBITAL</span>
             <h3>Orbital mechanics</h3>
@@ -404,7 +413,7 @@
             <a class="button button--quiet" href="https://home.moe.gov.om/en/topics/1/show/2671" target="_blank" rel="noopener noreferrer">Read the Ministry of Education event update <span aria-hidden="true">↗</span></a>
           </div>
         </article>
-        <article class="space-apps-feature reveal">
+        <article id="space-apps-2026" class="space-apps-feature reveal">
           <div class="space-apps-feature__media">
             <figure class="space-apps-feature__portrait">
               <img src="assets/nasa_space_app_2026/meet me here at the hakathon.webp" alt="Al-Faris Mujahid at NASA Space Apps Challenge 2026" loading="lazy" />
@@ -413,16 +422,17 @@
               <img src="assets/nasa_space_app_2026/got certificate as an approval for our participation.webp" alt="NASA Space Apps Challenge 2026 Galactic Problem Solver certificate for Al-Faris Mujahid Hamood AlZakwani" loading="lazy" />
             </figure>
             <figure class="space-apps-feature__team">
-              <img src="assets/nasa_space_app_2026/sharing our feelings of winning with team mates and teams.webp" alt="NASA Space Apps Challenge 2026 participants connecting at the event in Ibri" loading="lazy" />
+              <img src="assets/nasa_space_app_2026/sharing our feelings of winning with team mates and teams.webp" alt="Participants together at the 2026 NASA Space Apps Challenge" loading="lazy" />
             </figure>
           </div>
           <div class="space-apps-feature__copy">
             <span>NASA SPACE APPS CHALLENGE / Bidiyah 2026</span>
-            <h3>Building with Novacare for challenges on Earth and in space.</h3>
-            <p>Represented Novacare at the 2026 NASA Space Apps Challenge in Bidiyah, Ash Sharqiyah North. Over the two-day international hackathon, I contributed front-end software engineering, technical discussions, AI-assisted problem-solving, and the development of our proposed health-and-space solution.</p>
+            <h3>VitalX at NASA Space Apps</h3>
+            <p>At the 2026 NASA Space Apps Challenge in Bidiyah, I contributed front-end development and AI-assisted problem-solving to Team Novacare’s proposal for astronaut health monitoring.</p>
             <ul class="space-apps-feature__tags" aria-label="NASA Space Apps Challenge contributions"><li>Front-end engineering</li><li>AI skills</li><li>Problem-solving</li><li>Networking</li></ul>
-            <p class="space-apps-feature__note">14–15 November 2026 · Galactic Problem Solver</p>
+            <p class="space-apps-feature__note">14–15 November 2026 · Galactic Problem Solver participation certificate</p>
             <div class="space-apps-feature__links" role="group" aria-label="NASA Space Apps Challenge 2026 videos">
+              <a class="button button--quiet" href="assets/nasa_space_app_2026/got certificate as an approval for our participation.webp" target="_blank" rel="noopener noreferrer">View the participation certificate <span aria-hidden="true">↗</span></a>
               <a class="button button--quiet" href="https://youtu.be/ynKCTTWrrVA?si=V1UEPNr9lO3U0Fri" target="_blank" rel="noopener noreferrer">Watch video 01 <span aria-hidden="true">↗</span></a>
               <a class="button button--quiet" href="https://youtu.be/QEeH_ROG5_s?si=Y-CMoITk3L-Y1XJx" target="_blank" rel="noopener noreferrer">Watch video 02 <span aria-hidden="true">↗</span></a>
             </div>
@@ -434,171 +444,15 @@
         </aside>
       </section>
 
-      <section id="projects" class="projects section-shell" aria-labelledby="projects-title">
+      <section id="astronaut-path" class="astronaut-path section-shell" aria-labelledby="astronaut-path-title">
         <div class="section-heading reveal">
-          <p class="eyebrow">04 / SELECTED WORK</p>
-          <h2 id="projects-title">Mission-building work in active orbit.</h2>
+          <h2 id="astronaut-path-title">Independent study &amp; preparation</h2>
         </div>
-        <div class="project-list">
-          <article class="project reveal" data-cv-id="project-portfolio" data-cv-type="project">
-            <div class="project__number">A</div>
-            <div class="project__body">
-              <p class="project__meta">DEVELOPER &amp; DESIGNER / PERSONAL PLATFORM</p>
-              <h3>My Portfolio</h3>
-              <p>A responsive mission record for technical work, achievements, CV, and the evolving story behind my astronaut trajectory.</p>
-              <ul class="tag-list" aria-label="My Portfolio technologies"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-            </div>
-          </article>
-          <article class="project reveal" data-cv-id="project-ai-family-corp" data-cv-type="project">
-            <div class="project__number">B</div>
-            <div class="project__body">
-              <p class="project__meta">CO-FOUNDER / FAMILY AI BUSINESS</p>
-              <h3>AI Family Corp</h3>
-              <p>Working with my father and family to establish a family business focused on empowering family members to do more, solve practical problems, and use technology and artificial intelligence in meaningful ways.</p>
-              <ul class="tag-list" aria-label="AI Family Corp focus"><li>Family business</li><li>AI</li><li>Technology</li><li>Problem-solving</li></ul>
-            </div>
-          </article>
-          <article class="project reveal" data-cv-id="project-alduwiki" data-cv-type="project">
-            <div class="project__number">C</div>
-            <div class="project__body">
-              <p class="project__meta">WEB DEVELOPER / BUSINESS WEBSITE</p>
-              <h3><a href="https://alduwiki-cp.com/" target="_blank" rel="noopener noreferrer">AlDuwiki Cement Products</a></h3>
-              <p>Developed a company website for AlDuwiki Cement Products, presenting their cement-products business with a clear public web presence and direct contact path.</p>
-              <ul class="tag-list" aria-label="AlDuwiki Cement Products website focus"><li>Business website</li><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-            </div>
-          </article>
-          <article class="project reveal" data-cv-id="project-scorleaf" data-cv-type="project">
-            <div class="project__number">D</div>
-            <div class="project__body">
-              <p class="project__meta">WEB DEVELOPER / STARTUP WEBSITE</p>
-              <h3><a href="https://faris-zak.github.io/Scorleaf/" target="_blank" rel="noopener noreferrer">Scorleaf</a></h3>
-              <p>Created the official website for Scorleaf, an Omani student-run health startup developing a natural licorice root extract to relieve the effects of scorpion bites.</p>
-              <ul class="tag-list" aria-label="Scorleaf website focus"><li>Startup website</li><li>Health</li><li>HTML</li><li>CSS</li></ul>
-            </div>
-          </article>
-          <article class="project reveal" data-cv-id="experience-solvex" data-cv-type="experience">
-            <div class="project__number">E</div>
-            <div class="project__body">
-              <p class="project__meta">FORMER SOFTWARE ENGINEER / AI &amp; 3D STARTUP WORK</p>
-              <h3><a href="https://faris-zak.github.io/SOLVEX/" target="_blank" rel="noopener noreferrer">Solvex</a></h3>
-              <p>Joined a Sultan Qaboos University student startup working on smart agricultural tiles, integrating AI into the work and website, and creating a 3D simulation for the concept. I later resigned after realizing the energy and environment sector was not the direction I wanted to build in long-term.</p>
-              <ul class="tag-list" aria-label="Solvex startup work focus"><li>AI integration</li><li>3D simulation</li><li>Startup</li><li>Sustainability</li></ul>
-            </div>
-          </article>
-          <article class="project reveal" data-cv-id="project-mindsync" data-cv-type="project">
-            <div class="project__number">F</div>
-            <div class="project__body">
-              <p class="project__meta">FOUNDER &amp; LEAD DEVELOPER / WEB PLATFORM</p>
-              <h3>MindSync <span lang="ar">مايندسينك</span></h3>
-              <p>A web platform for academic and self-development tools, built to help students make deliberate progress - the same discipline that powers long missions.</p>
-              <ul class="tag-list" aria-label="MindSync technologies"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-            </div>
-          </article>
-          <article class="project reveal" data-cv-id="experience-nexcore-labs" data-cv-type="experience">
-            <div class="project__number">G</div>
-            <div class="project__body">
-              <p class="project__meta">CEO / STUDENT-DRIVEN DIGITAL STUDIO</p>
-              <h3>NexCore Labs</h3>
-              <p>Digital solutions, rapid prototypes, and polished showcases that train founder execution, team leadership, and useful engineering under real constraints.</p>
-              <ul class="tag-list" aria-label="NexCore Labs focus"><li>Leadership</li><li>Product</li><li>Prototyping</li></ul>
-            </div>
-          </article>
-          <article class="project reveal" data-cv-id="project-space-research" data-cv-type="project">
-            <div class="project__number">H</div>
-            <div class="project__body">
-              <p class="project__meta">INDEPENDENT STUDY / EARLY-STAGE RESEARCH</p>
-              <h3>Space Research Initiative</h3>
-              <p>Exploring Low Earth Orbit debris through orbital mechanics, debris mitigation, and satellite-interception feasibility - direct practice in aerospace problem framing.</p>
-              <ul class="tag-list" aria-label="Space Research Initiative focus"><li>Orbital mechanics</li><li>Research</li><li>Systems thinking</li></ul>
-            </div>
-          </article>
-        </div>
-        <aside class="journal-strip reveal" aria-label="Mission log">
-          <p><span>MISSION LOG</span> The portfolio is not a costume. It is a map of the fields I am joining: physics, rocket science, software, AI, leadership, and the long discipline of space work.</p>
-        </aside>
-      </section>
-
-      <section id="breakthroughs" class="breakthroughs section-shell" aria-labelledby="breakthroughs-title">
-        <div class="section-heading reveal">
-          <p class="eyebrow">05 / BREAKTHROUGHS</p>
-          <h2 id="breakthroughs-title">Proof of motion.</h2>
-        </div>
-        <ol class="timeline">
-          <li class="timeline__item reveal" data-cv-id="achievement-design-award" data-cv-type="achievement"><time datetime="2022">2022</time><div><h3>Design Award</h3><p>An early signal that technical work and creative thinking belong together.</p></div></li>
-          <li class="timeline__item reveal" data-cv-id="achievement-best-leader" data-cv-type="achievement"><time datetime="2023">2023</time><div><h3>Best Leader</h3><p>Recognition for bringing people together around a shared direction.</p></div></li>
-          <li class="timeline__item reveal" data-cv-id="achievement-programming-first" data-cv-type="achievement"><time datetime="2024">2024</time><div><h3>1st Place Programmer</h3><p>A milestone that reinforced the value of steady technical practice.</p></div></li>
-          <li class="timeline__item reveal" data-cv-id="experience-city-technical-experts" data-cv-type="experience"><time datetime="2024">2024</time><div><h3><a href="https://www.cteoman.com/" target="_blank" rel="noopener noreferrer">City of Technical Experts(CTE)</a></h3><p>Gained retail-store experience at my father's Company: City of Technical Experts, working with customers and handling technical equipment in a practical sales and support environment.</p></div></li>
-          <li class="timeline__item reveal" data-cv-id="experience-squ-open-source" data-cv-type="experience"><time datetime="2025">2025</time><div><h3>SQU Open Source Group</h3><p>Selected as a member and delivered HTML and CSS workshops through the Open Source Initiative.</p></div></li>
-          <li class="timeline__item reveal" data-cv-id="education-squ-physics" data-cv-type="education"><time datetime="2025">2025 - now</time><div><h3>Physics at SQU</h3><p>Beginning a BSc journey in the College of Science and extending my work toward aerospace systems.</p></div></li>
-          <li class="timeline__item reveal"><time datetime="2026">2026</time><div><h3><a href="https://www.youtube.com/watch?v=NcdIrm2OG9c" target="_blank" rel="noopener noreferrer">Middle East Space Conference</a></h3><p>Visited the conference in Muscat at the Oman Convention and Exhibition Centre, connected with space-sector startups, companies, and ambitious peers, and asked a recorded question during an open dialogue with international space experts.</p></div></li>
-          <li class="timeline__item reveal"><time datetime="2026-11">Nov 2026</time><div><h3><a href="https://home.moe.gov.om/en/topics/1/show/2671" target="_blank" rel="noopener noreferrer">Oman Science Festival</a></h3><p>Explored modern-physics exhibits at the fifth Oman Science Festival at OCEC, including gravitational waves, black holes, and laser interferometry, and connected with a visiting science presenter.</p></div></li>
-          <li class="timeline__item reveal" data-cv-id="achievement-nasa-space-apps-2026" data-cv-type="achievement"><time datetime="2026-11-14">14–15 Nov</time><div><h3><a href="https://youtu.be/ynKCTTWrrVA?si=V1UEPNr9lO3U0Fri" target="_blank" rel="noopener noreferrer">NASA Space Apps Challenge 2026</a></h3><p>Represented Novacare in Bidiyah, contributing front-end engineering, AI-assisted problem-solving, technical discussions, and networking during the international hackathon. Earned the Galactic Problem Solver certificate.</p></div></li>
-          <li class="timeline__item reveal"><time datetime="2026">2026</time><div><h3>Little Einstein 6</h3><p>Participated as an instructor at the Astronomy Club station during the sixth Little Einstein event, organized by the Physics Group in collaboration with the Astronomy Club, giving astronomy presentations to children across different age groups over two days.</p></div></li>
-          <li class="timeline__item reveal"><time datetime="2026">2026</time><div><h3>Esnad Volunteer Program</h3><p>Completed a training camp hosted by Sultan Qaboos University and offered by the Ministry of Culture, Sports and Youth, including 20 hours of workshops followed by direct practical application with young people from Al Rahma Association.</p></div></li>
-          <li class="timeline__item reveal"><time datetime="2026">2026</time><div><h3>UTAS Summer Challenge</h3><p>Participated in the Summer Challenge at the University of Technology and Applied Sciences in Ibri, working with a platform team on a student-support idea for the full university journey from entry to graduation. We did not win, but we left with stronger product, teamwork, and learning experience.</p></div></li>
-          <li class="timeline__item reveal"><time datetime="2026">2026</time><div><h3>SQU Leadership Nominations</h3><p>In my second year at SQU, nominated for President of the Astronomy Club of the Physics Group in the Faculty of Science, and Head of the Technology and Workshops Committee of the History and Archaeology Group in the Faculty of Arts.</p></div></li>
-        </ol>
-        <figure class="service-feature reveal">
-          <img src="assets/imgs/esnad-volunteer-program.webp" alt="Al-Faris Mujahid at the Esnad Volunteer Program hosted by Sultan Qaboos University" loading="lazy" />
-          <figcaption>
-            <span>ESNAD VOLUNTEER PROGRAM / SQU</span>
-            <h3>Training, service, and practical work with young people.</h3>
-            <p>A volunteer-services training camp hosted by Sultan Qaboos University and offered by the Ministry of Culture, Sports and Youth. After 20 hours of workshops, I joined direct practical application with young people from Al Rahma Association.</p>
-          </figcaption>
-        </figure>
-        <article class="outreach-feature reveal">
-          <div class="outreach-feature__media">
-            <img src="assets/imgs/little-einstein-astronomy-station.webp" alt="Al-Faris Mujahid presenting astronomy concepts to children at the Little Einstein event" loading="lazy" />
-          </div>
-          <div class="outreach-feature__copy">
-            <span>LITTLE EINSTEIN 6 / ASTRONOMY OUTREACH</span>
-            <h3>Teaching astronomy to children at SQU.</h3>
-            <p>Served as an instructor at the Astronomy Club station during the two-day Little Einstein event. The station was one of the best-organized at the event, and I presented astronomy ideas to children from different age groups, receiving a certificate in recognition of the effort.</p>
-          </div>
+        <article id="launch-windows" class="study-note reveal" data-cv-id="project-space-research" data-cv-type="project">
+          <h3>Low Earth orbit debris</h3>
+          <p>I am studying orbital mechanics and debris mitigation, with an initial focus on how objects in low Earth orbit lose altitude.</p>
+          <p>Over time, I want to build tools for space research and contribute to human spaceflight.</p>
         </article>
-      </section>
-
-      <section class="capabilities section-shell" aria-labelledby="capabilities-title">
-        <div class="section-heading reveal">
-          <p class="eyebrow">06 / CAPABILITY MAP</p>
-          <h2 id="capabilities-title">A cross-disciplinary toolkit.</h2>
-        </div>
-        <div class="capabilities__grid">
-          <article class="capability reveal" data-cv-id="skills-scientific" data-cv-type="skill"><span aria-hidden="true">✦</span><h3>Scientific foundation</h3><p>Mechanics · waves · space science · astronomy outreach · dynamics · research analysis</p></article>
-          <article class="capability reveal" data-cv-id="skills-digital" data-cv-type="skill"><span aria-hidden="true">⌘</span><h3>Digital building</h3><p>HTML · CSS · JavaScript · responsive design · Git &amp; GitHub · basic machine learning · technical equipment</p></article>
-          <article class="capability reveal" data-cv-id="skills-human" data-cv-type="skill"><span aria-hidden="true">↗</span><h3>Human skills</h3><p>Problem-solving · leadership · public speaking · collaboration · retail service · volunteer service · youth engagement</p></article>
-        </div>
-      </section>
-
-      <section id="launch-windows" class="launch-windows section-shell" aria-labelledby="launch-windows-title">
-        <div class="section-heading reveal">
-          <p class="eyebrow">07 / NEXT LAUNCH WINDOWS</p>
-          <h2 id="launch-windows-title">The next steps are practical, not imaginary.</h2>
-        </div>
-        <div class="launch-grid">
-          <article class="launch-card reveal"><time>T+01</time><h3>Deepen the physics base</h3><p>Continue SQU Physics with extra focus on mechanics, dynamics, orbital motion, and space environments.</p></article>
-          <article class="launch-card reveal"><time>T+02</time><h3>Build aerospace software</h3><p>Create small tools and interfaces for mission planning, telemetry-style dashboards, research logs, and simulation-inspired learning.</p></article>
-          <article class="launch-card reveal"><time>T+03</time><h3>Study propulsion &amp; systems</h3><p>Keep building a rocket-science foundation across propulsion, spacecraft subsystems, launch profiles, and mission architecture.</p></article>
-          <article class="launch-card reveal"><time>T+04</time><h3>Train AI-agent workflows</h3><p>Use AI agents for structured research, technical planning, project documentation, and faster exploration of aerospace topics.</p></article>
-          <article class="launch-card reveal"><time>T+05</time><h3>Join serious arenas</h3><p>Seek research groups, competitions, open-source teams, and collaborations connected to space, engineering, and scientific communication.</p></article>
-          <article class="launch-card reveal"><time>T+06</time><h3>Prepare the human system</h3><p>Build the discipline, communication, physical readiness, and pressure-handling habits required for the astronaut-programme path.</p></article>
-        </div>
-      </section>
-
-      <section class="credentials section-shell" aria-labelledby="credentials-title">
-        <div class="credentials__content reveal">
-          <p class="eyebrow">08 / CREDENTIALS</p>
-          <h2 id="credentials-title">Learning is part of the mission.</h2>
-          <p>Currently pursuing a BSc in Physics at Sultan Qaboos University, supported by learning in front-end development, data analysis, project management, and sustainable aviation.</p>
-        </div>
-        <div class="credentials__stats reveal" aria-label="Education and certification highlights">
-          <div><strong>2025 - present</strong><span>BSc Physics, SQU</span></div>
-          <button class="credential-stat credential-stat--button" type="button" data-certificates-open aria-expanded="false" aria-controls="certificates-modal">
-            <strong>20+</strong>
-            <span>Certificates &amp; learning milestones</span>
-          </button>
-          <div><strong>Arabic / English</strong><span>Native Arabic · Academic English</span></div>
-        </div>
       </section>
 
       <div class="certificate-modal" id="certificates-modal" data-certificates-modal hidden>
@@ -637,7 +491,7 @@
             </a>
             <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>Little Einstein 6 Instructor</h3><p>Physics Group &amp; Astronomy Club · Sultan Qaboos University · 2026-2027 academic year</p></div></article>
             <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>Esnad Volunteer Program</h3><p>Ministry of Culture, Sports and Youth · Sultan Qaboos University · 20 training hours · 2026</p></div></article>
-            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>UTAS Summer Challenge 2026</h3><p>University of Technology and Applied Sciences, Ibra · Platform team · Jul 2026</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>UTAS Summer Challenge 2026</h3><p>University of Technology and Applied Sciences, Ibra · Platform team · 28 Jun 2026</p></div></article>
             <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>SQU-LSG Learning Milestone</h3><p>Sultan Qaboos University · Oct 2025</p></div></article>
             <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>Talent Discovery 1</h3><p>Talent Discovery programme · Sep 2021</p></div></article>
             <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>Talent Discovery 2</h3><p>Talent Discovery programme · Feb 2023</p></div></article>
@@ -647,7 +501,7 @@
             <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>Typing.com Intermediate Assessment</h3><p>Typing.com · Jun 2023</p></div></article>
             <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>Typing.com Advanced Unit</h3><p>Typing.com · Jun 2023</p></div></article>
             <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>Typing.com Advanced Assessment</h3><p>Typing.com · Jun 2023</p></div></article>
-            <a class="certificate-item certificate-item--link" href="assets/nasa_space_app_2026/got certificate as an approval for our participation.webp" target="_blank" rel="noopener noreferrer" aria-label="View NASA Space Apps Challenge 2026 Galactic Problem Solver certificate, opens in a new tab"><span aria-hidden="true">✦</span><div><h3>NASA Space Apps Challenge 2026</h3><p>Galactic Problem Solver · Nov 14–15, 2026 · Novacare</p></div></a>
+            <a class="certificate-item certificate-item--link" href="assets/nasa_space_app_2026/got certificate as an approval for our participation.webp" target="_blank" rel="noopener noreferrer" aria-label="View NASA Space Apps Challenge 2026 Galactic Problem Solver certificate, opens in a new tab"><span aria-hidden="true">✦</span><div><h3>NASA Space Apps Challenge 2026</h3><p>Galactic Problem Solver participation certificate · Nov 14–15, 2026 · Novacare</p></div></a>
             <a class="certificate-item certificate-item--link" href="assets/certificates/NASA-Space-Apps-Challenge-2023.pdf" target="_blank" rel="noopener noreferrer" aria-label="View NASA International Space Apps Challenge 2023 certificate, opens in a new tab"><span aria-hidden="true">✦</span><div><h3>NASA International Space Apps Challenge 2023</h3><p>Galactic Problem Solver · Oct 6–8, 2023</p></div></a>
             <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>1st SQU &amp; R2S Oman Space &amp; Rocketry Workshop</h3><p>Sultan Qaboos University · Department of Electrical &amp; Computer Engineering · Dec 4, 2025</p></div></article>
           </div>
@@ -656,9 +510,8 @@
 
       <section id="contact" class="contact section-shell" aria-labelledby="contact-title">
         <div class="contact__intro reveal">
-          <p class="eyebrow">09 / OPEN CHANNEL</p>
-          <h2 id="contact-title">Let’s build something with momentum.</h2>
-          <p>For collaborations, engineering opportunities, product ideas, or a conversation about the future of space and technology.</p>
+          <h2 id="contact-title">Contact</h2>
+          <p>I welcome conversations about front-end internships, scientific software, and undergraduate research in physics or space technology.</p>
           <div class="social-links" aria-label="Social profiles">
             <a href="mailto:a.alzakwani@outlook.com"><span class="social-links__label"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4.75 6.75h14.5v10.5H4.75z" /><path d="m5.25 7.25 6.75 5.5 6.75-5.5" /></svg>Email</span><span aria-hidden="true">↗</span></a>
             <a href="https://www.linkedin.com/in/alfarismujahid/" target="_blank" rel="noopener noreferrer"><span class="social-links__label"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M7.5 10v7M11 17v-7M11 13a3 3 0 0 1 6 0v4" /><circle cx="7.5" cy="7" r=".75" /></svg>LinkedIn</span><span aria-hidden="true">↗</span></a>
@@ -678,7 +531,7 @@
           <div class="form-field"><label for="email">Email</label><input id="email" type="email" name="email" autocomplete="email" required /></div>
           <div class="form-field"><label for="phone">Phone <span>(optional)</span></label><input id="phone" type="tel" name="phone" autocomplete="tel" /></div>
           <div class="form-field"><label for="message">Message</label><textarea id="message" name="message" rows="5" required></textarea></div>
-          <button class="button button--primary" type="submit">Send transmission <span aria-hidden="true">↗</span></button>
+          <button class="button button--primary" type="submit">Send message <span aria-hidden="true">↗</span></button>
         </form>
       </section>
     </main>

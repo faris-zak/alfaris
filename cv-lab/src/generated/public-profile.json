@@ -2,40 +2,8 @@
   {
     "id": "summary-professional-profile",
     "type": "summary",
-    "title": "Building toward the astronaut path.",
-    "body": "FIELD JOURNAL Empower my surroundings to do more.. I am Al-Faris Mujahid Hamood AlZakwani, an Omani physics student at SQU combining rocket-science curiosity, front-end software, AI-agent workflows, and leadership toward one long-range objective: becoming useful to human spaceflight and the future of Moon-and-Mars exploration.",
-    "tags": [],
-    "visibility": "public"
-  },
-  {
-    "id": "skill-physics-foundation",
-    "type": "skill",
-    "title": "Physics foundation",
-    "body": "SQU Physics is the base layer: mechanics, waves, dynamics, and the scientific discipline needed to understand motion, forces, and space environments.",
-    "tags": [],
-    "visibility": "public"
-  },
-  {
-    "id": "skill-spaceflight-systems",
-    "type": "skill",
-    "title": "Rocket science & spaceflight",
-    "body": "Active study of orbital mechanics, propulsion fundamentals, spacecraft systems, human spaceflight, and the engineering logic behind launch and re-entry.",
-    "tags": [],
-    "visibility": "public"
-  },
-  {
-    "id": "skill-software-ai-systems",
-    "type": "skill",
-    "title": "Software & AI systems",
-    "body": "Front-end engineering, AI skills, and agent workflows become mission interfaces: tools for research, planning, simulation thinking, and decision support.",
-    "tags": [],
-    "visibility": "public"
-  },
-  {
-    "id": "skill-leadership-pressure",
-    "type": "skill",
-    "title": "Leadership under pressure",
-    "body": "Founder work, Best Leader recognition, workshops, and SQU leadership nominations build the human side of the astronaut path: communication, responsibility, and calm execution.",
+    "title": "Physics undergraduate & front-end developer",
+    "body": "FIELD JOURNAL Al-Faris Mujahid Hamood AlZakwani I study at Sultan Qaboos University in Oman and founded NexCore Labs, a bilingual student platform. I contributed to the front-end engineering of VitalX, an astronaut health-monitoring proposal. My long-term goal is to apply physics and software to human spaceflight.",
     "tags": [],
     "visibility": "public"
   },
@@ -43,8 +11,8 @@
     "id": "project-portfolio",
     "type": "project",
     "title": "My Portfolio",
-    "body": "A responsive mission record for technical work, achievements, CV, and the evolving story behind my astronaut trajectory.",
-    "meta": "DEVELOPER & DESIGNER / PERSONAL PLATFORM",
+    "body": "I designed and built this portfolio in HTML, CSS and JavaScript, including a reduced-motion experience for its orbital visuals.",
+    "meta": "DESIGN & DEVELOPMENT",
     "tags": [
       "HTML",
       "CSS",
@@ -53,24 +21,46 @@
     "visibility": "public"
   },
   {
-    "id": "project-ai-family-corp",
-    "type": "project",
-    "title": "AI Family Corp",
-    "body": "Working with my father and family to establish a family business focused on empowering family members to do more, solve practical problems, and use technology and artificial intelligence in meaningful ways.",
-    "meta": "CO-FOUNDER / FAMILY AI BUSINESS",
+    "id": "experience-solvex",
+    "type": "experience",
+    "title": "Solvex",
+    "body": "I built a 3D simulator for a Sultan Qaboos University student team exploring smart agricultural tiles. Adjust solar intensity to see how the model changes the temperature difference and estimated power. The model assumes an ambient range of 28–42 °C and estimates power using a simplified curve proportional to the square of the temperature difference. Physical tile performance would require testing. I later resigned to focus on other fields.",
+    "meta": "FORMER SOFTWARE ENGINEER / INTERACTIVE SIMULATION",
     "tags": [
-      "Family business",
-      "AI",
-      "Technology",
-      "Problem-solving"
+      "AI integration",
+      "3D simulation",
+      "Startup",
+      "Sustainability"
     ],
+    "visibility": "public"
+  },
+  {
+    "id": "experience-nexcore-labs",
+    "type": "experience",
+    "title": "NexCore Labs",
+    "body": "I founded NexCore Labs, an independent student platform in Arabic and English. Students can discover projects through the Project Hub and share ideas through the Contributor Center. For v3.3.0, I fixed the release timeline so readers could see complete release details in both languages and added browser regression coverage.",
+    "meta": "FOUNDER & LEAD DEVELOPER / RELEASED PLATFORM",
+    "tags": [
+      "Leadership",
+      "Product",
+      "Prototyping"
+    ],
+    "visibility": "public"
+  },
+  {
+    "id": "project-vitalx",
+    "type": "project",
+    "title": "VitalX",
+    "body": "I contributed front-end development to Team Novacare’s proposed astronaut health-monitoring tool at the 2026 NASA Space Apps Challenge in Bidiyah. I received the Galactic Problem Solver participation certificate.",
+    "meta": "FRONT-END CONTRIBUTOR / HACKATHON PROPOSAL",
+    "tags": [],
     "visibility": "public"
   },
   {
     "id": "project-alduwiki",
     "type": "project",
     "title": "AlDuwiki Cement Products",
-    "body": "Developed a company website for AlDuwiki Cement Products, presenting their cement-products business with a clear public web presence and direct contact path.",
+    "body": "I developed a company website where customers can browse cement products and approvals, find the company’s location and contact the team.",
     "meta": "WEB DEVELOPER / BUSINESS WEBSITE",
     "tags": [
       "Business website",
@@ -84,7 +74,7 @@
     "id": "project-scorleaf",
     "type": "project",
     "title": "Scorleaf",
-    "body": "Created the official website for Scorleaf, an Omani student-run health startup developing a natural licorice root extract to relieve the effects of scorpion bites.",
+    "body": "I built the Arabic-language website for Scorleaf, an Omani student health startup. The site introduces the team, its product concept and how to get in touch.",
     "meta": "WEB DEVELOPER / STARTUP WEBSITE",
     "tags": [
       "Startup website",
@@ -95,24 +85,10 @@
     "visibility": "public"
   },
   {
-    "id": "experience-solvex",
-    "type": "experience",
-    "title": "Solvex",
-    "body": "Joined a Sultan Qaboos University student startup working on smart agricultural tiles, integrating AI into the work and website, and creating a 3D simulation for the concept. I later resigned after realizing the energy and environment sector was not the direction I wanted to build in long-term.",
-    "meta": "FORMER SOFTWARE ENGINEER / AI & 3D STARTUP WORK",
-    "tags": [
-      "AI integration",
-      "3D simulation",
-      "Startup",
-      "Sustainability"
-    ],
-    "visibility": "public"
-  },
-  {
     "id": "project-mindsync",
     "type": "project",
     "title": "MindSync مايندسينك",
-    "body": "A web platform for academic and self-development tools, built to help students make deliberate progress - the same discipline that powers long missions.",
+    "body": "I built an education website for student academic and self-development resources using HTML, CSS and JavaScript.",
     "meta": "FOUNDER & LEAD DEVELOPER / WEB PLATFORM",
     "tags": [
       "HTML",
@@ -122,63 +98,24 @@
     "visibility": "public"
   },
   {
-    "id": "experience-nexcore-labs",
-    "type": "experience",
-    "title": "NexCore Labs",
-    "body": "Digital solutions, rapid prototypes, and polished showcases that train founder execution, team leadership, and useful engineering under real constraints.",
-    "meta": "CEO / STUDENT-DRIVEN DIGITAL STUDIO",
-    "tags": [
-      "Leadership",
-      "Product",
-      "Prototyping"
-    ],
-    "visibility": "public"
-  },
-  {
-    "id": "project-space-research",
+    "id": "project-ai-family-corp",
     "type": "project",
-    "title": "Space Research Initiative",
-    "body": "Exploring Low Earth Orbit debris through orbital mechanics, debris mitigation, and satellite-interception feasibility - direct practice in aerospace problem framing.",
-    "meta": "INDEPENDENT STUDY / EARLY-STAGE RESEARCH",
+    "title": "AI Family Corp",
+    "body": "I am working with my father and family to establish a venture focused on using AI and other technology to solve practical problems.",
+    "meta": "CO-FOUNDER / IN FORMATION",
     "tags": [
-      "Orbital mechanics",
-      "Research",
-      "Systems thinking"
+      "Family business",
+      "AI",
+      "Technology",
+      "Problem-solving"
     ],
-    "visibility": "public"
-  },
-  {
-    "id": "achievement-design-award",
-    "type": "achievement",
-    "title": "Design Award",
-    "body": "An early signal that technical work and creative thinking belong together.",
-    "meta": "2022",
-    "tags": [],
-    "visibility": "public"
-  },
-  {
-    "id": "achievement-best-leader",
-    "type": "achievement",
-    "title": "Best Leader",
-    "body": "Recognition for bringing people together around a shared direction.",
-    "meta": "2023",
-    "tags": [],
-    "visibility": "public"
-  },
-  {
-    "id": "achievement-programming-first",
-    "type": "achievement",
-    "title": "1st Place Programmer",
-    "body": "A milestone that reinforced the value of steady technical practice.",
-    "meta": "2024",
-    "tags": [],
     "visibility": "public"
   },
   {
     "id": "experience-city-technical-experts",
     "type": "experience",
-    "title": "City of Technical Experts(CTE)",
-    "body": "Gained retail-store experience at my father's Company: City of Technical Experts, working with customers and handling technical equipment in a practical sales and support environment.",
+    "title": "City of Technical Experts (CTE)",
+    "body": "Worked with customers and handled technical equipment in sales and support at my father's company.",
     "meta": "2024",
     "tags": [],
     "visibility": "public"
@@ -193,44 +130,72 @@
     "visibility": "public"
   },
   {
-    "id": "education-squ-physics",
-    "type": "education",
-    "title": "Physics at SQU",
-    "body": "Beginning a BSc journey in the College of Science and extending my work toward aerospace systems.",
-    "meta": "2025 - now",
-    "tags": [],
-    "visibility": "public"
-  },
-  {
     "id": "achievement-nasa-space-apps-2026",
     "type": "achievement",
-    "title": "NASA Space Apps Challenge 2026",
-    "body": "Represented Novacare in Bidiyah, contributing front-end engineering, AI-assisted problem-solving, technical discussions, and networking during the international hackathon. Earned the Galactic Problem Solver certificate.",
-    "meta": "14–15 Nov",
+    "title": "NASA Space Apps Challenge",
+    "body": "Contributed front-end development to VitalX with Team Novacare in Bidiyah and received the Galactic Problem Solver participation certificate.",
+    "meta": "14–15 Nov 2026",
     "tags": [],
     "visibility": "public"
   },
   {
-    "id": "skills-scientific",
-    "type": "skill",
-    "title": "Scientific foundation",
-    "body": "Mechanics · waves · space science · astronomy outreach · dynamics · research analysis",
+    "id": "experience-utas-summer-challenge",
+    "type": "experience",
+    "title": "UTAS Summer Challenge",
+    "body": "At the University of Technology and Applied Sciences in Ibra, our platform team proposed a way to support students from entry through graduation. We did not win.",
+    "meta": "28 Jun 2026",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "achievement-design-award",
+    "type": "achievement",
+    "title": "Design Award",
+    "body": "Design Award · 2022",
+    "meta": "2022",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "achievement-best-leader",
+    "type": "achievement",
+    "title": "Best Leader",
+    "body": "Best Leader · 2023",
+    "meta": "2023",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "achievement-programming-first",
+    "type": "achievement",
+    "title": "First-place programming award",
+    "body": "First-place programming award · 2024",
+    "meta": "2024",
+    "tags": [],
+    "visibility": "public"
+  },
+  {
+    "id": "education-squ-physics",
+    "type": "education",
+    "title": "BSc Physics, Sultan Qaboos University",
+    "body": "2025–present · College of Science, Oman",
+    "meta": "2025",
     "tags": [],
     "visibility": "public"
   },
   {
     "id": "skills-digital",
     "type": "skill",
-    "title": "Digital building",
-    "body": "HTML · CSS · JavaScript · responsive design · Git & GitHub · basic machine learning · technical equipment",
+    "title": "Front-end skills",
+    "body": "HTML, CSS, JavaScript, responsive design, Git and GitHub",
     "tags": [],
     "visibility": "public"
   },
   {
-    "id": "skills-human",
-    "type": "skill",
-    "title": "Human skills",
-    "body": "Problem-solving · leadership · public speaking · collaboration · retail service · volunteer service · youth engagement",
+    "id": "project-space-research",
+    "type": "project",
+    "title": "Low Earth orbit debris",
+    "body": "I am studying orbital mechanics and debris mitigation, with an initial focus on how objects in low Earth orbit lose altitude. Over time, I want to build tools for space research and contribute to human spaceflight.",
     "tags": [],
     "visibility": "public"
   }

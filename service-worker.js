@@ -1,10 +1,11 @@
-const CACHE_NAME = 'afm-field-notes-v22';
+const CACHE_NAME = 'afm-field-notes-v26';
 
 const APP_SHELL = [
   './',
   './index.html',
-  './styles.css?v=18',
-  './script.js?v=21',
+  './cv.html',
+  './styles.css?v=20',
+  './script.js?v=23',
   './site.webmanifest',
   './assets/imgs/favicon.ico',
   './assets/imgs/favicon-16x16.webp',
@@ -57,16 +58,19 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (event.request.mode === 'navigate') {
+    const cachedPage = requestUrl.href === new URL('./cv.html', self.location.href).href
+      ? './cv.html'
+      : './index.html';
     event.respondWith(
       fetch(event.request)
         .then((response) => {
           if (canCache(response)) {
             const responseCopy = response.clone();
-            event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', responseCopy)));
+            event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put(cachedPage, responseCopy)));
           }
           return response;
         })
-        .catch(() => caches.open(CACHE_NAME).then((cache) => cache.match('./index.html')))
+        .catch(() => caches.open(CACHE_NAME).then((cache) => cache.match(cachedPage)))
     );
     return;
   }

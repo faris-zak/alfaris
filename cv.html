@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="CV of Al-Faris Mujahid Hamood AlZakwani, physics undergraduate and front-end developer in Oman." />
+    <title>Al-Faris Mujahid Hamood AlZakwani | CV</title>
+    <link rel="icon" href="assets/imgs/favicon.ico" sizes="any" />
+    <link rel="stylesheet" href="styles.css?v=20" />
+  </head>
+  <body class="cv-page">
+    <main class="cv-sheet">
+      <nav class="cv-toolbar" aria-label="CV actions">
+        <a href="./">← Back to portfolio</a>
+        <button type="button" class="button button--quiet" id="print-cv" hidden>Print / save as PDF</button>
+      </nav>
+
+      <header class="cv-heading">
+        <h1>Al-Faris Mujahid Hamood AlZakwani</h1>
+        <p class="cv-role">Physics undergraduate &amp; front-end developer · Oman</p>
+        <ul class="cv-links" aria-label="Contact and profiles">
+          <li><a href="mailto:a.alzakwani@outlook.com">a.alzakwani@outlook.com</a></li>
+          <li><a href="https://www.linkedin.com/in/alfarismujahid/">LinkedIn</a></li>
+          <li><a href="https://github.com/faris-zak">GitHub</a></li>
+          <li><a href="https://alfarismujahid.vercel.app/">Portfolio</a></li>
+        </ul>
+      </header>
+
+      <section aria-labelledby="cv-education">
+        <h2 id="cv-education">Education</h2>
+        <p><strong>BSc Physics</strong> · Sultan Qaboos University, College of Science · 2025–present</p>
+        <p>Relevant training includes the SQU &amp; R2S Oman Space &amp; Rocketry Workshop (December 2025).</p>
+      </section>
+
+      <section aria-labelledby="cv-projects">
+        <h2 id="cv-projects">Selected projects</h2>
+        <article>
+          <h3>Solvex · Former software engineer</h3>
+          <p>Built a 3D simulator for a student team's smart agricultural tile concept. Users can vary solar intensity and see the model update its estimates for the temperature difference and generated power.</p>
+          <ul class="cv-links">
+            <li><a href="https://faris-zak.github.io/SOLVEX/tile.html">Interactive demo</a></li>
+            <li><a href="https://github.com/faris-zak/SOLVEX/blob/main/tile.html#L541-L575">Model code</a></li>
+          </ul>
+        </article>
+        <article>
+          <h3>NexCore Labs · Founder and lead developer</h3>
+          <p>Founded an independent bilingual platform for student projects. Fixed the Arabic and English release timeline in v3.3.0 and added browser regression coverage.</p>
+          <ul class="cv-links">
+            <li><a href="https://nexcorelabs.vercel.app/">Live platform</a></li>
+            <li><a href="https://github.com/NexCore-Labs-Initiative/NexCore/commit/26ea0b608673f38d6940c9934295622a1a0cf324">Timeline fix and regression test</a></li>
+          </ul>
+        </article>
+        <article>
+          <h3>VitalX · Front-end contributor, Team Novacare</h3>
+          <p>Contributed to a proposal for astronaut health monitoring at the 2026 NASA Space Apps Challenge in Bidiyah. Received the Galactic Problem Solver participation certificate.</p>
+          <p><a href="https://alfarismujahid.vercel.app/#space-apps-2026">Hackathon record</a></p>
+        </article>
+      </section>
+
+      <section aria-labelledby="cv-experience">
+        <h2 id="cv-experience">Experience &amp; outreach</h2>
+        <p><strong>SQU Open Source Group, 2025.</strong> Delivered HTML and CSS workshops through the Open Source Initiative.</p>
+        <p><strong>UTAS Summer Challenge, 28 June 2026, Ibra.</strong> Our platform team proposed a way to support students from entry through graduation.</p>
+        <p><strong>Little Einstein 6, 2026.</strong> Taught astronomy to children over two days at the Astronomy Club station.</p>
+      </section>
+
+      <section aria-labelledby="cv-skills">
+        <h2 id="cv-skills">Skills &amp; languages</h2>
+        <p>HTML, CSS, JavaScript, responsive web design, Git and GitHub · Native Arabic and academic English</p>
+      </section>
+    </main>
+    <script>
+      const printButton = document.getElementById('print-cv');
+      printButton.hidden = false;
+      printButton.addEventListener('click', () => window.print());
+    </script>
+  </body>
+</html>
