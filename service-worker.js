@@ -1,12 +1,16 @@
-const CACHE_NAME = 'afm-field-notes-v29';
+const CACHE_NAME = 'afm-field-notes-v32';
 
 const APP_SHELL = [
   './',
   './index.html',
+  './ar/',
   './cv.html',
-  './styles.css?v=22',
-  './script.js?v=24',
+  './styles.css?v=24',
+  './script.js?v=26',
   './site.webmanifest',
+  './assets/fonts/thmanyah-sans/thmanyahsans-Regular.woff2',
+  './assets/fonts/thmanyah-sans/thmanyahsans-Medium.woff2',
+  './assets/fonts/thmanyah-sans/thmanyahsans-Bold.woff2',
   './assets/imgs/favicon.ico',
   './assets/imgs/favicon-16x16.webp',
   './assets/imgs/favicon-32x32.webp',
@@ -21,14 +25,23 @@ const APP_SHELL = [
   './assets/certificates/IELTS-Academic-IDP-results-redacted.webp',
 ];
 
-const publicUrls = new Set(APP_SHELL.map((path) => new URL(path, self.location.href).href));
+const absoluteUrl = (path) => new URL(path, self.location.href).href;
+const publicUrls = new Set(APP_SHELL.map(absoluteUrl));
+const navigationCacheKeys = new Map([
+  [absoluteUrl('./'), './index.html'],
+  [absoluteUrl('./index.html'), './index.html'],
+  [absoluteUrl('./ar/'), './ar/'],
+  [absoluteUrl('./ar'), './ar/'],
+  [absoluteUrl('./ar/index.html'), './ar/'],
+  [absoluteUrl('./cv.html'), './cv.html'],
+]);
 const canCache = (response) => response.ok && !response.redirected
   && !/\b(?:private|no-store)\b/i.test(response.headers.get('cache-control') || '');
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => Promise.all(APP_SHELL.map(async (path) => {
-      const response = await fetch(new URL(path, self.location.href).href, { credentials: 'omit' });
+      const response = await fetch(absoluteUrl(path), { credentials: 'omit' });
       if (canCache(response)) await cache.put(path, response);
     })))
   );
@@ -53,14 +66,12 @@ self.addEventListener('fetch', (event) => {
 
   const requestUrl = new URL(event.request.url);
 
-  if (requestUrl.origin !== self.location.origin || !publicUrls.has(requestUrl.href)) {
+  if (requestUrl.origin !== self.location.origin) {
     return;
   }
 
-  if (event.request.mode === 'navigate') {
-    const cachedPage = requestUrl.href === new URL('./cv.html', self.location.href).href
-      ? './cv.html'
-      : './index.html';
+  const cachedPage = navigationCacheKeys.get(requestUrl.href);
+  if (event.request.mode === 'navigate' && cachedPage) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
@@ -72,6 +83,10 @@ self.addEventListener('fetch', (event) => {
         })
         .catch(() => caches.open(CACHE_NAME).then((cache) => cache.match(cachedPage)))
     );
+    return;
+  }
+
+  if (!publicUrls.has(requestUrl.href)) {
     return;
   }
 

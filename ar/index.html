@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="الموقع الشخصي لصاحبه الفارس بن مجاهد بن حمود الزكواني، طالب فيزياء في جامعة السلطان قابوس بعُمان، يطوّر واجهات الويب والمحاكاة التفاعلية."
+    />
+    <meta name="author" content="الفارس بن مجاهد بن حمود الزكواني" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#060b18" />
+    <meta name="color-scheme" content="dark" />
+    <title>يوميات ميدانية عن الفضاء | الفارس بن مجاهد بن حمود الزكواني</title>
+    <link rel="canonical" href="https://alfarismujahid.vercel.app/ar/" />
+    <link rel="alternate" hreflang="en" href="https://alfarismujahid.vercel.app/" />
+    <link rel="alternate" hreflang="ar" href="https://alfarismujahid.vercel.app/ar/" />
+    <link rel="alternate" hreflang="x-default" href="https://alfarismujahid.vercel.app/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ar_OM" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:site_name" content="يوميات ميدانية" />
+    <meta property="og:title" content="يوميات ميدانية عن الفضاء | الفارس بن مجاهد بن حمود الزكواني" />
+    <meta
+      property="og:description"
+      content="طالب فيزياء في جامعة السلطان قابوس بعُمان. تطوير واجهات الويب، والمحاكاة التفاعلية، وتقنيات الفضاء."
+    />
+    <meta property="og:url" content="https://alfarismujahid.vercel.app/ar/" />
+    <meta property="og:image" content="https://alfarismujahid.vercel.app/assets/imgs/og-image.png?v=2" />
+    <meta property="og:image:secure_url" content="https://alfarismujahid.vercel.app/assets/imgs/og-image.png?v=2" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="شعار Ascent Window إلى جانب اسم الفارس بن مجاهد بن حمود الزكواني ونبذة قصيرة."
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="يوميات ميدانية عن الفضاء | الفارس بن مجاهد بن حمود الزكواني" />
+    <meta
+      name="twitter:description"
+      content="طالب فيزياء في جامعة السلطان قابوس بعُمان. تطوير واجهات الويب، والمحاكاة التفاعلية، وتقنيات الفضاء."
+    />
+    <meta name="twitter:image" content="https://alfarismujahid.vercel.app/assets/imgs/og-image.png?v=2" />
+    <meta
+      name="twitter:image:alt"
+      content="شعار Ascent Window إلى جانب اسم الفارس بن مجاهد بن حمود الزكواني ونبذة قصيرة."
+    />
+
+    <link rel="icon" href="/assets/imgs/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/assets/imgs/ascent-window-transparent.svg" />
+    <link rel="icon" type="image/webp" sizes="32x32" href="/assets/imgs/favicon-32x32.webp" />
+    <link rel="icon" type="image/webp" sizes="16x16" href="/assets/imgs/favicon-16x16.webp" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <script>
+      (() => {
+        try {
+          if (localStorage.getItem('alfaris-performance-mode') === 'true') {
+            document.documentElement.classList.add('performance-mode');
+          }
+        } catch {
+          // Keep the site usable when storage is blocked.
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css?v=24" />
+    <script defer src="/script.js?v=26"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">انتقل إلى المحتوى</a>
+    <div class="space-background" aria-hidden="true">
+      <span class="meteor" data-meteor></span>
+    </div>
+
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="العودة إلى بداية الصفحة">
+        <span class="wordmark__mark" aria-hidden="true"></span>
+        <span>يوميات ميدانية</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">فتح قائمة التنقل أو إغلاقها</span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="التنقل الرئيسي">
+        <a href="#projects">المشاريع</a>
+        <a href="#breakthroughs">الخبرة</a>
+        <a href="#credentials">التعليم</a>
+        <a href="#rocket-log">يوميات الفضاء</a>
+        <a href="#contact">التواصل</a>
+        <button class="performance-toggle" type="button" aria-pressed="false" aria-label="تفعيل وضع الأداء" data-performance-toggle>
+          <span class="performance-toggle__copy">
+            <span class="performance-toggle__label performance-toggle__label--desktop">الأداء</span>
+            <span class="performance-toggle__label performance-toggle__label--mobile">تحسين الأداء</span>
+            <small>تقليل الحركة وإخفاء النجوم</small>
+          </span>
+          <span class="performance-toggle__switch" aria-hidden="true"></span>
+        </button>
+        <a class="language-switch" href="/" lang="en" hreflang="en" data-language-switch><bdi dir="ltr">English</bdi></a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section id="top" class="hero section-shell" aria-labelledby="hero-title">
+        <div class="hero-telemetry" aria-hidden="true">
+          <span class="telemetry-line telemetry-line--one"></span>
+          <span class="telemetry-line telemetry-line--two"></span>
+          <span class="telemetry-node telemetry-node--one"></span>
+          <span class="telemetry-node telemetry-node--two"></span>
+        </div>
+        <div class="hero__copy reveal" data-cv-id="summary-professional-profile" data-cv-type="summary" data-cv-title="نبذة مهنية">
+          <p class="eyebrow"><span></span> يوميات ميدانية <time data-field-journal-date hidden></time></p>
+          <p class="hero__kicker">الفارس بن مجاهد بن حمود الزكواني</p>
+          <h1 id="hero-title">طالب بكالوريوس في الفيزياء <em>ومطوّر واجهات الويب</em></h1>
+          <p class="hero__intro">أدرس في جامعة السلطان قابوس في عُمان، وأسست <bdi lang="en" dir="ltr">NexCore Labs</bdi>، وهي منصة طلابية ثنائية اللغة. ساهمت في تطوير الواجهة الأمامية لمشروع <bdi lang="en" dir="ltr">VitalX</bdi>، وهو مقترح لمتابعة صحة روّاد الفضاء.</p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#projects">تصفّح مشاريعي <span aria-hidden="true">↓</span></a>
+            <a class="button button--quiet" href="/cv.html" hreflang="en">السيرة الذاتية (بالإنجليزية) <span aria-hidden="true">←</span></a>
+          </div>
+          <p class="hero__direction">أطمح على المدى البعيد إلى توظيف الفيزياء والبرمجيات في رحلات الفضاء المأهولة.</p>
+        </div>
+
+        <figure class="hero__portrait reveal" aria-label="صورة شخصية تُظهر الفارس بن مجاهد بن حمود الزكواني">
+          <div class="portrait-orbit orbit-one" aria-hidden="true">
+            <span class="orbit-marker orbit-marker--moon">
+              <span class="orbit-marker__label">القمر</span>
+            </span>
+          </div>
+          <div class="portrait-orbit orbit-two" aria-hidden="true">
+            <span class="orbit-marker orbit-marker--mars">
+              <span class="orbit-marker__label">المريخ</span>
+            </span>
+          </div>
+          <div class="portrait-orbit orbit-three" aria-hidden="true"></div>
+          <div class="portrait-frame">
+            <img src="/assets/imgs/portrait.webp" alt="صورة الفارس بن مجاهد بن حمود الزكواني" />
+          </div>
+          <div class="origin-globe" id="origin-globe" data-origin-globe aria-hidden="true">
+            <div class="origin-globe__canvas" data-origin-globe-canvas></div>
+            <div class="origin-globe__fallback" data-origin-globe-fallback>تتعذّر معاينة الكرة الأرضية بتقنية <bdi lang="en" dir="ltr">WebGL</bdi></div>
+          </div>
+          <figcaption
+            tabindex="0"
+            role="button"
+            aria-controls="origin-globe"
+            aria-expanded="false"
+            aria-label="إظهار الكرة الأرضية وموقع عُمان"
+            data-origin-trigger
+          >
+            <span>موطني</span>
+            <strong>عُمان / <bdi lang="en" dir="ltr">23.61° N, 58.59° E</bdi></strong>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="projects" class="projects section-shell" aria-labelledby="projects-title">
+        <div class="section-heading reveal">
+          <h2 id="projects-title">مشاريع مختارة</h2>
+        </div>
+        <div class="project-list">
+          <article class="project reveal" data-cv-id="project-portfolio" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">أ</div>
+            <div class="project__body">
+              <p class="project__meta">التصميم والتطوير</p>
+              <h3>موقعي الشخصي</h3>
+              <p>صمّمت هذا الموقع وطوّرته باستخدام <bdi lang="en" dir="ltr">HTML</bdi> و<bdi lang="en" dir="ltr">CSS</bdi> و<bdi lang="en" dir="ltr">JavaScript</bdi>، وأضفت خيارًا لتقليل حركة المؤثرات المدارية.</p>
+              <ul class="tag-list" aria-label="التقنيات المستخدمة في موقعي الشخصي"><li><bdi lang="en" dir="ltr">HTML</bdi></li><li><bdi lang="en" dir="ltr">CSS</bdi></li><li><bdi lang="en" dir="ltr">JavaScript</bdi></li></ul>
+            </div>
+          </article>
+          <article id="solvex" class="project reveal" data-cv-id="experience-solvex" data-cv-type="experience">
+            <div class="project__number" aria-hidden="true">ب</div>
+            <div class="project__body">
+              <p class="project__meta">مهندس برمجيات سابق · محاكاة تفاعلية</p>
+              <h3><bdi lang="en" dir="ltr">Solvex</bdi></h3>
+              <p>طوّرت محاكيًا ثلاثي الأبعاد لفريق طلابي من جامعة السلطان قابوس يدرس البلاط الزراعي الذكي. يمكنك ضبط شدة الإشعاع الشمسي لرؤية أثرها في فرق درجات الحرارة والقدرة المقدّرة. يفترض النموذج أن حرارة الوسط المحيط تتراوح بين ٢٨ و٤٢ درجة مئوية، ويقدّر القدرة بمنحنى مبسّط يتناسب طرديًا مع مربع فرق درجات الحرارة. ويتطلب تقييم أداء البلاط الفعلي اختبارات عملية. استقلت لاحقًا للتركيز على مجالات أخرى.</p>
+              <ul class="tag-list" aria-label="مجالات عملي في مشروع Solvex"><li>دمج الذكاء الاصطناعي</li><li>محاكاة ثلاثية الأبعاد</li><li>شركة ناشئة</li><li>الاستدامة</li></ul>
+              <div class="project__actions">
+                <a href="https://faris-zak.github.io/SOLVEX/tile.html" target="_blank" rel="noopener noreferrer">جرّب المحاكاة الحرارية</a>
+                <a href="https://github.com/faris-zak/SOLVEX/blob/main/tile.html#L541-L575" target="_blank" rel="noopener noreferrer">اطّلع على الشيفرة البرمجية للنموذج</a>
+                <a href="https://faris-zak.github.io/SOLVEX/" target="_blank" rel="noopener noreferrer">زر موقع <bdi lang="en" dir="ltr">Solvex</bdi></a>
+              </div>
+            </div>
+          </article>
+          <article id="nexcore" class="project reveal" data-cv-id="experience-nexcore-labs" data-cv-type="experience">
+            <div class="project__number" aria-hidden="true">ج</div>
+            <div class="project__body">
+              <p class="project__meta">مؤسس ومطوّر رئيسي · منصة أُطلقت</p>
+              <h3><bdi lang="en" dir="ltr">NexCore Labs</bdi></h3>
+              <p>أسست <bdi lang="en" dir="ltr">NexCore Labs</bdi>، وهي منصة طلابية مستقلة بالعربية والإنجليزية. يمكن للطلاب استكشاف المشاريع عبر مركز المشاريع ومشاركة أفكارهم عبر مركز المساهمين. في الإصدار <bdi lang="en" dir="ltr">v3.3.0</bdi> أصلحت الجدول الزمني للإصدارات لتظهر التفاصيل كاملةً باللغتين، وأضفت اختبارات في المتصفح للتأكد من استمرار عمله.</p>
+              <ul class="tag-list" aria-label="مجالات العمل في NexCore Labs"><li>القيادة</li><li>تطوير المنتج</li><li>بناء النماذج الأولية</li></ul>
+              <div class="project__actions">
+                <a href="https://nexcorelabs.vercel.app/" target="_blank" rel="noopener noreferrer">افتح <bdi lang="en" dir="ltr">NexCore Labs</bdi></a>
+                <a href="https://github.com/NexCore-Labs-Initiative/NexCore/releases/tag/v3.3.0" target="_blank" rel="noopener noreferrer">اقرأ تفاصيل الإصدار <bdi lang="en" dir="ltr">v3.3.0</bdi></a>
+                <a href="https://github.com/NexCore-Labs-Initiative/NexCore/commit/26ea0b608673f38d6940c9934295622a1a0cf324" target="_blank" rel="noopener noreferrer">اطّلع على إصلاح الجدول الزمني</a>
+                <a href="https://github.com/NexCore-Labs-Initiative/NexCore" target="_blank" rel="noopener noreferrer">تصفّح الشيفرة المصدرية للمشروع</a>
+              </div>
+            </div>
+          </article>
+          <article id="vitalx" class="project reveal" data-cv-id="project-vitalx" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">د</div>
+            <div class="project__body">
+              <p class="project__meta">مساهم في تطوير الواجهة الأمامية · مقترح هاكاثون</p>
+              <h3><bdi lang="en" dir="ltr">VitalX</bdi></h3>
+              <p>ساهمت في تطوير الواجهة الأمامية لأداة اقترحها فريق <bdi lang="en" dir="ltr">Novacare</bdi> لمتابعة صحة روّاد الفضاء، ضمن تحدّي تطبيقات الفضاء من ناسا عام ٢٠٢٦ في بدية. حصلت على شهادة المشاركة <bdi lang="en" dir="ltr">Galactic Problem Solver</bdi>.</p>
+              <div class="project__actions">
+                <a href="#space-apps-2026">اطّلع على تفاصيل مشاركتي في الهاكاثون</a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" data-cv-id="project-alduwiki" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">هـ</div>
+            <div class="project__body">
+              <p class="project__meta">مطوّر ويب · موقع شركة</p>
+              <h3><bdi lang="en" dir="ltr">AlDuwiki Cement Products</bdi></h3>
+              <p>طوّرت موقعًا للشركة يتيح للعملاء تصفّح منتجات الأسمنت والاعتمادات والاطّلاع على موقع الشركة والتواصل مع فريقها.</p>
+              <ul class="tag-list" aria-label="مجالات العمل في موقع AlDuwiki Cement Products"><li>موقع شركة</li><li><bdi lang="en" dir="ltr">HTML</bdi></li><li><bdi lang="en" dir="ltr">CSS</bdi></li><li><bdi lang="en" dir="ltr">JavaScript</bdi></li></ul>
+              <div class="project__actions">
+                <a href="https://alduwiki-cp.com/" target="_blank" rel="noopener noreferrer">زر موقع الشركة</a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" data-cv-id="project-scorleaf" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">و</div>
+            <div class="project__body">
+              <p class="project__meta">مطوّر ويب · موقع شركة ناشئة</p>
+              <h3><bdi lang="en" dir="ltr">Scorleaf</bdi></h3>
+              <p>طوّرت الموقع العربي لشركة <bdi lang="en" dir="ltr">Scorleaf</bdi> الطلابية الناشئة في قطاع الصحة في عُمان. يعرّف الموقع بالفريق وفكرة المنتج وطرق التواصل.</p>
+              <ul class="tag-list" aria-label="مجالات العمل في موقع Scorleaf"><li>موقع شركة ناشئة</li><li>الصحة</li><li><bdi lang="en" dir="ltr">HTML</bdi></li><li><bdi lang="en" dir="ltr">CSS</bdi></li></ul>
+              <div class="project__actions">
+                <a href="https://faris-zak.github.io/Scorleaf/" target="_blank" rel="noopener noreferrer">زر موقع الشركة الناشئة</a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" data-cv-id="project-mindsync" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">ز</div>
+            <div class="project__body">
+              <p class="project__meta">مؤسس ومطوّر رئيسي · منصة ويب</p>
+              <h3><bdi lang="en" dir="ltr">MindSync</bdi> مايندسينك</h3>
+              <p>طوّرت موقعًا تعليميًا يجمع موارد للطلاب في الدراسة والتطوير الذاتي، باستخدام <bdi lang="en" dir="ltr">HTML</bdi> و<bdi lang="en" dir="ltr">CSS</bdi> و<bdi lang="en" dir="ltr">JavaScript</bdi>.</p>
+              <ul class="tag-list" aria-label="التقنيات المستخدمة في مايندسينك"><li><bdi lang="en" dir="ltr">HTML</bdi></li><li><bdi lang="en" dir="ltr">CSS</bdi></li><li><bdi lang="en" dir="ltr">JavaScript</bdi></li></ul>
+              <div class="project__actions">
+                <a href="https://github.com/faris-zak/MindSync" target="_blank" rel="noopener noreferrer">تصفّح الشيفرة المصدرية لـ <bdi lang="en" dir="ltr">MindSync</bdi></a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" data-cv-id="project-ai-family-corp" data-cv-type="project">
+            <div class="project__number" aria-hidden="true">ح</div>
+            <div class="project__body">
+              <p class="project__meta">مؤسس مشارك · قيد التأسيس</p>
+              <h3><bdi lang="en" dir="ltr">AI Family Corp</bdi></h3>
+              <p>أعمل مع والدي وعائلتي على تأسيس مشروع يوظّف الذكاء الاصطناعي وتقنيات أخرى لحل مشكلات عملية.</p>
+              <ul class="tag-list" aria-label="مجالات عمل AI Family Corp"><li>مشروع عائلي</li><li>الذكاء الاصطناعي</li><li>التقنية</li><li>حل المشكلات</li></ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="breakthroughs" class="breakthroughs section-shell" aria-labelledby="breakthroughs-title">
+        <div class="section-heading reveal">
+          <h2 id="breakthroughs-title">الخبرة والإنجازات</h2>
+        </div>
+        <ol class="timeline">
+          <li class="timeline__item reveal" data-cv-id="experience-city-technical-experts" data-cv-type="experience"><time datetime="2024">٢٠٢٤</time><div><h3><a href="https://www.cteoman.com/" target="_blank" rel="noopener noreferrer">مدينة الخبراء التقنيين (<bdi lang="en" dir="ltr">CTE</bdi>)</a></h3><p>تعاملت مع العملاء والمعدات التقنية في المبيعات والدعم لدى شركة والدي.</p></div></li>
+          <li class="timeline__item reveal" data-cv-id="experience-squ-open-source" data-cv-type="experience"><time datetime="2025">٢٠٢٥</time><div><h3>جماعة المصادر المفتوحة بجامعة السلطان قابوس</h3><p>اختيرتُ عضوًا في الجماعة وقدّمت ورشًا في <bdi lang="en" dir="ltr">HTML</bdi> و<bdi lang="en" dir="ltr">CSS</bdi> ضمن مبادرة المصادر المفتوحة.</p></div></li>
+          <li class="timeline__item reveal"><time datetime="2026">٢٠٢٦</time><div><h3><a href="https://www.youtube.com/watch?v=NcdIrm2OG9c" target="_blank" rel="noopener noreferrer">مؤتمر الشرق الأوسط للفضاء</a></h3><p>حضرت المؤتمر في مركز عُمان للمؤتمرات والمعارض بمسقط، وتواصلت مع شركات ناشئة وشركات عاملة في قطاع الفضاء وأقران يشاركونني الطموح. وطرحت سؤالًا خلال حوار مفتوح مع خبراء دوليين في الفضاء، ووُثّق السؤال في التسجيل.</p></div></li>
+          <li class="timeline__item reveal"><time datetime="2026-11">نوفمبر ٢٠٢٦</time><div><h3><a href="https://home.moe.gov.om/en/topics/1/show/2671" target="_blank" rel="noopener noreferrer">مهرجان عُمان للعلوم</a></h3><p>استكشفت معروضات الفيزياء الحديثة في الدورة الخامسة من مهرجان عُمان للعلوم بمركز عُمان للمؤتمرات والمعارض، ومنها موجات الجاذبية والثقوب السوداء وقياس التداخل الليزري. كما التقيت بأحد مقدّمي العروض العلمية الزائرين.</p></div></li>
+          <li class="timeline__item reveal" data-cv-id="achievement-nasa-space-apps-2026" data-cv-type="achievement"><time datetime="2026-11-14">من ١٤ إلى ١٥ نوفمبر ٢٠٢٦</time><div><h3><a href="#vitalx">تحدّي تطبيقات الفضاء من ناسا</a></h3><p>ساهمت في تطوير الواجهة الأمامية لمشروع <bdi lang="en" dir="ltr">VitalX</bdi> مع فريق <bdi lang="en" dir="ltr">Novacare</bdi> في بدية، وحصلت على شهادة المشاركة <bdi lang="en" dir="ltr">Galactic Problem Solver</bdi>.</p></div></li>
+          <li class="timeline__item reveal"><time datetime="2026">٢٠٢٦</time><div><h3>آينشتاين الصغير ٦</h3><p>شاركت مدرّبًا في ركن نادي الفلك خلال النسخة السادسة من فعالية آينشتاين الصغير، التي نظّمتها جماعة الفيزياء بالتعاون مع نادي الفلك. قدّمت عروضًا عن الفلك للأطفال من فئات عمرية مختلفة على مدار يومين.</p></div></li>
+          <li class="timeline__item reveal"><time datetime="2026">٢٠٢٦</time><div><h3>برنامج إسناد التطوّعي</h3><p>أتممت معسكرًا تدريبيًا قدّمته وزارة الثقافة والرياضة والشباب واستضافته جامعة السلطان قابوس. شمل المعسكر ٢٠ ساعة من الورش، تلتها أنشطة تطبيقية مع شباب من جمعية الرحمة.</p></div></li>
+          <li class="timeline__item reveal" data-cv-id="experience-utas-summer-challenge" data-cv-type="experience"><time datetime="2026-06-28">٢٨ يونيو ٢٠٢٦</time><div><h3>التحدّي الصيفي لجامعة التقنية والعلوم التطبيقية</h3><p>اقترح فريق منصّتنا، في التحدّي الصيفي بجامعة التقنية والعلوم التطبيقية في إبراء، طريقةً لدعم الطلبة منذ التحاقهم بالجامعة حتى تخرّجهم. لم يفز فريقنا.</p></div></li>
+          <li class="timeline__item reveal"><time datetime="2026">٢٠٢٦</time><div><h3>ترشيحات لأدوار قيادية بجامعة السلطان قابوس</h3><p>خلال سنتي الثانية في جامعة السلطان قابوس، رُشّحت لرئاسة نادي الفلك التابع لجماعة الفيزياء في كلية العلوم، ولرئاسة لجنة التقنية والورش في جماعة التاريخ والآثار بكلية الآداب.</p></div></li>
+        </ol>
+        <figure class="service-feature reveal">
+          <img src="/assets/imgs/esnad-volunteer-program.webp" alt="صورة لي في برنامج إسناد التطوّعي الذي استضافته جامعة السلطان قابوس" loading="lazy" />
+          <figcaption>
+            <span>برنامج إسناد التطوّعي · جامعة السلطان قابوس</span>
+            <h3>تدريب تطوّعي وعمل ميداني مع الشباب</h3>
+            <p>معسكر تدريبي في العمل التطوّعي قدّمته وزارة الثقافة والرياضة والشباب واستضافته جامعة السلطان قابوس. بعد ٢٠ ساعة من الورش، شاركت في أنشطة تطبيقية مباشرة مع شباب من جمعية الرحمة.</p>
+          </figcaption>
+        </figure>
+        <article class="outreach-feature reveal">
+          <div class="outreach-feature__media">
+            <img src="/assets/imgs/little-einstein-astronomy-station.webp" alt="صورة لي وأنا أشرح مفاهيم الفلك للأطفال في فعالية آينشتاين الصغير" loading="lazy" />
+          </div>
+          <div class="outreach-feature__copy">
+            <span>آينشتاين الصغير ٦ · التوعية بعلم الفلك</span>
+            <h3>تعليم الفلك للأطفال في جامعة السلطان قابوس</h3>
+            <p>عملت مدرّبًا في ركن نادي الفلك على مدار يومي فعالية آينشتاين الصغير. قدّمت مفاهيم فلكية للأطفال من فئات عمرية مختلفة، وحصلت على شهادة مشاركة.</p>
+          </div>
+        </article>
+        <article id="astra-interview" class="outreach-feature reveal" aria-labelledby="astra-interview-title">
+          <figure class="outreach-feature__media broadcast-still">
+            <img class="broadcast-still__image" src="/assets/imgs/astra-oman-sports-tv.webp" alt="صورة لي أتحدث عبر ميكروفون قناة عُمان الرياضية مساءً في حديقة الأندلس" width="1280" height="723" loading="lazy" decoding="async" />
+            <figcaption>لقطة من برنامج <cite>الحدث</cite> على قناة عُمان الرياضية، ١٩ نوفمبر ٢٠٢٦</figcaption>
+          </figure>
+          <div class="outreach-feature__copy" data-cv-id="experience-astra-tv-interview" data-cv-type="experience">
+            <span><bdi lang="en" dir="ltr">Astra</bdi> · التوعية بعلم الفلك</span>
+            <h3 id="astra-interview-title">تمثيل نادي الفلك على قناة عُمان الرياضية</h3>
+            <p>مثّلت نادي الفلك في مقابلة على قناة عُمان الرياضية خلال فعالية القرية الرياضية لجامعة السلطان قابوس في حديقة الأندلس. نظّم النادي <bdi lang="en" dir="ltr">Astra</bdi>، وهي فعالية لرصد النجوم في الهواء الطلق، وتحدّثت في المقابلة عن النادي وأنشطته.</p>
+            <div class="outreach-feature__actions">
+              <a class="button button--primary" href="https://www.youtube.com/watch?v=lhM5lNYeIaE&amp;t=2590s" target="_blank" rel="noopener noreferrer">شاهد المقابلة عند الدقيقة <bdi lang="en" dir="ltr">43:10</bdi></a>
+              <a class="button button--quiet" href="https://www.instagram.com/spg__squ/reel/DfqE736BUbE/" target="_blank" rel="noopener noreferrer">اطّلع على دعوة <bdi lang="en" dir="ltr">Astra</bdi></a>
+            </div>
+          </div>
+        </article>
+        <div class="earlier-awards reveal">
+          <h3>جوائز وتكريمات سابقة</h3>
+          <ul>
+            <li data-cv-id="achievement-design-award" data-cv-type="achievement"><strong>جائزة التصميم</strong> · <time datetime="2022">٢٠٢٢</time></li>
+            <li data-cv-id="achievement-best-leader" data-cv-type="achievement"><strong>جائزة أفضل قائد</strong> · <time datetime="2023">٢٠٢٣</time></li>
+            <li data-cv-id="achievement-programming-first" data-cv-type="achievement"><strong>المركز الأول في البرمجة</strong> · <time datetime="2024">٢٠٢٤</time></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="credentials" class="credentials section-shell" aria-labelledby="credentials-title">
+        <div class="credentials__content reveal">
+          <h2 id="credentials-title">التعليم والتدريب</h2>
+          <div data-cv-id="education-squ-physics" data-cv-type="education">
+            <h3>بكالوريوس الفيزياء، جامعة السلطان قابوس</h3>
+            <p><time datetime="2025">٢٠٢٥</time>حتى الآن · كلية العلوم، عُمان</p>
+          </div>
+          <ul class="training-highlights">
+            <li><strong>مقدّم ورش تدريبية</strong> · <bdi lang="en" dir="ltr">HTML</bdi> و<bdi lang="en" dir="ltr">CSS</bdi>، جماعة المصادر المفتوحة بجامعة السلطان قابوس، ٢٠٢٥</li>
+            <li><strong>مشارك في ورشة</strong> · ورشة الفضاء والصواريخ بجامعة السلطان قابوس بالتعاون مع <bdi lang="en" dir="ltr">R2S Oman</bdi>، ديسمبر ٢٠٢٥</li>
+            <li><strong>مشارك في هاكاثون</strong> · شهادة <bdi lang="en" dir="ltr">Galactic Problem Solver</bdi>، تحدّي تطبيقات الفضاء من ناسا، نوفمبر ٢٠٢٦</li>
+          </ul>
+          <div class="skills-summary" data-cv-id="skills-digital" data-cv-type="skill">
+            <h3>مهارات تطوير واجهات الويب</h3>
+            <p><bdi lang="en" dir="ltr">HTML</bdi> و<bdi lang="en" dir="ltr">CSS</bdi> و<bdi lang="en" dir="ltr">JavaScript</bdi>، وتصميم الواجهات المتجاوبة، و<bdi lang="en" dir="ltr">Git</bdi> و<bdi lang="en" dir="ltr">GitHub</bdi></p>
+          </div>
+        </div>
+        <div class="credentials__stats reveal" aria-label="أبرز محطات التعليم والشهادات">
+          <button class="credential-stat credential-stat--button" type="button" data-certificates-open data-archive-label="افتح الأرشيف ↖" aria-expanded="false" aria-controls="certificates-modal">
+            <strong>أكثر من ٢٠</strong>
+            <span>الشهادات ومحطات التعلّم</span>
+          </button>
+          <div><strong>العربية والإنجليزية</strong><span>العربية لغتي الأم · الإنجليزية للأغراض الأكاديمية</span></div>
+        </div>
+      </section>
+
+      <section id="rocket-log" class="rocket-log section-shell" aria-labelledby="rocket-log-title">
+        <div class="section-heading reveal">
+          <h2 id="rocket-log-title">يوميات ميدانية عن الفضاء</h2>
+        </div>
+        <div id="trajectory" class="learning-log">
+          <article class="log-panel reveal">
+            <span>ملاحظة ميدانية · المدارات</span>
+            <h3>ميكانيكا المدارات</h3>
+            <p>أدرس كيف تتحرّك الأجسام في المدارات وتنتقل بينها وتتقارب، وكيف يتناقص ارتفاعها وتستمر في المدار ضمن القيود الفعلية للمهمّات.</p>
+          </article>
+          <article class="log-panel reveal">
+            <span>ملاحظة ميدانية · الدفع</span>
+            <h3>أساسيات الدفع</h3>
+            <p>أدرس قوة الدفع ومراحل الصاروخ واختيار الوقود ومسارات الإطلاق، وكيف يؤثّر كل كيلوغرام إضافي في حسابات الإطلاق.</p>
+          </article>
+          <article class="log-panel reveal">
+            <span>ملاحظة ميدانية · الرحلات المأهولة</span>
+            <h3>جاهزية روّاد الفضاء</h3>
+            <p>أتعرّف على ما تتطلّبه المهمّات المأهولة من انضباط وتواصل ولياقة وفهم للأنظمة وثقة بين أفراد الطاقم.</p>
+          </article>
+          <article class="log-panel reveal">
+            <span>ملاحظة ميدانية · تصميم المهمّات</span>
+            <h3>استكشاف القمر والمريخ</h3>
+            <p>أتابع تصميم المهمّات وعملياتها على السطح وواجهات المركبات الفضائية، ومستقبل استكشاف البشر لما وراء الأرض.</p>
+          </article>
+        </div>
+        <figure class="space-selfie reveal">
+          <img src="/assets/imgs/crunchlabs-space-selfie.webp" alt="صورة التقطها قمر CrunchLabs الصناعي وتظهر فيها صورتي الشخصية فوق الأرض" loading="lazy" />
+          <figcaption>
+            <span>صورتي في الفضاء عبر <bdi lang="en" dir="ltr">CrunchLabs</bdi></span>
+            <p>صورة شخصية التقطها <a href="https://space.crunchlabs.com/" target="_blank" rel="noopener noreferrer">القمر الصناعي التابع لـ <bdi lang="en" dir="ltr">CrunchLabs</bdi> <span aria-hidden="true">↖</span></a>، تحمل رسالتي فوق الأرض.</p>
+          </figcaption>
+        </figure>
+        <figure class="space-artifact reveal">
+          <img src="/assets/imgs/boarding-pass.webp" alt="بطاقة صعود من ناسا لمهمّة Artemis II باسم الفارس بن مجاهد بن حمود الزكواني" loading="lazy" />
+          <figcaption>
+            <span>بطاقة صعود لمهمّة <bdi lang="en" dir="ltr">Artemis II</bdi> من ناسا</span>
+            <p>بطاقة صعود رمزية لمهمّة <bdi lang="en" dir="ltr">Artemis II</bdi> من حملة ناسا «من القمر إلى المريخ». تربط هذه البطاقة مسار تعلّمي بالمرحلة المقبلة من استكشاف القمر.</p>
+          </figcaption>
+        </figure>
+        <figure class="space-artifact reveal">
+          <img src="/assets/imgs/dragonfly-boarding-pass.jpg" alt="بطاقة صعود تذكارية من ناسا لرحلة Dragonfly إلى تيتان باسم الفارس بن مجاهد بن حمود الزكواني" loading="lazy" />
+          <figcaption>
+            <span>مهمّة <bdi lang="en" dir="ltr">Dragonfly</bdi> من ناسا · رحلة إلى تيتان</span>
+            <p>بطاقة صعود باسمي ضمن <a href="https://www.nasa.gov/news-release/send-your-name-to-titan-aboard-nasas-dragonfly-mission/" target="_blank" rel="noopener noreferrer">حملة ناسا «رحلة إلى تيتان» <span aria-hidden="true">↖</span></a>، التي تدعو الجمهور إلى إرسال أسمائهم على شريحة إلكترونية ستنقلها مهمّة <bdi lang="en" dir="ltr">Dragonfly</bdi> إلى تيتان، قمر زحل.</p>
+          </figcaption>
+        </figure>
+        <article class="passport-feature reveal">
+          <div class="passport-feature__cover" aria-hidden="true">
+            <img src="/assets/imgs/nasa-virtual-guest-passport-cover.webp" alt="" loading="lazy" />
+          </div>
+          <div class="passport-feature__details">
+            <span>جواز ضيف افتراضي من ناسا</span>
+            <h3>الإصدار الثاني من جواز الضيف باسمي</h3>
+            <dl>
+              <div><dt>الاسم</dt><dd>الفارس بن مجاهد بن حمود الزكواني</dd></div>
+              <div><dt>الجنسية</dt><dd>عُماني</dd></div>
+              <div><dt>تاريخ الإصدار</dt><dd>٢٤ يناير ٢٠٢٦</dd></div>
+            </dl>
+            <a class="button button--quiet" href="/assets/pdfs/virtual-guest-passport_2nd_filled.pdf" target="_blank" rel="noopener noreferrer">اعرض الجواز الأصلي بصيغة <bdi lang="en" dir="ltr">PDF</bdi> <span aria-hidden="true">↖</span></a>
+          </div>
+        </article>
+        <article class="conference-feature reveal">
+          <span>مؤتمر الشرق الأوسط للفضاء · مسقط ٢٠٢٦</span>
+          <h3>سؤال في حوار مفتوح مع خبراء الفضاء</h3>
+          <p>حضرت مؤتمر الشرق الأوسط للفضاء في مركز عُمان للمؤتمرات والمعارض، وتعرّفت على شركات ناشئة وشركات رائدة في القطاع وأشخاص يشاركونني الطموح. ثم طرحت سؤالًا في الحوار المفتوح مع خبراء دوليين في الفضاء.</p>
+          <a class="button button--quiet" href="https://www.youtube.com/watch?v=NcdIrm2OG9c" target="_blank" rel="noopener noreferrer">شاهد على <bdi lang="en" dir="ltr">YouTube</bdi> <span aria-hidden="true">↖</span></a>
+          <div class="conference-feature__gallery">
+            <img src="/assets/imgs/middle-east-space-conference-panel.webp" alt="متحدثون على المنصّة في مؤتمر الشرق الأوسط للفضاء" width="1280" height="721" loading="lazy" decoding="async" />
+            <img src="/assets/imgs/middle-east-space-conference-venue.webp" alt="حضور يتجمّعون أمام منصّة مؤتمر الشرق الأوسط للفضاء في مسقط" width="1280" height="721" loading="lazy" decoding="async" />
+          </div>
+        </article>
+        <article class="science-festival-feature reveal">
+          <div class="science-festival-feature__gallery">
+            <figure>
+              <img src="/assets/imgs/oman-science-festival-2026-gravitational-waves.webp" alt="معروضات عن موجات الجاذبية وقياس التداخل الليزري في مهرجان عُمان للعلوم ٢٠٢٦" loading="lazy" />
+              <figcaption>معروضات الفيزياء عن موجات الجاذبية والثقوب السوداء وقياس التداخل الليزري.</figcaption>
+            </figure>
+            <figure>
+              <img src="/assets/imgs/oman-science-festival-2026-physics-meeting.webp" alt="صورة لي أثناء لقائي بأحد مقدّمي العروض العلمية في مهرجان عُمان للعلوم ٢٠٢٦" loading="lazy" />
+              <figcaption>حديث مع أحد مقدّمي العروض العلمية الزائرين في المهرجان.</figcaption>
+            </figure>
+          </div>
+          <div class="science-festival-feature__copy">
+            <span>مهرجان عُمان للعلوم · مسقط ٢٠٢٦</span>
+            <h3>استكشاف فيزياء الموجات في الزمكان</h3>
+            <p>زرت الدورة الخامسة من مهرجان عُمان للعلوم في مركز عُمان للمؤتمرات والمعارض. استكشفت ركن الفيزياء عبر معروضات تفاعلية عن موجات الجاذبية والثقوب السوداء وقياس التداخل الليزري. ذكّرتني الزيارة بأثر التجربة المباشرة والنقاش في تقريب الأفكار العلمية الكبيرة إلى الجمهور.</p>
+            <p class="science-festival-feature__note">من ٢ إلى ١١ نوفمبر ٢٠٢٦ · «العلم بوصلتنا»</p>
+            <a class="button button--quiet" href="https://home.moe.gov.om/en/topics/1/show/2671" target="_blank" rel="noopener noreferrer">اقرأ خبر الفعالية لدى وزارة التربية والتعليم <span aria-hidden="true">↖</span></a>
+          </div>
+        </article>
+        <article id="space-apps-2026" class="space-apps-feature reveal">
+          <div class="space-apps-feature__media">
+            <figure class="space-apps-feature__portrait">
+              <img src="/assets/nasa_space_app_2026/meet me here at the hakathon.webp" alt="صورة لي في تحدّي تطبيقات الفضاء من ناسا عام ٢٠٢٦" loading="lazy" />
+            </figure>
+            <figure class="space-apps-feature__certificate">
+              <img src="/assets/nasa_space_app_2026/got certificate as an approval for our participation.webp" alt="شهادة المشاركة Galactic Problem Solver في تحدّي تطبيقات الفضاء من ناسا عام ٢٠٢٦ باسم الفارس بن مجاهد بن حمود الزكواني" loading="lazy" />
+            </figure>
+            <figure class="space-apps-feature__team">
+              <img src="/assets/nasa_space_app_2026/sharing our feelings of winning with team mates and teams.webp" alt="مشاركون في تحدّي تطبيقات الفضاء من ناسا عام ٢٠٢٦" loading="lazy" />
+            </figure>
+          </div>
+          <div class="space-apps-feature__copy">
+            <span>تحدّي تطبيقات الفضاء من ناسا · بدية ٢٠٢٦</span>
+            <h3>مشروع <bdi lang="en" dir="ltr">VitalX</bdi> في تحدّي تطبيقات الفضاء</h3>
+            <p>في تحدّي تطبيقات الفضاء من ناسا عام ٢٠٢٦ في بدية، ساهمت في تطوير الواجهة الأمامية وحلّ المشكلات بمساعدة الذكاء الاصطناعي ضمن مقترح فريق <bdi lang="en" dir="ltr">Novacare</bdi> لمتابعة صحة روّاد الفضاء.</p>
+            <ul class="space-apps-feature__tags" aria-label="مجالات المساهمة في تحدّي تطبيقات الفضاء من ناسا"><li>تطوير الواجهة الأمامية</li><li>مهارات الذكاء الاصطناعي</li><li>حل المشكلات</li><li>بناء العلاقات</li></ul>
+            <p class="space-apps-feature__note">من ١٤ إلى ١٥ نوفمبر ٢٠٢٦ · شهادة المشاركة <bdi lang="en" dir="ltr">Galactic Problem Solver</bdi></p>
+            <div class="space-apps-feature__links" role="group" aria-label="مقاطع تحدّي تطبيقات الفضاء من ناسا عام ٢٠٢٦">
+              <a class="button button--quiet" href="/assets/nasa_space_app_2026/got certificate as an approval for our participation.webp" target="_blank" rel="noopener noreferrer">اعرض شهادة المشاركة <span aria-hidden="true">↖</span></a>
+              <a class="button button--quiet" href="https://youtu.be/ynKCTTWrrVA?si=V1UEPNr9lO3U0Fri" target="_blank" rel="noopener noreferrer">شاهد الفيديو ٠١ <span aria-hidden="true">↖</span></a>
+              <a class="button button--quiet" href="https://youtu.be/QEeH_ROG5_s?si=Y-CMoITk3L-Y1XJx" target="_blank" rel="noopener noreferrer">شاهد الفيديو ٠٢ <span aria-hidden="true">↖</span></a>
+            </div>
+          </div>
+        </article>
+        <aside class="inspiration-band reveal" aria-label="جهات فضائية أستفيد من أعمالها المنشورة">
+          <span>مصادر إلهام</span>
+          <p>أتابع الأعمال المنشورة لجهات مثل ناسا، و<bdi lang="en" dir="ltr">SpaceX</bdi>، ووكالة الفضاء الأوروبية، و<bdi lang="en" dir="ltr">Rocket Lab</bdi>، و<bdi lang="en" dir="ltr">Blue Origin</bdi> بوصفها مصادر للتعلّم والإلهام فحسب، دون أي انتساب إليها.</p>
+        </aside>
+      </section>
+
+      <section id="astronaut-path" class="astronaut-path section-shell" aria-labelledby="astronaut-path-title">
+        <div class="section-heading reveal">
+          <h2 id="astronaut-path-title">الدراسة المستقلة والاستعداد</h2>
+        </div>
+        <article id="launch-windows" class="study-note reveal" data-cv-id="project-space-research" data-cv-type="project">
+          <h3>الحطام في المدار الأرضي المنخفض</h3>
+          <p>أدرس ميكانيكا المدارات والحدّ من الحطام الفضائي، وأركّز في البداية على أسباب انخفاض ارتفاع الأجسام في المدار الأرضي المنخفض.</p>
+          <p>أطمح مع الوقت إلى بناء أدوات لأبحاث الفضاء والمساهمة في الرحلات الفضائية المأهولة.</p>
+        </article>
+      </section>
+
+      <div class="certificate-modal" id="certificates-modal" data-certificates-modal hidden>
+        <button class="certificate-modal__backdrop" type="button" data-certificates-close aria-label="أغلق الشهادات" tabindex="-1"></button>
+        <section class="certificate-modal__panel" role="dialog" aria-modal="true" aria-labelledby="certificates-title" tabindex="-1">
+          <div class="certificate-modal__header">
+            <div>
+              <p class="eyebrow">أرشيف الشهادات</p>
+              <h2 id="certificates-title">الشهادات ومحطات التعلّم</h2>
+            </div>
+            <button class="certificate-modal__close" type="button" data-certificates-close aria-label="أغلق الشهادات">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <a class="certificate-drive-link" href="https://drive.google.com/drive/folders/1yjaDVbImwtZtQdEPfiCMyozFICNi7TGQ?usp=sharing" target="_blank" rel="noopener noreferrer">
+            <span>أرشيف الشهادات الكامل</span>
+            <strong>افتح المجلد في <bdi lang="en" dir="ltr">Google Drive</bdi></strong>
+          </a>
+          <div class="certificate-list" aria-label="شهادات مختارة">
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>مسار تطوير واجهات الويب</h3><p>مسار تعلّم التطوير · فبراير ٢٠٢١</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>تقديم ورش في <bdi lang="en" dir="ltr">HTML</bdi> و<bdi lang="en" dir="ltr">CSS</bdi></h3><p>جماعة المصادر المفتوحة بجامعة السلطان قابوس · ٢٠٢٥</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>ورشة إدارة المشاريع</h3><p>إنجاز عُمان · فبراير ٢٠٢٤</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>ريادة الأعمال والابتكار المستدام</h3><p>إنجاز العرب وبوينغ · فبراير ٢٠٢٥</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>أساسيات التسويق الرقمي</h3><p><bdi lang="en" dir="ltr">Google</bdi> · أبريل ٢٠٢٤</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>مقدّمة في تحليل البيانات باستخدام <bdi lang="en" dir="ltr">Microsoft Excel</bdi></h3><p><bdi lang="en" dir="ltr">Coursera</bdi> · نوفمبر ٢٠٢٥</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>دوال البحث والمراجع والرياضيات والنصوص في <bdi lang="en" dir="ltr">Excel</bdi></h3><p><bdi lang="en" dir="ltr">Coursera</bdi> · نوفمبر ٢٠٢٥</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>دوال متقدّمة للمبتدئين في <bdi lang="en" dir="ltr">Excel</bdi></h3><p><bdi lang="en" dir="ltr">Coursera</bdi> · نوفمبر ٢٠٢٥</p></div></article>
+            <a class="certificate-item certificate-item--link" href="/assets/certificates/IELTS-Academic-IDP-results-redacted.webp" target="_blank" rel="noopener noreferrer" aria-label="اعرض صورة نتائج اختبار IELTS الأكاديمي من IDP بعد حجب البيانات الشخصية، تُفتح في علامة تبويب جديدة">
+              <span aria-hidden="true">✦</span>
+              <div>
+                <h3>اختبار <bdi lang="en" dir="ltr">IELTS</bdi> الأكاديمي</h3>
+                <p><bdi lang="en" dir="ltr">IDP</bdi> · تاريخ الاختبار ٢٦ يوليو ٢٠٢٥</p>
+                <p>الدرجة الإجمالية ٥٫٥ · الاستماع ٥٫٥ · القراءة ٥٫٥ · الكتابة ٥٫٥ · المحادثة ٥٫٠</p>
+                <small class="certificate-item__proof">اعرض صورة نتائج <bdi lang="en" dir="ltr">IDP</bdi> بعد حجب البيانات الشخصية ↖</small>
+              </div>
+            </a>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>مدرّب في آينشتاين الصغير ٦</h3><p>جماعة الفيزياء ونادي الفلك · جامعة السلطان قابوس · العام الأكاديمي <bdi lang="en" dir="ltr">2026–2027</bdi></p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>برنامج إسناد التطوّعي</h3><p>وزارة الثقافة والرياضة والشباب · جامعة السلطان قابوس · ٢٠ ساعة تدريبية · ٢٠٢٦</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>التحدّي الصيفي لجامعة التقنية والعلوم التطبيقية ٢٠٢٦</h3><p>جامعة التقنية والعلوم التطبيقية، إبراء · فريق المنصّة · ٢٨ يونيو ٢٠٢٦</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>محطة تعلّم ضمن <bdi lang="en" dir="ltr">SQU-LSG</bdi></h3><p>جامعة السلطان قابوس · أكتوبر ٢٠٢٥</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>اكتشاف المواهب ١</h3><p>برنامج اكتشاف المواهب · سبتمبر ٢٠٢١</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>اكتشاف المواهب ٢</h3><p>برنامج اكتشاف المواهب · فبراير ٢٠٢٣</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>وحدة المبتدئين في <bdi lang="en" dir="ltr">Typing.com</bdi></h3><p><bdi lang="en" dir="ltr">Typing.com</bdi> · يونيو ٢٠٢٣</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>تقييم مستوى المبتدئين في <bdi lang="en" dir="ltr">Typing.com</bdi></h3><p><bdi lang="en" dir="ltr">Typing.com</bdi> · يونيو ٢٠٢٣</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>وحدة المستوى المتوسّط في <bdi lang="en" dir="ltr">Typing.com</bdi></h3><p><bdi lang="en" dir="ltr">Typing.com</bdi> · يونيو ٢٠٢٣</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>تقييم المستوى المتوسّط في <bdi lang="en" dir="ltr">Typing.com</bdi></h3><p><bdi lang="en" dir="ltr">Typing.com</bdi> · يونيو ٢٠٢٣</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>وحدة المستوى المتقدّم في <bdi lang="en" dir="ltr">Typing.com</bdi></h3><p><bdi lang="en" dir="ltr">Typing.com</bdi> · يونيو ٢٠٢٣</p></div></article>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>تقييم المستوى المتقدّم في <bdi lang="en" dir="ltr">Typing.com</bdi></h3><p><bdi lang="en" dir="ltr">Typing.com</bdi> · يونيو ٢٠٢٣</p></div></article>
+            <a class="certificate-item certificate-item--link" href="/assets/nasa_space_app_2026/got certificate as an approval for our participation.webp" target="_blank" rel="noopener noreferrer" aria-label="اعرض شهادة المشاركة Galactic Problem Solver في تحدّي تطبيقات الفضاء من ناسا عام ٢٠٢٦، تُفتح في علامة تبويب جديدة"><span aria-hidden="true">✦</span><div><h3>تحدّي تطبيقات الفضاء من ناسا ٢٠٢٦</h3><p>شهادة المشاركة <bdi lang="en" dir="ltr">Galactic Problem Solver</bdi> · من ١٤ إلى ١٥ نوفمبر ٢٠٢٦ · <bdi lang="en" dir="ltr">Novacare</bdi></p></div></a>
+            <a class="certificate-item certificate-item--link" href="/assets/certificates/NASA-Space-Apps-Challenge-2023.pdf" target="_blank" rel="noopener noreferrer" aria-label="اعرض شهادة تحدّي تطبيقات الفضاء الدولي من ناسا عام ٢٠٢٣، تُفتح في علامة تبويب جديدة"><span aria-hidden="true">✦</span><div><h3>تحدّي تطبيقات الفضاء الدولي من ناسا ٢٠٢٣</h3><p><bdi lang="en" dir="ltr">Galactic Problem Solver</bdi> · من ٦ إلى ٨ أكتوبر ٢٠٢٣</p></div></a>
+            <article class="certificate-item"><span aria-hidden="true">✦</span><div><h3>ورشة الفضاء والصواريخ الأولى بجامعة السلطان قابوس بالتعاون مع <bdi lang="en" dir="ltr">R2S Oman</bdi></h3><p>جامعة السلطان قابوس · قسم الهندسة الكهربائية وهندسة الحاسب الآلي · ٤ ديسمبر ٢٠٢٥</p></div></article>
+          </div>
+        </section>
+      </div>
+
+      <section id="contact" class="contact section-shell" aria-labelledby="contact-title">
+        <div class="contact__intro reveal">
+          <h2 id="contact-title">التواصل</h2>
+          <p>أرحّب بالتواصل بشأن فرص التدريب في تطوير واجهات الويب وبرمجيات العلوم، وبشأن الأبحاث الجامعية في الفيزياء أو تقنيات الفضاء.</p>
+          <div class="social-links" aria-label="وسائل التواصل والحسابات الاجتماعية">
+            <a href="mailto:a.alzakwani@outlook.com"><span class="social-links__label"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4.75 6.75h14.5v10.5H4.75z" /><path d="m5.25 7.25 6.75 5.5 6.75-5.5" /></svg>البريد الإلكتروني</span><span aria-hidden="true">↖</span></a>
+            <a href="https://www.linkedin.com/in/alfarismujahid/" target="_blank" rel="noopener noreferrer"><span class="social-links__label"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M7.5 10v7M11 17v-7M11 13a3 3 0 0 1 6 0v4" /><circle cx="7.5" cy="7" r=".75" /></svg><bdi lang="en" dir="ltr">LinkedIn</bdi></span><span aria-hidden="true">↖</span></a>
+            <a href="https://github.com/faris-zak" target="_blank" rel="noopener noreferrer"><span class="social-links__label"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2.75a9.25 9.25 0 0 0-2.93 18.03c.46.08.63-.2.63-.44v-1.7c-2.57.56-3.12-1.09-3.12-1.09-.42-1.07-1.03-1.36-1.03-1.36-.84-.57.06-.56.06-.56.93.07 1.42.96 1.42.96.82 1.41 2.15 1 2.68.76.08-.6.32-1 .58-1.23-2.05-.23-4.2-1.03-4.2-4.57 0-1.01.36-1.84.95-2.49-.1-.23-.41-1.18.09-2.45 0 0 .78-.25 2.55.95a8.77 8.77 0 0 1 4.64 0c1.77-1.2 2.54-.95 2.54-.95.5 1.27.19 2.22.09 2.45.59.65.95 1.48.95 2.49 0 3.55-2.16 4.33-4.22 4.56.33.29.62.85.62 1.72v2.55c0 .24.17.53.64.44A9.25 9.25 0 0 0 12 2.75Z" /></svg><bdi lang="en" dir="ltr">GitHub</bdi></span><span aria-hidden="true">↖</span></a>
+            <a href="https://www.youtube.com/@AlFarisMujahid-8" target="_blank" rel="noopener noreferrer"><span class="social-links__label"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.6 2.6 0 0 0-1.8 1.8A27 27 0 0 0 2 12s0 3.2.4 4.8a2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12s0-3.2-.4-4.8Z" /><path d="m10 9 5 3-5 3z" /></svg><bdi lang="en" dir="ltr">YouTube</bdi></span><span aria-hidden="true">↖</span></a>
+            <a href="https://x.com/AlFarisMujahid_" target="_blank" rel="noopener noreferrer"><span class="social-links__label"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M13.79 10.47 20.86 2.25h-1.68l-6.13 7.13-4.9-7.13H2.5l7.42 10.8-7.42 8.63h1.68l6.49-7.55 5.18 7.55h5.65l-7.71-11.21Zm-2.3 2.68-.75-1.07-5.98-8.55h2.58l4.82 6.9.75 1.07 6.27 8.96H16.6l-5.11-7.31Z" /></svg><bdi lang="en" dir="ltr">X</bdi></span><span aria-hidden="true">↖</span></a>
+            <a href="https://g.dev/alfarismujahid" target="_blank" rel="noopener noreferrer"><span class="social-links__label"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m8.5 8-4 4 4 4" /><path d="m15.5 8 4 4-4 4" /><path d="m13.5 5.75-3 12.5" /></svg><bdi lang="en" dir="ltr">Google Developer</bdi></span><span aria-hidden="true">↖</span></a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="614e7d5a-7d72-41ed-b824-81e927d7965d" />
+          <input type="hidden" name="redirect" value="https://faris-zak.github.io/P/submitted-form.html" />
+          <input type="hidden" name="from_name" value="P | Message to Al-Faris" />
+          <input type="hidden" name="subject" value="Someone Contacted You!" />
+          <div class="form-field"><label for="name">الاسم</label><input id="name" dir="auto" type="text" name="name" autocomplete="name" required /></div>
+          <div class="form-field"><label for="email">البريد الإلكتروني</label><input id="email" dir="ltr" type="email" name="email" autocomplete="email" required /></div>
+          <div class="form-field"><label for="phone">رقم الهاتف <span>(اختياري)</span></label><input id="phone" dir="ltr" type="tel" name="phone" autocomplete="tel" /></div>
+          <div class="form-field"><label for="message">الرسالة</label><textarea id="message" dir="auto" name="message" rows="5" required></textarea></div>
+          <button class="button button--primary" type="submit">أرسل الرسالة <span aria-hidden="true">↖</span></button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>الفارس بن مجاهد بن حمود الزكواني <span aria-hidden="true">✦</span> يوميات ميدانية</p>
+      <p>بدأ الموقع بدافع الفضول عن الفضاء.</p>
+    </footer>
+
+  </body>
+</html>

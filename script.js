@@ -9,12 +9,65 @@ if (fieldJournalDate) {
     day: '2-digit',
   }).formatToParts(now);
   const { year, month, day } = Object.fromEntries(dateParts.map(({ type, value }) => [type, value]));
-  const shortMonth = new Intl.DateTimeFormat('en-US', { timeZone, month: 'short' }).format(now);
-
   fieldJournalDate.dateTime = `${year}-${month}-${day}`;
-  fieldJournalDate.textContent = `${day}-${shortMonth}-${year.slice(-2)}`;
+  if (document.documentElement.lang === 'ar') {
+    fieldJournalDate.textContent = new Intl.DateTimeFormat('ar-OM', {
+      timeZone,
+      calendar: 'gregory',
+      dateStyle: 'long',
+    }).format(now);
+  } else {
+    const shortMonth = new Intl.DateTimeFormat('en-US', { timeZone, month: 'short' }).format(now);
+    fieldJournalDate.textContent = `${day}-${shortMonth}-${year.slice(-2)}`;
+  }
   fieldJournalDate.before('/ ');
   fieldJournalDate.hidden = false;
+}
+
+const languageSwitch = document.querySelector('[data-language-switch]');
+if (languageSwitch) {
+  const header = languageSwitch.closest('.site-header');
+  const sections = Array.from(document.querySelectorAll('main > section[id]'));
+  const alternatePage = new URL(languageSwitch.href);
+
+  const updateLanguageSwitch = () => {
+    const headerBottom = header.getBoundingClientRect().bottom;
+    const readingLine = headerBottom + (window.innerHeight - headerBottom) * 0.2;
+    let currentSection;
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top > readingLine) break;
+      currentSection = section;
+    }
+    const linkedSection = document.getElementById(window.location.hash.slice(1));
+    const linkedSectionBounds = linkedSection?.getBoundingClientRect();
+    const isReadingLink = linkedSectionBounds
+      && linkedSection.closest('main > section[id]')
+      && linkedSectionBounds.top < window.innerHeight
+      && linkedSectionBounds.bottom > headerBottom;
+    const targetId = isReadingLink ? linkedSection.id : currentSection?.id;
+
+    const isAtHome = targetId === 'top' && !isReadingLink;
+    alternatePage.hash = isAtHome ? '' : targetId ?? '';
+    if (languageSwitch.href !== alternatePage.href) {
+      languageSwitch.href = alternatePage.href;
+    }
+  };
+
+  let frame;
+  const scheduleLanguageSwitchUpdate = () => {
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      frame = undefined;
+      updateLanguageSwitch();
+    });
+  };
+
+  window.addEventListener('scroll', scheduleLanguageSwitchUpdate, { passive: true });
+  window.addEventListener('resize', scheduleLanguageSwitchUpdate);
+  window.addEventListener('hashchange', scheduleLanguageSwitchUpdate);
+  window.addEventListener('pageshow', scheduleLanguageSwitchUpdate);
+  languageSwitch.addEventListener('click', updateLanguageSwitch);
+  updateLanguageSwitch();
 }
 
 const menuButton = document.querySelector('.menu-toggle');
@@ -68,6 +121,7 @@ const createOriginGlobe = () => {
   let threeModulePromise;
   let topoJsonModulePromise;
   let worldAtlasPromise;
+  let initialization;
   let renderer;
   let scene;
   let camera;
@@ -549,14 +603,14 @@ const createOriginGlobe = () => {
       return;
     }
 
-    lastWidth = safeWidth;
-    lastHeight = safeHeight;
     camera.aspect = safeWidth / safeHeight;
     // Fit the globe to the short side of the canvas at every aspect ratio.
     camera.zoom = Math.min(1, camera.aspect);
     camera.updateProjectionMatrix();
     renderer.setSize(safeWidth, safeHeight, false);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    lastWidth = safeWidth;
+    lastHeight = safeHeight;
   };
 
   const render = (timestamp = 0) => {
@@ -610,10 +664,6 @@ const createOriginGlobe = () => {
   };
 
   const init = async () => {
-    if (isReady || !canUseGlobe()) {
-      return isReady;
-    }
-
     if (!hasWebGlSupport()) {
       originGlobe.classList.add('is-unavailable');
       return false;
@@ -632,7 +682,6 @@ const createOriginGlobe = () => {
 
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
       renderer.setClearColor(0x000000, 0);
-      originGlobeCanvas.appendChild(renderer.domElement);
 
       globeGroup = new THREE.Group();
       globeGroup.add(buildGlobeShell(THREE));
@@ -648,17 +697,20 @@ const createOriginGlobe = () => {
 
       scene.add(new THREE.AmbientLight(0x86e5e0, 1.1));
       resize();
+      originGlobeCanvas.appendChild(renderer.domElement);
       isReady = true;
       originGlobe.classList.remove('is-unavailable');
       return true;
     } catch {
+      renderer?.dispose();
+      renderer = undefined;
       originGlobe.classList.add('is-unavailable');
       return false;
     }
   };
 
-  const show = async () => {
-    if (!canUseGlobe()) {
+  const show = () => {
+    if (!canUseGlobe() || isVisible) {
       return;
     }
 
@@ -666,9 +718,16 @@ const createOriginGlobe = () => {
     originFigure.classList.add('is-globe-active');
     originTrigger.setAttribute('aria-expanded', 'true');
 
-    if (await init() && isVisible) {
+    if (isReady) {
       start();
+      return;
     }
+
+    // Hover and focus can arrive together, especially when tapping on a phone.
+    initialization ??= init().then((ready) => {
+      initialization = undefined;
+      if (ready && isVisible) start();
+    });
   };
 
   const hide = () => {
@@ -712,7 +771,7 @@ if (originTrigger && originFigure && originGlobe) {
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').catch(() => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {
       // The site remains fully usable if service worker registration is unavailable.
     });
   });

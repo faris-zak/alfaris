@@ -12,16 +12,21 @@
     <meta name="theme-color" content="#060b18" />
     <meta name="color-scheme" content="dark" />
     <title>Al-Faris Mujahid Hamood AlZakwani | Orbital Field Journal</title>
-    <link rel="canonical" href="https://alfarismujahid.vercel.app" />
+    <link rel="canonical" href="https://alfarismujahid.vercel.app/" />
+    <link rel="alternate" hreflang="en" href="https://alfarismujahid.vercel.app/" />
+    <link rel="alternate" hreflang="ar" href="https://alfarismujahid.vercel.app/ar/" />
+    <link rel="alternate" hreflang="x-default" href="https://alfarismujahid.vercel.app/" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_OM" />
     <meta property="og:site_name" content="AFM / Field Notes" />
     <meta property="og:title" content="Al-Faris Mujahid Hamood AlZakwani | Orbital Field Journal" />
     <meta
       property="og:description"
       content="Physics undergraduate at Sultan Qaboos University in Oman. Front-end development, interactive simulations, and space technology."
     />
-    <meta property="og:url" content="https://alfarismujahid.vercel.app" />
+    <meta property="og:url" content="https://alfarismujahid.vercel.app/" />
     <meta property="og:image" content="https://alfarismujahid.vercel.app/assets/imgs/og-image.png?v=2" />
     <meta property="og:image:secure_url" content="https://alfarismujahid.vercel.app/assets/imgs/og-image.png?v=2" />
     <meta property="og:image:type" content="image/png" />
@@ -67,8 +72,8 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=22" />
-    <script defer src="script.js?v=24"></script>
+    <link rel="stylesheet" href="styles.css?v=24" />
+    <script defer src="script.js?v=26"></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -98,6 +103,7 @@
           </span>
           <span class="performance-toggle__switch" aria-hidden="true"></span>
         </button>
+        <a class="language-switch" href="/ar/" lang="ar" hreflang="ar" data-language-switch><bdi dir="rtl">العربية</bdi></a>
       </nav>
     </header>
 
@@ -236,7 +242,7 @@
             <div class="project__number" aria-hidden="true">G</div>
             <div class="project__body">
               <p class="project__meta">FOUNDER &amp; LEAD DEVELOPER / WEB PLATFORM</p>
-              <h3>MindSync <span lang="ar">مايندسينك</span></h3>
+              <h3>MindSync <span lang="ar" dir="rtl">مايندسينك</span></h3>
               <p>I built an education website for student academic and self-development resources using HTML, CSS and JavaScript.</p>
               <ul class="tag-list" aria-label="MindSync technologies"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
               <div class="project__actions">
@@ -332,7 +338,7 @@
           </div>
         </div>
         <div class="credentials__stats reveal" aria-label="Education and certification highlights">
-          <button class="credential-stat credential-stat--button" type="button" data-certificates-open aria-expanded="false" aria-controls="certificates-modal">
+          <button class="credential-stat credential-stat--button" type="button" data-certificates-open data-archive-label="OPEN ARCHIVE ↗" aria-expanded="false" aria-controls="certificates-modal">
             <strong>20+</strong>
             <span>Certificates &amp; learning milestones</span>
           </button>
